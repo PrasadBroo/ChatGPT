@@ -1,6 +1,18 @@
-export default function Navbar() {
+import { useState } from "react";
+import classnames from "classnames";
+export default function Navbar({
+  active,
+  setActive,
+}: {
+  active: boolean;
+  setActive: (v: boolean) => void;
+}) {
+  const navClass = classnames(
+    " absolute left-0 bottom-0 top-0 w-9/12 bg-[#202123] text-white z-10 p-2 flex flex-col transition duration-500",
+    { "translate-x-0": active, "-translate-x-[150%]": !active }
+  );
   return (
-    <nav className=" absolute left-0 bottom-0 top-0 w-9/12 bg-[#202123] text-white z-10 p-2 flex flex-col -translate-x-full transition">
+    <nav className={navClass}>
       <div className="flex mb-2 items-center justify-between">
         <button
           type="button"
@@ -204,11 +216,15 @@ export default function Navbar() {
           </span>
         </div>
       </div>
-      <div className="close absolute top-5 border-2 -right-10  p-2">
+      <button
+        type="button"
+        onClick={() => setActive(false)}
+        className="close absolute top-2 h-10 w-10 border-2 -right-10  p-2 flex items-center justify-center"
+      >
         <span className=" text-xl ">
           <i className="fa-solid fa-xmark"></i>{" "}
         </span>
-      </div>
+      </button>
     </nav>
   );
 }

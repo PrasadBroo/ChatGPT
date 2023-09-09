@@ -1,13 +1,15 @@
+import { useState } from "react";
 import Navbar from "./components/Navbar/Navbar";
 
 function App() {
+  const [active, setActive] = useState(false);
   return (
     <div className="App font-poppins">
-      <Navbar />
+      <Navbar active={active} setActive={setActive} />
       <div className=" p-3 flex items-center justify-between bg-[#202123] text-gray-300">
-        <div>
+        <button onClick={()=>setActive(true)}>
           <i className="fa-solid fa-bars text-lg"></i>
-        </div>
+        </button>
         <h2>New chat</h2>
         <button>
           <i className="fa-solid fa-plus text-lg"></i>
