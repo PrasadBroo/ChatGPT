@@ -1,7 +1,10 @@
+import Navbar from "./components/Navbar/Navbar";
+
 function App() {
   return (
     <div className="App font-poppins">
-      <div className=" p-3 flex items-center justify-between bg-gray-700 text-gray-300">
+      <Navbar />
+      <div className=" p-3 flex items-center justify-between bg-[#202123] text-gray-300">
         <div>
           <i className="fa-solid fa-bars text-lg"></i>
         </div>
