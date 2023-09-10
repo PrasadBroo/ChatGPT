@@ -11,8 +11,8 @@ export default function Navbar({
     { "translate-x-0": active, "-translate-x-[150%]": !active }
   );
   const navWrapClass = classnames(
-    "navwrap absolute duration-500 top-0 left-0 bottom-0 right-0 bg-gray-500 md:bg-opacity-0 ",
-    { "bg-opacity-60 z-30": active, "opacity-0 pointer-events-none": !active }
+    "navwrap absolute duration-500 top-0 left-0 bottom-0 right-0 z-30 bg-gray-500 md:bg-opacity-0 ",
+    { "bg-opacity-60 ": active, "opacity-0 pointer-events-none": !active }
   );
   return (
     <>
@@ -204,7 +204,7 @@ export default function Navbar({
             </div>
           </div>
           <div className="account absolute left-0 font-bold right-0 bottom-0 text-sm z-20 bg-[#202123] border-y border-gray-500 shadow  ">
-            <div className="px-2 py-3 flex items-center">
+            <div className="px-2 py-2 flex items-center">
               <span className="p-2 inline-block">
                 <i className="fa-regular fa-user"></i>
               </span>
@@ -213,7 +213,7 @@ export default function Navbar({
                 new
               </span>
             </div>
-            <div className="px-2 py-3 flex items-center ">
+            <div className="px-2 py-2 flex items-center ">
               <div className="h-10 w-10 rounded bg-blue-700 inline-block mr-2"></div>
 
               <span className="p-2">T-Series</span>

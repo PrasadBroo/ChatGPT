@@ -53,13 +53,13 @@ function App() {
         <div className=" absolute left-0  right-0 bottom-0 max-w-2xl md:max-w-[calc(100% - 260px)] mx-auto ">
           <div className="query mx-3 mb-5 ">
             <div className="row1 md:flex md:items-center md:gap-2">
-              <button className="border dark:border-gray-500 mb-4 block w-full text-left p-2 rounded-md text-sm shadow flex-1">
+              <button className="border dark:border-gray-500 mb-2 block w-full text-left p-2 rounded-md text-sm shadow flex-1">
                 <h3 className=" font-bold text-gray-600 dark:text-gray-300">
                   Come up with concepts
                 </h3>
                 <p className=" text-gray-400">for a retro-style arcade game</p>
               </button>
-              <button className="border dark:border-gray-500 mb-4 block w-full text-left p-2 rounded-md text-sm shadow flex-1">
+              <button className="border dark:border-gray-500 mb-2 block w-full text-left p-2 rounded-md text-sm shadow flex-1">
                 <h3 className=" font-bold text-gray-600 dark:text-gray-300">
                   Come up with concepts
                 </h3>
@@ -81,7 +81,7 @@ function App() {
               </button>
             </div>
           </div>
-          <div className=" bg-gray-50 dark:bg-inherit  border md:border-none mx-3">
+          <div className="  dark:bg-inherit mx-3">
             <form className="input shadow dark:bg-[#40414f] p-2 border dark:border-none flex items-center   rounded-md">
               <div className="w-11/12">
                 <textarea
