@@ -3,3 +3,18 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
+html,body{
+    height: 100%;
+}
+/* Style the scrollbar track */
+::-webkit-scrollbar {
+    width: 8px; /* Adjust the width as desired */
+  }
+  
+  /* Style the scrollbar thumb (draggable part) */
+  ::-webkit-scrollbar-thumb {
+    background-color: #888; /* Change the color as desired */
+    border-radius: 4px; /* Rounded corners for the thumb */
+  }
+  
