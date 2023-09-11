@@ -6,6 +6,7 @@ export default function UserQuery() {
         <textarea
           name="query"
           className="h-6 px-2  w-full outline-none resize-none dark:bg-transparent dark:text-white"
+          placeholder="Send a message"
         ></textarea>
       </div>
       <div className=" w-1/12 text-center">
