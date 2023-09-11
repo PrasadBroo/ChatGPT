@@ -1,7 +1,7 @@
 
 export default function UserQuery() {
   return (
-    <form className="input shadow dark:bg-[#40414f] p-2 border dark:border-none flex items-center   rounded-md">
+    <form className="input shadow-md dark:bg-[#40414f] p-2 border dark:border-none flex items-center   rounded-md">
       <div className="w-11/12">
         <textarea
           name="query"

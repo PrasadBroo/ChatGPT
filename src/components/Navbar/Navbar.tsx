@@ -22,7 +22,7 @@ export default function Navbar({
           <div className="flex mb-2  items-center justify-between gap-2">
             <button
               type="button"
-              className=" border border-gray-500 p-2 w-full  md:w-auto  rounded text-left flex-grow"
+              className=" border border-gray-500 p-2 w-full  md:w-auto  rounded-md text-left flex-grow"
             >
               <span className="mr-2">
                 <i className="fa-solid fa-plus"></i>
@@ -31,13 +31,13 @@ export default function Navbar({
             </button>
             <button
               type="button"
-              className="border h-10 w-10 border-gray-500 p-2 hidden md:inline-block text-gray-200"
+              className="border h-10 w-10 border-gray-500 rounded-md p-2 hidden md:inline-block text-gray-200"
               onClick={() => setActive(false)}
             >
               <i className="fa-regular fa-window-maximize rotate-90"></i>
             </button>
           </div>
-          <div className="history overflow-y-auto flex-grow ">
+          <div className="history overflow-y-auto flex-grow pl-2">
             {[...Array(5)].map((_, i) => (
               <ChatHistory key={i} />
             ))}
@@ -48,7 +48,7 @@ export default function Navbar({
                 <i className="fa-regular fa-user"></i>
               </span>
               <button className="p-2 inline-block">Upgrade to Plus</button>
-              <span className=" uppercase text-black p-1 rounded ml-auto inline-block bg-orange-200">
+              <span className=" uppercase text-black p-1 rounded ml-auto text-sm inline-block bg-orange-200">
                 new
               </span>
             </div>
