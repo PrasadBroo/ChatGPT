@@ -1,5 +1,7 @@
 import classnames from "classnames";
 import ChatHistory from "./ChatHistory";
+import { IonIcon } from "@ionic/react";
+import Avatar from "../Avatar/Avatar";
 export default function Navbar({
   active,
   setActive,
@@ -22,12 +24,12 @@ export default function Navbar({
           <div className="flex mb-2  items-center justify-between gap-2">
             <button
               type="button"
-              className=" border border-gray-500 p-2 w-full  md:w-auto  rounded-md text-left flex-grow"
+              className=" border border-gray-500 p-2 w-full  md:w-auto  rounded-md text-left flex-grow flex"
             >
-              <span className="mr-2">
-                <i className="fa-solid fa-plus"></i>
+              <span className="mr-2 text-xl">
+                <IonIcon name="add-outline" />
               </span>
-              New chat
+              <span>New chat</span>
             </button>
             <button
               type="button"
@@ -44,20 +46,42 @@ export default function Navbar({
           </div>
           <div className="account absolute left-0 font-bold right-0 bottom-0 text-sm z-20 bg-[#202123] border-y border-gray-500 shadow  ">
             <div className="px-2 py-2 flex items-center">
-              <span className="p-2 inline-block">
-                <i className="fa-regular fa-user"></i>
+              <span className="inline-block text-xl">
+                <IonIcon name="person-outline" />
               </span>
               <button className="p-2 inline-block">Upgrade to Plus</button>
-              <span className=" uppercase text-black p-1 rounded ml-auto text-sm inline-block bg-orange-200">
+              <span className=" uppercase text-black p-1 font-normal rounded ml-auto inline-block bg-orange-200">
                 new
               </span>
             </div>
-            <div className="px-2 py-2 flex items-center ">
-              <div className="h-10 w-10 rounded bg-blue-700 inline-block mr-2"></div>
+
+            <div className="px-2 relative py-2 flex items-center hover:bg-gray-700 transition group">
+              <div className=" absolute bottom-12 rounded-md left-0 right-0 bg-black font-normal invisible transition  m-2 z-30 text-gray-300 group-hover:visible">
+                <button className=" p-2   hover:bg-gray-700 w-full text-left flex items-center">
+                  <span className="mr-2 p-1 text-xl  flex items-center">
+                    <IonIcon name="chatbox-ellipses-outline" />
+                  </span>
+                  <span>Custom instructions</span>
+                </button>
+                <button className=" p-2   hover:bg-gray-700 w-full text-left flex items-center">
+                  <span className="mr-2 p-1  text-xl flex items-center">
+                    <IonIcon name="settings-outline" />
+                  </span>
+                  <span>Settings</span>
+                </button>
+                <div className="h-[1px] bg-gray-300"></div>
+                <button className=" p-2   hover:bg-gray-700  w-full  text-left flex items-center">
+                  <span className="mr-2 p-1 text-xl flex items-center">
+                    <IonIcon name="log-out-outline" />
+                  </span>
+                  <span>Log out</span>
+                </button>
+              </div>
+              <Avatar />
 
               <span className="p-2">T-Series</span>
-              <button className=" ml-auto  text-gray-400">
-                <i className="fa-solid fa-ellipsis"></i>
+              <button className=" ml-auto  text-gray-400 text-2xl">
+                <IonIcon name="ellipsis-horizontal-outline" />
               </button>
             </div>
           </div>
@@ -66,8 +90,8 @@ export default function Navbar({
             onClick={() => setActive(false)}
             className="close md:hidden absolute top-2 h-10 w-10 border-2 -right-10  p-2 flex items-center justify-center"
           >
-            <span className=" text-xl ">
-              <i className="fa-solid fa-xmark"></i>
+            <span className=" text-2xl flex">
+              <IonIcon name="close-outline" />
             </span>
           </button>
         </nav>

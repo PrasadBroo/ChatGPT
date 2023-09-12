@@ -1,3 +1,5 @@
+import { IonIcon } from "@ionic/react";
+
 
 export default function UserQuery() {
   return (
@@ -10,8 +12,8 @@ export default function UserQuery() {
         ></textarea>
       </div>
       <div className=" w-1/12 text-center">
-        <button type="submit" className=" text-center text-gray-400 ">
-          <i className="fa-regular fa-paper-plane"></i>
+        <button type="submit" className=" text-center text-gray-200 ">
+          <IonIcon name="send-outline" />
         </button>
       </div>
     </form>

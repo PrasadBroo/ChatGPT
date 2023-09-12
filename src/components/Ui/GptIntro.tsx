@@ -1,3 +1,5 @@
+import { IonIcon } from "@ionic/react";
+
 export default function GptIntro() {
   return (
     <>
@@ -13,8 +15,8 @@ export default function GptIntro() {
         </p>
 
         <p className="gpt4 uppercase rounded p-2 text-gray-400 flex-1 flex  items-center justify-center">
-          <span>
-            <i className="fa-solid fa-sparkles"></i>
+          <span className="mr-2">
+            <IonIcon name="sparkles" />
           </span>
           <span className="mr-2">gpt-4</span>
           <span>

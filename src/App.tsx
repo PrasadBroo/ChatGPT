@@ -3,7 +3,9 @@ import Navbar from "./components/Navbar/Navbar";
 import DefaultIdeas from "./components/DefaultIdea/DefaultIdeas";
 import UserQuery from "./components/UserInput/UserQuery";
 import GptIntro from "./components/Ui/GptIntro";
+import { IonIcon, setupIonicReact } from "@ionic/react";
 
+setupIonicReact();
 function App() {
   const [active, setActive] = useState(false);
   return (
@@ -19,12 +21,12 @@ function App() {
         </button>
       </div>
       <div className="p-3 flex items-center justify-between bg-[#202123] text-gray-300 md:hidden">
-        <button onClick={() => setActive(true)}>
-          <i className="fa-solid fa-bars text-lg"></i>
+        <button onClick={() => setActive(true)} className=" text-2xl flex">
+          <IonIcon name="menu-outline" />
         </button>
         <h2>New chat</h2>
-        <button>
-          <i className="fa-solid fa-plus text-lg"></i>
+        <button className=" text-2xl flex items-center">
+          <IonIcon name="add-outline" />
         </button>
       </div>
       <main className="max-w-2xl mx-auto md:w-3/4 px-2">

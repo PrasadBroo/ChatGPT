@@ -1,10 +1,15 @@
+import { IonIcon } from "@ionic/react";
+
 export default function ChatRef() {
   return (
-    <a className=" text-base my-4 block">
-      <span className="mr-2 text-sm">
-        <i className="fa-regular fa-message"></i>
+    <a className=" text-base my-4 flex items-center">
+      <span className="mr-2 text-base flex">
+        <IonIcon name="chatbox-outline" />
       </span>
-      <span className="text-sm">Lorem ipsum dolor sit amet.</span>
+      <span className="text-sm truncate">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aperiam,
+        velit. Magni ad culpa neque harum?
+      </span>
     </a>
   );
 }
