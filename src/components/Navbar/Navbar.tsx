@@ -48,7 +48,7 @@ export default function Navbar({
               <ChatHistory key={i} />
             ))}
           </div>
-          <div className="account absolute left-0 font-bold right-0 bottom-0 text-sm z-20 bg-[#202123] border-y border-gray-500 shadow  ">
+          <div className="account absolute left-0 font-bold right-0 bottom-0 text-sm z-20 bg-[#202123] border-t border-gray-500 shadow  ">
             <div className="px-2 py-2 flex items-center">
               <span className="inline-block text-xl">
                 <IonIcon icon={personOutline} />

@@ -798,9 +798,8 @@ video {
   border-width: 2px;
 }
 
-.border-y {
+.border-t {
   border-top-width: 1px;
-  border-bottom-width: 1px;
 }
 
 .border-gray-400 {
