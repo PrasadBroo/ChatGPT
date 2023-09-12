@@ -1,5 +1,5 @@
 import { IonIcon } from "@ionic/react";
-
+import { sendOutline } from "ionicons/icons";
 
 export default function UserQuery() {
   return (
@@ -13,7 +13,7 @@ export default function UserQuery() {
       </div>
       <div className=" w-1/12 text-center">
         <button type="submit" className=" text-center text-gray-200 ">
-          <IonIcon name="send-outline" />
+          <IonIcon icon={sendOutline} />
         </button>
       </div>
     </form>

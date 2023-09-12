@@ -4,6 +4,7 @@ import DefaultIdeas from "./components/DefaultIdea/DefaultIdeas";
 import UserQuery from "./components/UserInput/UserQuery";
 import GptIntro from "./components/Ui/GptIntro";
 import { IonIcon, setupIonicReact } from "@ionic/react";
+import { menuOutline, addOutline } from "ionicons/icons";
 
 setupIonicReact();
 function App() {
@@ -22,11 +23,11 @@ function App() {
       </div>
       <div className="p-3 flex items-center justify-between bg-[#202123] text-gray-300 md:hidden">
         <button onClick={() => setActive(true)} className=" text-2xl flex">
-          <IonIcon name="menu-outline" />
+          <IonIcon icon={menuOutline} />
         </button>
         <h2>New chat</h2>
         <button className=" text-2xl flex items-center">
-          <IonIcon name="add-outline" />
+          <IonIcon icon={addOutline} />
         </button>
       </div>
       <main className="max-w-2xl mx-auto md:w-3/4 px-2">

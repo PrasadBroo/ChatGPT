@@ -562,6 +562,10 @@ video {
   bottom: 0px;
 }
 
+.bottom-12 {
+  bottom: 3rem;
+}
+
 .left-0 {
   left: 0px;
 }
@@ -584,10 +588,6 @@ video {
 
 .top-4 {
   top: 1rem;
-}
-
-.bottom-12 {
-  bottom: 3rem;
 }
 
 .z-10 {
@@ -665,24 +665,20 @@ video {
   height: 1.5rem;
 }
 
+.h-8 {
+  height: 2rem;
+}
+
 .h-96 {
   height: 24rem;
-}
-
-.h-full {
-  height: 100%;
-}
-
-.h-1 {
-  height: 0.25rem;
 }
 
 .h-\[1px\] {
   height: 1px;
 }
 
-.h-8 {
-  height: 2rem;
+.h-full {
+  height: 100%;
 }
 
 .w-1\/12 {
@@ -701,16 +697,16 @@ video {
   width: 1rem;
 }
 
+.w-8 {
+  width: 2rem;
+}
+
 .w-9\/12 {
   width: 75%;
 }
 
 .w-full {
   width: 100%;
-}
-
-.w-8 {
-  width: 2rem;
 }
 
 .max-w-2xl {
@@ -776,18 +772,10 @@ video {
   overflow-y: auto;
 }
 
-.overflow-x-hidden {
-  overflow-x: hidden;
-}
-
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.text-ellipsis {
-  text-overflow: ellipsis;
 }
 
 .rounded {
@@ -815,10 +803,6 @@ video {
   border-bottom-width: 1px;
 }
 
-.border-t {
-  border-top-width: 1px;
-}
-
 .border-gray-400 {
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
@@ -839,14 +823,14 @@ video {
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
-.bg-blue-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
-}
-
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+}
+
+.bg-gray-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
 .bg-gray-400 {
@@ -867,11 +851,6 @@ video {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-gray-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-60 {
@@ -916,6 +895,11 @@ video {
   font-family: Poppins, sans-serif, Roboto;
 }
 
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
@@ -948,11 +932,6 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
 }
 
 .font-bold {
