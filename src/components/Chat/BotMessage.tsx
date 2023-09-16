@@ -29,7 +29,7 @@ export default function BotMessage({ query }: Props) {
   }, []);
 
   return (
-    <div className={classNames("py-4 bg-[#40414f]")}>
+    <div className={classNames("py-4 bg-[#40414f] px-2 md:px-0")}>
       <div className=" max-w-2xl mx-auto md:flex md:items-center group">
         <div className="flex items-start w-full">
           <div className="mr-4  rounded-md flex items-center flex-shrink-0">
