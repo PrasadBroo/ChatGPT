@@ -2,7 +2,15 @@ import classnames from "classnames";
 import ChatHistory from "./ChatHistory";
 import { IonIcon } from "@ionic/react";
 import Avatar from "../Avatar/Avatar";
-import { addOutline,personOutline,chatboxEllipsesOutline,settingsOutline,logOutOutline,ellipsisHorizontalOutline,closeOutline } from "ionicons/icons";
+import {
+  addOutline,
+  personOutline,
+  chatboxEllipsesOutline,
+  settingsOutline,
+  logOutOutline,
+  ellipsisHorizontalOutline,
+  closeOutline,
+} from "ionicons/icons";
 
 export default function Navbar({
   active,
@@ -13,19 +21,26 @@ export default function Navbar({
 }) {
   return (
     <>
+      <button
+        type="button"
+        className="shadow p-1 absolute text-sm top-4 left-4 hidden md:inline-block text-gray-400 dark:border border-gray-400 rounded-md"
+        onClick={() => setActive(true)}
+      >
+        <i className="fa-regular fa-window-maximize rotate-90"></i>
+      </button>
       <div
         className={classnames(
-          "navwrap absolute duration-500 top-0 left-0 bottom-0 right-0 z-30 bg-gray-500 md:bg-opacity-0 ",
+          "navwrap fixed duration-500 top-0 left-0 bottom-0 right-0 z-30 bg-gray-500 md:bg-opacity-0 ",
           { "bg-opacity-60 ": active, "opacity-0 pointer-events-none": !active }
         )}
       >
         <nav
           className={classnames(
-            " absolute left-0 bottom-0 top-0  md:flex-grow-1 w-9/12 md:w-[260px] bg-[#202123] text-white z-10 p-2 flex flex-col transition duration-500",
+            " absolute left-0 bottom-0 top-0  md:flex-grow-1 w-9/12 md:w-[260px] bg-[#202123] text-white z-10 flex flex-col transition duration-500",
             { "translate-x-0": active, "-translate-x-[150%]": !active }
           )}
         >
-          <div className="flex mb-2  items-center justify-between gap-2">
+          <div className="flex mb-2  items-center justify-between gap-2 p-2">
             <button
               type="button"
               className=" border border-gray-500 p-2 w-full  md:w-auto  rounded-md text-left flex-grow flex"
@@ -43,10 +58,8 @@ export default function Navbar({
               <i className="fa-regular fa-window-maximize rotate-90"></i>
             </button>
           </div>
-          <div className="history overflow-y-auto flex-grow pl-2">
-            {[...Array(5)].map((_, i) => (
-              <ChatHistory key={i} />
-            ))}
+          <div className="history overflow-y-auto flex-grow ">
+            <ChatHistory />
           </div>
           <div className="account absolute left-0 font-bold right-0 bottom-0 text-sm z-20 bg-[#202123] border-t border-gray-500 shadow  ">
             <div className="px-2 py-2 flex items-center">
@@ -83,7 +96,7 @@ export default function Navbar({
               </div>
               <Avatar />
 
-              <span className="p-2">T-Series</span>
+              <span className="p-2">Prasadbro</span>
               <button className=" ml-auto  text-gray-400 text-2xl">
                 <IonIcon icon={ellipsisHorizontalOutline} />
               </button>

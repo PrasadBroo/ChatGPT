@@ -3,7 +3,7 @@ import { sparkles } from "ionicons/icons";
 export default function GptIntro() {
   return (
     <>
-      <div className="modals md:w-1/2 relative flex items-center rounded-md justify-between mt-5 mx-auto p-1 bg-gray-200 dark:bg-[#202123] gap-2">
+      <div className="modals md:w-2/6 mx-2 relative flex items-center rounded-md justify-between mt-5 md:mx-auto p-1 bg-gray-200 dark:bg-[#202123] gap-2">
         <p className="gpt3 uppercase  rounded-md p-2 bg-white flex-1 flex items-center dark:bg-[#40414f] dark:text-white justify-center">
           <span className="text-green-400 mr-2 ">
             <i className="fa-solid fa-bolt "></i>
