@@ -25,7 +25,11 @@ export default function DefaultIdeas({ visible = true }) {
       }`}
     >
       {defaultIdeas.slice(0, 2).map((idea) => (
-        <DefaultIdea idea={idea.idea} moreContext={idea.moreContext} />
+        <DefaultIdea
+          idea={idea.idea}
+          moreContext={idea.moreContext}
+          key={idea.idea}
+        />
       ))}
     </div>
   );

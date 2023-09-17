@@ -13,7 +13,7 @@ export default function DefaultIdea({
   return (
     <button
       className="border dark:border-gray-500 mb-2 flex w-full text-left p-2 group rounded-md text-sm shadow flex-1 md:flex-row md:items-center"
-      onClick={() => addChat(`${idea} ${moreContext}`)}
+      onClick={() => addChat({ role: "user", content: moreContext })}
     >
       <div className="">
         <h3 className=" font-bold text-gray-600 dark:text-gray-300 ">{idea}</h3>

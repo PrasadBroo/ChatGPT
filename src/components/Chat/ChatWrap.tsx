@@ -1,22 +1,19 @@
 import { useEffect } from "react";
-import useChat from "../../store/store";
 import BotMessage from "./BotMessage";
 import ChatMessage from "./ChatMessage";
 
 type Props = {
   query: string;
+  index: number;
 };
 
-export default function ChatWrap({ query }: Props) {
-  const chats = useChat((state) => state.chats);
+export default function ChatWrap({ query, index }: Props) {
   useEffect(() => {
-    if (chats.length > 1) {
-      window.scrollTo(0, document.body.scrollHeight);
-    }
-  }, [chats]);
+    window.scrollTo(0, document.body.scrollHeight);
+  }, []);
   return (
     <div className="w-full">
-      <ChatMessage content={query} />
+      <ChatMessage content={query} chatIndex={index} />
       <BotMessage query={query} />
     </div>
   );

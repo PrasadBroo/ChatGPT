@@ -6,7 +6,7 @@ import GptIntro from "./components/Ui/GptIntro";
 import { IonIcon, setupIonicReact } from "@ionic/react";
 import { menuOutline, addOutline } from "ionicons/icons";
 import Header from "./components/Header/Header";
-import useChat from "./store/store";
+import useChat, { chatsLength } from "./store/store";
 import classNames from "classnames";
 import Chats from "./components/Chat/Chats";
 
@@ -14,8 +14,7 @@ setupIonicReact();
 function App() {
   useEffect(() => {}, []);
   const [active, setActive] = useState(false);
-  const chatLength = useChat((state) => state.chats.length);
-
+  const chatLength = useChat(chatsLength);
   return (
     <div className="App font-poppins md:flex ">
       <Navbar active={active} setActive={setActive} />

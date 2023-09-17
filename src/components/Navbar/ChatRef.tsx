@@ -3,7 +3,7 @@ import { chatboxOutline } from "ionicons/icons";
 
 export default function ChatRef({ chatId }: { chatId: string }) {
   return (
-    <a className=" text-base my-4 flex items-center hover:bg-[#40414f] transition p-2">
+    <a className=" text-base py-2 flex items-center hover:bg-[#40414f] transition p-2">
       <span className="mr-2 text-base flex">
         <IonIcon icon={chatboxOutline} />
       </span>

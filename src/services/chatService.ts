@@ -1,6 +1,7 @@
 import axios from "axios";
+import { ChatMessageType } from "../store/store";
 
-const apiKey = "sk-#####################################"; // Replace with your actual API key
+const apiKey = "sk-#######################################"; // Replace with your actual API key
 const apiUrl = "https://api.openai.com/v1/chat/completions";
 
 const message = 'write welcome page for a website called "My Portfolio"';
@@ -29,7 +30,7 @@ export const config = {
   },
 };
 
-export function gptConfig(message: string, messages?: string[]) {
+export function gptConfig(message: string, messages?: ChatMessageType[]) {
   return {
     method: "POST",
     url: apiUrl,
@@ -41,16 +42,7 @@ export function gptConfig(message: string, messages?: string[]) {
       model: "gpt-3.5-turbo",
       temperature: 0.7,
       stream: false,
-      messages: [
-        {
-          role: "system",
-          content: "You are a code writer",
-        },
-        {
-          role: "user",
-          content: message,
-        },
-      ],
+      messages,
     },
   };
 }

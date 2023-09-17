@@ -11,7 +11,7 @@ export default function UserQuery() {
   async function handleOnSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (query) {
-      addChat(query);
+      addChat({ role: "user", content: query });
       setQuery("");
     }
   }
