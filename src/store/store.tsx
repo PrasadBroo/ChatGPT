@@ -8,8 +8,9 @@ export interface ChatMessageType {
 
 export interface ChatType {
   chats: ChatMessageType[];
-  addChat: (chat: ChatMessageType) => void;
+  addChat: (chat: ChatMessageType, index?: number) => void;
   editChatMessage: (chat: string, updateIndex: number) => void;
+  addNewChat: () => void;
 }
 
 export interface UserType {
@@ -27,10 +28,13 @@ export interface AuthType {
 
 const useChat = create<ChatType>((set) => ({
   chats: [],
-  addChat: (chat: ChatMessageType) => {
+  addChat: (chat: ChatMessageType, index?: number) => {
     set(
       produce((state: ChatType) => {
-        state.chats.push(chat);
+        if (index || index === 0) state.chats[index] = chat;
+        else {
+          state.chats.push(chat);
+        }
       })
     );
   },
@@ -38,6 +42,13 @@ const useChat = create<ChatType>((set) => ({
     set(
       produce((state: ChatType) => {
         state.chats[updateIndex].content = chat;
+      })
+    );
+  },
+  addNewChat: () => {
+    set(
+      produce((state: ChatType) => {
+        state.chats.length = 0;
       })
     );
   },

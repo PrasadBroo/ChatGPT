@@ -8,10 +8,16 @@ export default function UserQuery() {
   const [query, setQuery] = useState("");
   const addChat = useChat((state) => state.addChat);
 
+  function handleOnKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (e.key === "Enter" && !e.shiftKey) {
+    }
+  }
+
   async function handleOnSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (query) {
       addChat({ role: "user", content: query });
+      addChat({ role: "assistant", content: "" });
       setQuery("");
     }
   }
@@ -26,6 +32,7 @@ export default function UserQuery() {
           name="query"
           className="h-6 px-2  w-full outline-none resize-none dark:bg-transparent dark:text-white"
           placeholder="Send a message"
+          onKeyDown={handleOnKeyDown}
           onChange={(e) => setQuery(e.target.value)}
           value={query}
           autoFocus

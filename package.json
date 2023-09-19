@@ -17,6 +17,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-spinners": "^0.13.8",
+    "use-debounce": "^9.0.4",
     "zustand": "^4.4.1"
   },
   "devDependencies": {

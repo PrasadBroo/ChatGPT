@@ -15,6 +15,7 @@ function App() {
   useEffect(() => {}, []);
   const [active, setActive] = useState(false);
   const chatLength = useChat(chatsLength);
+  const addNewChat = useChat((state) => state.addNewChat);
   return (
     <div className="App font-poppins md:flex ">
       <Navbar active={active} setActive={setActive} />
@@ -32,7 +33,7 @@ function App() {
           <IonIcon icon={menuOutline} />
         </button>
         <h2>New chat</h2>
-        <button className="text-2xl flex items-center">
+        <button className="text-2xl flex items-center" onClick={addNewChat}>
           <IonIcon icon={addOutline} />
         </button>
       </div>

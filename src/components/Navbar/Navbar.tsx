@@ -11,6 +11,7 @@ import {
   ellipsisHorizontalOutline,
   closeOutline,
 } from "ionicons/icons";
+import useChat from "../../store/store";
 
 export default function Navbar({
   active,
@@ -19,6 +20,8 @@ export default function Navbar({
   active: boolean;
   setActive: (v: boolean) => void;
 }) {
+const addNewChat = useChat((state) => state.addNewChat);
+
   return (
     <>
       <button
@@ -44,6 +47,7 @@ export default function Navbar({
             <button
               type="button"
               className=" border border-gray-500 p-2 w-full  md:w-auto  rounded-md text-left flex-grow flex"
+              onClick={addNewChat}
             >
               <span className="mr-2 text-xl">
                 <IonIcon icon={addOutline} />

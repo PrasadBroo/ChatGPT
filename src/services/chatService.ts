@@ -1,68 +1,60 @@
-import axios from "axios";
 import { ChatMessageType } from "../store/store";
 
-const apiKey = "sk-#######################################"; // Replace with your actual API key
+const apiKey = "sk-#######################"; // Replace with your actual API key
 const apiUrl = "https://api.openai.com/v1/chat/completions";
 
-const message = 'write welcome page for a website called "My Portfolio"';
-
-export const config = {
-  method: "POST",
-  url: apiUrl,
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${apiKey}`,
-  },
-  data: {
-    model: "gpt-3.5-turbo",
-    temperature: 0.7,
-    stream: false,
-    messages: [
-      {
-        role: "system",
-        content: "You are a code writer",
-      },
-      {
-        role: "user",
-        content: message,
-      },
-    ],
-  },
-};
-
-export function gptConfig(message: string, messages?: ChatMessageType[]) {
-  return {
-    method: "POST",
-    url: apiUrl,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
-    data: {
-      model: "gpt-3.5-turbo",
-      temperature: 0.7,
-      stream: false,
-      messages,
-    },
-  };
-}
-
-export function fetchResults(
-  onData: (chunk: any) => void,
-  onError: (error: Error) => void,
-  onComplete: () => void
+export async function fetchResults(
+  messages: ChatMessageType[],
+  signal: AbortSignal,
+  onData: (data: any) => void,
+  onCompletion: () => void
 ) {
-  const axiosStream = axios(config);
-  axiosStream
-    .then((response) => {
-      console.log(response.data);
-      response.data.on("data", (chunk: any) => {
-        let p = chunk.toString();
-        p = JSON.parse(p.replace("data: ", ""));
-        onData(p.choices[0].delta.content);
-      });
+  try {
+    const response = await fetch(apiUrl, {
+      method: `POST`,
+      signal: signal,
+      headers: {
+        "content-type": `application/json`,
+        accept: `text/event-stream`,
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        temperature: 0.7,
+        stream: true,
+        messages: messages,
+      }),
+    });
 
-      response.data.on("end", onComplete);
-    })
-    .catch(onError);
+    if (response.status !== 200) {
+      throw new Error("Error fetching results");
+    }
+    const reader: any = response.body?.getReader();
+    while (true) {
+      const { done, value } = await reader.read();
+
+      if (done) {
+        onCompletion();
+        break;
+      }
+
+      let chunk = new TextDecoder("utf-8").decode(value, { stream: true });
+
+      const chunks = chunk.split("\n").filter((x: string) => x !== "");
+
+      chunks.forEach((chunk: string) => {
+        if (chunk === "data: [DONE]") {
+          return;
+        }
+        if (!chunk.startsWith("data: ")) return;
+        chunk = chunk.replace("data: ", "");
+        const data = JSON.parse(chunk);
+        if (data.choices[0].finish_reason === "stop") return;
+        onData(data.choices[0].delta.content);
+      });
+    }
+  } catch (error) {
+    if (error instanceof DOMException || error instanceof Error)
+      throw new Error(error.message);
+  }
 }
