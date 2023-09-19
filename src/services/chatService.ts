@@ -54,7 +54,9 @@ export async function fetchResults(
       });
     }
   } catch (error) {
-    if (error instanceof DOMException || error instanceof Error)
+    if (error instanceof DOMException || error instanceof Error){
+      onCompletion();
       throw new Error(error.message);
+    }
   }
 }

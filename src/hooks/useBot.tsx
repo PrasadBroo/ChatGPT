@@ -44,7 +44,7 @@ export default function useBot({ index }: Props) {
     resultRef.current = "";
     (async () => {
       try {
-        fetchResults(
+       await fetchResults(
           chats.slice(0, index),
           signal,
           handleOnData,
