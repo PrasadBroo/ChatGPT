@@ -29,7 +29,9 @@ export default function UserMessage({ content, chatIndex }: Props) {
           </div>
 
           {!edit ? (
-            <p className={classNames("text-sm text-gray-200")}>{content}</p>
+            <p className={classNames("text-sm  dark:text-gray-200")}>
+              {content}
+            </p>
           ) : (
             <textarea
               name="query"
@@ -44,7 +46,7 @@ export default function UserMessage({ content, chatIndex }: Props) {
         <div className=" md:invisible group-hover:visible text-right">
           {!edit && (
             <button
-              className="edit md:ml-8 text-gray-200 text-xl "
+              className="edit md:ml-8 dark:text-gray-200  text-gray-500 text-xl "
               onClick={() => setEdit((prev) => !prev)}
             >
               <IonIcon icon={createOutline} />
@@ -61,7 +63,7 @@ export default function UserMessage({ content, chatIndex }: Props) {
             Save & submit
           </button>
           <button
-            className=" p-2 bg-transparent border hover:bg-gray-700 focus:border-2 hover:border border-gray-600 rounded-md text-white"
+            className=" p-2 bg-transparent border dark:hover:bg-gray-700 hover:bg-gray-200 focus:border-2 hover:border border-gray-600 rounded-md text-black dark:text-white"
             onClick={() => setEdit((prev) => !prev)}
           >
             Cancel

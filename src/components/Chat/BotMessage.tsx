@@ -16,7 +16,7 @@ export default function BotMessage({ index }: Props) {
   const { result, error, isStreamCompleted, cursorRef } = useBot({ index });
 
   return (
-    <div className={classNames("py-4 bg-[#40414f] px-2 md:px-0")}>
+    <div className={classNames("py-4 bg-gray-100 dark:bg-[#40414f] px-2 md:px-0")}>
       <div className=" max-w-2xl mx-auto md:flex md:items-center group">
         <div className="flex items-start w-full">
           <div className="mr-4  rounded-md flex items-center flex-shrink-0">
@@ -30,7 +30,7 @@ export default function BotMessage({ index }: Props) {
           ) : (
             <pre
               className={classNames(
-                "text-sm text-gray-300 animate-preulse overflow-x-hidden whitespace-pre-wrap",
+                "text-sm dark:text-gray-300 animate-preulse overflow-x-hidden whitespace-pre-wrap",
                 { "text-red-500": error }
               )}
             >
@@ -38,7 +38,7 @@ export default function BotMessage({ index }: Props) {
               {error && !result && "Sorry, looks like I'm having a bad day."}
               {!isStreamCompleted && (
                 <div
-                  className="ml-1 blink bg-gray-200 h-4 w-1 inline-block"
+                  className="ml-1 blink bg-gray-500 dark:bg-gray-200 h-4 w-1 inline-block"
                   ref={cursorRef}
                 ></div>
               )}
@@ -48,13 +48,13 @@ export default function BotMessage({ index }: Props) {
         <div className="mt-2 md:mt-0  text-right self-start">
           {!copied ? (
             <button
-              className="edit md:ml-8 text-gray-200 text-xl"
+              className="edit md:ml-8 text-gray-500 dark:text-gray-200 text-xl"
               onClick={() => copy(result)}
             >
               <IonIcon icon={clipboardOutline} />
             </button>
           ) : (
-            <span className="text-gray-200 text-xl">
+            <span className="dark:text-gray-200 text-gray-500 text-xl">
               <IonIcon icon={checkmarkOutline} />
             </span>
           )}
