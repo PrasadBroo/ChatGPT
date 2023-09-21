@@ -1,15 +1,19 @@
 import { IonIcon } from "@ionic/react";
 import classNames from "classnames";
 import { sendOutline, send } from "ionicons/icons";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useChat from "../../store/store";
 
 export default function UserQuery() {
   const [query, setQuery] = useState("");
+  const formRef = useRef<null | HTMLFormElement>(null);
   const addChat = useChat((state) => state.addChat);
 
   function handleOnKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (e.key === "Enter" && !e.shiftKey) {
+      if (formRef.current) {
+        formRef.current.requestSubmit();
+      }
     }
   }
 
@@ -26,6 +30,7 @@ export default function UserQuery() {
     <form
       className="input shadow-md dark:bg-[#40414f]  p-2 border dark:border-none flex items-center   rounded-md"
       onSubmit={handleOnSubmit}
+      ref={formRef}
     >
       <div className="w-11/12">
         <textarea

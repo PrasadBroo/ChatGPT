@@ -14,7 +14,7 @@ export default function Chats() {
         )
       )}
 
-      <div className="h-32 md:h-48 flex-shrink-0"></div>
+      <div className="h-48 flex-shrink-0"></div>
     </div>
   );
 }

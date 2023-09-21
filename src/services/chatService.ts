@@ -1,6 +1,6 @@
 import { ChatMessageType } from "../store/store";
 
-const apiKey = "sk-#######################"; // Replace with your actual API key
+const apiKey = "sk-#######################################"; // Replace with your actual API key
 const apiUrl = "https://api.openai.com/v1/chat/completions";
 
 export async function fetchResults(
@@ -54,8 +54,7 @@ export async function fetchResults(
       });
     }
   } catch (error) {
-    if (error instanceof DOMException || error instanceof Error){
-      onCompletion();
+    if (error instanceof DOMException || error instanceof Error) {
       throw new Error(error.message);
     }
   }

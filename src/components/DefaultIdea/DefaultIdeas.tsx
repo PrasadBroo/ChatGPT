@@ -1,5 +1,5 @@
 import DefaultIdea from "./DefaultIdea";
-// github co-pilot generated below ideas :)
+
 const defaultIdeas = [
   {
     idea: "Design database schema",
@@ -19,18 +19,12 @@ const defaultIdeas = [
 
 export default function DefaultIdeas({ visible = true }) {
   return (
-    <div
-      className={`row1 md:flex md:items-center md:gap-2 ${
-        visible ? "block" : "hidden"
-      }`}
-    >
-      {defaultIdeas.slice(0, 2).map((idea) => (
-        <DefaultIdea
-          idea={idea.idea}
-          moreContext={idea.moreContext}
-          key={idea.idea}
-        />
-      ))}
+    <div className={`row1 ${visible ? "block" : "hidden"}`}>
+      <DefaultIdea ideas={defaultIdeas.slice(0, 2)} />
+      <DefaultIdea
+        ideas={defaultIdeas.slice(2, 4)}
+        myclassNames="hidden md:visible"
+      />
     </div>
   );
 }

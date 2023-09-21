@@ -20,17 +20,10 @@ export default function Navbar({
   active: boolean;
   setActive: (v: boolean) => void;
 }) {
-const addNewChat = useChat((state) => state.addNewChat);
+  const addNewChat = useChat((state) => state.addNewChat);
 
   return (
     <>
-      <button
-        type="button"
-        className="shadow p-1 absolute text-sm top-4 left-4 hidden md:inline-block text-gray-400 dark:border border-gray-400 rounded-md"
-        onClick={() => setActive(true)}
-      >
-        <i className="fa-regular fa-window-maximize rotate-90"></i>
-      </button>
       <div
         className={classnames(
           "navwrap fixed duration-500 top-0 left-0 bottom-0 right-0 z-30 bg-gray-500 md:bg-opacity-0 ",

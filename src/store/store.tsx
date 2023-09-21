@@ -82,5 +82,5 @@ export const selectChatsIds = (state: ChatType) =>
     if (chat.role === "user") return chat.content;
   });
 export const selectUser = (state: AuthType) => state.user;
-export const chatsLength = (state: ChatType) => state.chats.length;
+export const chatsLength = (state: ChatType) => state.chats.length > 0;
 export default useChat;

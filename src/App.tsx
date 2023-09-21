@@ -14,7 +14,7 @@ setupIonicReact();
 function App() {
   useEffect(() => {}, []);
   const [active, setActive] = useState(false);
-  const chatLength = useChat(chatsLength);
+  const isChatsVisible = useChat(chatsLength);
   const addNewChat = useChat((state) => state.addNewChat);
   return (
     <div className="App font-poppins md:flex ">
@@ -37,17 +37,21 @@ function App() {
           <IonIcon icon={addOutline} />
         </button>
       </div>
-      <main className=" w-full">
-        {chatLength > 0 ? <Header /> : <GptIntro />}
-        {chatLength > 0 && <Chats />}
+      <main
+        className={classNames(" w-full transition-all duration-500", {
+          "md:ml-[260px]": active,
+        })}
+      >
+        {isChatsVisible ? <Header /> : <GptIntro />}
+        {isChatsVisible && <Chats />}
         <div
           className={classNames(
-            "fixed left-0 px-2   right-0 bottom-0 dark:shadow-lg py-1",
-            { "dark:bg-[#40414f]": chatLength > 0 }
+            "fixed left-0 px-2   right-0 transition-all duration-500 bottom-0 dark:shadow-lg py-1",
+            { "dark:bg-[#40414f]": isChatsVisible, "md:ml-[260px]": active }
           )}
         >
           <div className="max-w-2xl md:max-w-[calc(100% - 260px)] mx-auto">
-            {chatLength === 0 && (
+            {!isChatsVisible && (
               <>
                 <DefaultIdeas />
               </>

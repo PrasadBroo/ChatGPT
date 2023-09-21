@@ -10,15 +10,17 @@ type Props = {
 export default function useBot({ index }: Props) {
   const [history, setHistory] = useState<string[]>([]);
   const resultRef = useRef("");
-  const botRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
   const [result, setResult] = useState("");
-  const [isStreamEnded, setIsStreamEnded] = useState(false);
+  const [error, setError] = useState("");
+  const [isStreamCompleted, setIsStreamCompleted] = useState(false);
   const query = useChat((state) => state.chats[index - 1].content);
   const [chats, addChat] = useChat((state) => [state.chats, state.addChat]);
-  const scrollToBottom = useDebouncedCallback(
-    () => window.scrollTo(0, botRef.current?.scrollHeight ?? 0),
-    100
-  );
+
+  const scrollToBottom = useDebouncedCallback(() => {
+    if (!cursorRef.current) return;
+    cursorRef.current.scrollIntoView(true);
+  }, 50);
 
   function handleOnData(data: string) {
     resultRef.current += data;
@@ -27,13 +29,16 @@ export default function useBot({ index }: Props) {
   }
 
   function handleOnError(error: Error | string) {
-    setResult("Sorry, looks like I'm having a bad day.");
+    if(typeof error === "string") setError(error);
+    else setError(error.message);
+    setIsStreamCompleted(true);
+    scrollToBottom();
   }
 
   function handleOnCompletion() {
     setHistory([...history, resultRef.current]);
     addChat({ role: "assistant", content: resultRef.current }, index);
-    setIsStreamEnded(true);
+    setIsStreamCompleted(true);
   }
 
   useEffect(() => {
@@ -42,9 +47,11 @@ export default function useBot({ index }: Props) {
     let signal = controller.signal;
     setResult("");
     resultRef.current = "";
+    setIsStreamCompleted(false);
+    setError("");
     (async () => {
       try {
-       await fetchResults(
+        await fetchResults(
           chats.slice(0, index),
           signal,
           handleOnData,
@@ -62,5 +69,5 @@ export default function useBot({ index }: Props) {
     };
   }, [query]);
 
-  return { query, result, isStreamEnded, botRef };
+  return { query, result,error, isStreamCompleted, cursorRef };
 }
