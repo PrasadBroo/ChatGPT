@@ -11,10 +11,14 @@ export default function UserQuery() {
 
   function handleOnKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
       if (formRef.current) {
         formRef.current.requestSubmit();
       }
     }
+    const target = e.target as HTMLTextAreaElement;
+    target.style.height = "inherit";
+    target.style.height = `${target.scrollHeight}px`;
   }
 
   async function handleOnSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -47,7 +51,7 @@ export default function UserQuery() {
         <button
           type="submit"
           className={classNames(
-            " text-center  text-gray-600 transition inline-flex items-center justify-center py-2 px-2 rounded-md",
+            " text-center  text-gray-600 dark:text-white transition inline-flex items-center justify-center py-2 px-2 rounded-md",
             { "bg-green-500 dark:text-gray-200 text-white": query }
           )}
         >
