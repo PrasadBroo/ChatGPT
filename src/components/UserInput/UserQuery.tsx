@@ -10,14 +10,16 @@ export default function UserQuery() {
   const addChat = useChat((state) => state.addChat);
 
   function handleOnKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+    const target = e.target as HTMLTextAreaElement;
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       if (formRef.current) {
         formRef.current.requestSubmit();
       }
+      target.style.height = "30px";
+      return;
     }
-    const target = e.target as HTMLTextAreaElement;
-    target.style.height = "inherit";
+
     target.style.height = `${target.scrollHeight}px`;
   }
 
