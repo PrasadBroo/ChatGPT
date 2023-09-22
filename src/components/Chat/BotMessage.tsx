@@ -30,8 +30,8 @@ export default function BotMessage({ index }: Props) {
           ) : (
             <pre
               className={classNames(
-                "text-sm dark:text-gray-300 animate-preulse overflow-x-hidden whitespace-pre-wrap",
-                { "text-red-500": error }
+                "text-sm  animate-preulse overflow-x-hidden whitespace-pre-wrap",
+                { "text-red-500": error, "dark:text-gray-300" : !error}
               )}
             >
               {result}
