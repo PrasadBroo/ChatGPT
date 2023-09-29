@@ -1,6 +1,5 @@
 import { ChatMessageType } from "../store/store";
 
-const apiKey = "sk-######################################"; // Replace with your actual API key
 const apiUrl = "https://api.openai.com/v1/chat/completions";
 
 export async function fetchResults(
@@ -16,7 +15,7 @@ export async function fetchResults(
       headers: {
         "content-type": `application/json`,
         accept: `text/event-stream`,
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${localStorage.getItem("apikey")}`,
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",

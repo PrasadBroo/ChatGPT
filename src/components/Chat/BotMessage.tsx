@@ -6,6 +6,12 @@ import { SyncLoader } from "react-spinners";
 import useClipboard from "../../hooks/useClipboard";
 import useBot from "../../hooks/useBot";
 import { ChatMessageType } from "../../store/store";
+import { motion } from "framer-motion";
+
+const variants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1 },
+};
 
 type Props = {
   index: number;
@@ -22,9 +28,12 @@ export default function BotMessage({ index, chat }: Props) {
 
   return (
     <div
+    
       className={classNames("py-4 bg-gray-100 dark:bg-[#40414f] px-2 md:px-0")}
     >
-      <div className=" max-w-2xl mx-auto md:flex md:items-center group">
+      <motion.div variants={variants}
+    initial="hidden"
+    animate="visible" className=" max-w-2xl mx-auto md:flex md:items-center group">
         <div className="flex items-start w-full">
           <div className="mr-4  rounded-md flex items-center flex-shrink-0">
             <Avatar size={11} src="/imgs/bot.webp" />
@@ -66,7 +75,7 @@ export default function BotMessage({ index, chat }: Props) {
             </span>
           )}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

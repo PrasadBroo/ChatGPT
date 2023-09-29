@@ -6,9 +6,11 @@ import GptIntro from "./components/Ui/GptIntro";
 import { IonIcon, setupIonicReact } from "@ionic/react";
 import { menuOutline, addOutline } from "ionicons/icons";
 import Header from "./components/Header/Header";
-import useChat, { chatsLength } from "./store/store";
+import useChat, { chatsLength, useAuth } from "./store/store";
 import classNames from "classnames";
 import Chats from "./components/Chat/Chats";
+import Modal from "./components/modals/Modal";
+import Apikey from "./components/modals/Apikey";
 
 setupIonicReact();
 function App() {
@@ -16,6 +18,7 @@ function App() {
   const [active, setActive] = useState(false);
   const isChatsVisible = useChat(chatsLength);
   const addNewChat = useChat((state) => state.addNewChat);
+  const userHasApiKey = useAuth((state) => state.apikey);
   return (
     <div className="App font-poppins md:flex ">
       <Navbar active={active} setActive={setActive} />
@@ -68,6 +71,9 @@ function App() {
           </div>
         </div>
       </main>
+      <Modal visible={!Boolean(userHasApiKey)}>
+        <Apikey />
+      </Modal>
     </div>
   );
 }

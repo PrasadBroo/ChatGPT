@@ -26,7 +26,6 @@ export default function useBot({ index, chat }: Props) {
   }, 50);
 
   useEffect(() => {
-
     function addMessage() {
       addChat(
         { role: "assistant", content: resultRef.current, id: chat.id },
