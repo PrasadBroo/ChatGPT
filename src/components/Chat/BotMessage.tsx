@@ -5,18 +5,25 @@ import { IonIcon } from "@ionic/react";
 import { SyncLoader } from "react-spinners";
 import useClipboard from "../../hooks/useClipboard";
 import useBot from "../../hooks/useBot";
+import { ChatMessageType } from "../../store/store";
 
 type Props = {
   index: number;
+  chat: ChatMessageType;
 };
 
-export default function BotMessage({ index }: Props) {
+export default function BotMessage({ index, chat }: Props) {
   const { copy, copied } = useClipboard();
 
-  const { result, error, isStreamCompleted, cursorRef } = useBot({ index });
+  const { result, error, isStreamCompleted, cursorRef } = useBot({
+    index,
+    chat,
+  });
 
   return (
-    <div className={classNames("py-4 bg-gray-100 dark:bg-[#40414f] px-2 md:px-0")}>
+    <div
+      className={classNames("py-4 bg-gray-100 dark:bg-[#40414f] px-2 md:px-0")}
+    >
       <div className=" max-w-2xl mx-auto md:flex md:items-center group">
         <div className="flex items-start w-full">
           <div className="mr-4  rounded-md flex items-center flex-shrink-0">
@@ -31,12 +38,12 @@ export default function BotMessage({ index }: Props) {
             <pre
               className={classNames(
                 "text-sm  animate-preulse overflow-x-hidden whitespace-pre-wrap",
-                { "text-red-500": error, "dark:text-gray-300" : !error}
+                { "text-red-500": error, "dark:text-gray-300": !error }
               )}
             >
               {result}
-              {error && !result && "Sorry, looks like I'm having a bad day."}
-              {!isStreamCompleted && (
+
+              {!isStreamCompleted && !chat.content && (
                 <div
                   className="ml-1 blink bg-gray-500 dark:bg-gray-200 h-4 w-1 inline-block"
                   ref={cursorRef}

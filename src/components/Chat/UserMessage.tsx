@@ -3,20 +3,24 @@ import Avatar from "../Avatar/Avatar";
 import { createOutline } from "ionicons/icons";
 import classNames from "classnames";
 import { useState } from "react";
-import useChat from "../../store/store";
+import useChat, { ChatMessageType } from "../../store/store";
 
 type Props = {
-  content: string;
+  chat: ChatMessageType;
   chatIndex: number;
 };
 
-export default function UserMessage({ content, chatIndex }: Props) {
+export default function UserMessage({ chat, chatIndex }: Props) {
   const [edit, setEdit] = useState(false);
-  const [updatedQuery, setUpdatedQuery] = useState(content);
-  const editChatMessage = useChat((state) => state.editChatMessage);
+  const [updatedQuery, setUpdatedQuery] = useState(chat.content);
+  const [editChatMessage, resetChatAt] = useChat((state) => [
+    state.editChatMessage,
+    state.resetChatAt,
+  ]);
 
   function handelChatEdit() {
     editChatMessage(updatedQuery, chatIndex);
+    resetChatAt(chatIndex + 1);
     setEdit(false);
   }
 
@@ -30,7 +34,7 @@ export default function UserMessage({ content, chatIndex }: Props) {
 
           {!edit ? (
             <p className={classNames("text-sm  dark:text-gray-200")}>
-              {content}
+              {chat.content}
             </p>
           ) : (
             <textarea

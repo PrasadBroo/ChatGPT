@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { sendOutline, send } from "ionicons/icons";
 import { useRef, useState } from "react";
 import useChat from "../../store/store";
+import shortid from "shortid";
 
 export default function UserQuery() {
   const [query, setQuery] = useState("");
@@ -26,8 +27,8 @@ export default function UserQuery() {
   async function handleOnSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (query) {
-      addChat({ role: "user", content: query });
-      addChat({ role: "assistant", content: "" });
+      addChat({ role: "user", content: query, id: shortid.generate() });
+      addChat({ role: "assistant", content: "", id: shortid.generate() });
       setQuery("");
     }
   }

@@ -4,13 +4,14 @@ import UserMessage from "./UserMessage";
 
 export default function Chats() {
   const chats = useChat((state) => state.chats);
+
   return (
     <div className="md:mt-10 w-full">
       {chats.map((chat, index) =>
         chat.role === "assistant" ? (
-          <BotMessage index={index} key={index} />
+          <BotMessage index={index} key={chat.id} chat={chat} />
         ) : (
-          <UserMessage content={chat.content} chatIndex={index} key={index} />
+          <UserMessage chat={chat} chatIndex={index} key={chat.id} />
         )
       )}
 
