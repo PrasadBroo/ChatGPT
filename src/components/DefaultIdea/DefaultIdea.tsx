@@ -2,24 +2,31 @@ import { IonIcon } from "@ionic/react";
 import { sendOutline } from "ionicons/icons";
 import useChat from "../../store/store";
 import classNames from "classnames";
+import shortid from "shortid";
 
 export default function DefaultIdea({
   ideas,
-  myclassNames
+  myclassNames,
 }: {
   ideas: { idea: string; moreContext: string }[];
-  myclassNames?:string
+  myclassNames?: string;
 }) {
   const addChat = useChat((state) => state.addChat);
   return (
-    <div className={classNames("md:flex md:items-center md:gap-2 ",myclassNames)}>
+    <div
+      className={classNames("md:flex md:items-center md:gap-2 ", myclassNames)}
+    >
       {ideas.map((i) => (
         <button
-        key={i.idea}
+          key={i.idea}
           className="border dark:border-gray-500 mb-2 flex w-full text-left p-2 group rounded-md text-sm shadow flex-1 md:flex-row md:items-center"
           onClick={() => {
-            addChat({ role: "user", content: i.moreContext });
-            addChat({ role: "assistant", content: "" });
+            addChat({
+              role: "user",
+              content: i.moreContext,
+              id: shortid.generate(),
+            });
+            addChat({ role: "assistant", content: "", id: shortid.generate() });
           }}
         >
           <div className="">
