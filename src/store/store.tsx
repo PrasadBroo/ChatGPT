@@ -16,6 +16,7 @@ export interface ChatType {
   saveChats: () => void;
   viewSelectedChat: (chatId: string) => void;
   resetChatAt: (index: number) => void;
+  handleDeleteChats: (chatid:string) => void;
 }
 
 export interface UserType {
@@ -101,6 +102,16 @@ const useChat = create<ChatType>((set, get) => ({
       })
     );
   },
+  handleDeleteChats:(chatid)=> {
+    set(
+      produce((state: ChatType) => {
+        state.chatHistory = state.chatHistory.filter((id) => id !== chatid);
+        state.chats = [];
+        localStorage.removeItem(chatid);
+        localStorage.setItem("chatHistory", JSON.stringify(state.chatHistory));
+      })
+    );
+  },
 }));
 
 const useAuth = create<AuthType>((set) => ({
@@ -141,4 +152,6 @@ export const selectChatsHistory = (state: ChatType) =>
   });
 export const selectUser = (state: AuthType) => state.user;
 export const chatsLength = (state: ChatType) => state.chats.length > 0;
+export const isChatSelected = (id:string) => (state: ChatType) => state.chats[0]?.id === id;
+
 export default useChat;
