@@ -81,7 +81,7 @@ const useChat = create<ChatType>((set, get) => ({
       createdAt: new Date().toISOString(),
       chats: get().chats,
       title: title ? title : get().chats[0].content,
-      isTitleEdited: false,
+      isTitleEdited: Boolean(title),
     };
 
     localStorage.setItem(chat_id, JSON.stringify(data));
