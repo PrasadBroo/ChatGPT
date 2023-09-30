@@ -31,7 +31,7 @@ function App() {
           <i className="fa-regular fa-window-maximize rotate-90"></i>
         </button>
       </div>
-      <div className="p-3 flex items-center justify-between bg-[#202123] dark:bg-[#343541] border-b sticky top-0  text-gray-300 md:hidden">
+      <div className="p-3 z-10 flex items-center justify-between bg-[#202123] dark:bg-[#343541] border-b sticky top-0  text-gray-300 md:hidden">
         <button onClick={() => setActive(true)} className=" text-2xl flex">
           <IonIcon icon={menuOutline} />
         </button>

@@ -17,6 +17,7 @@ export interface ChatType {
   viewSelectedChat: (chatId: string) => void;
   resetChatAt: (index: number) => void;
   handleDeleteChats: (chatid: string) => void;
+  editChatsTitle: (id: string, title: string) => void;
 }
 
 export interface UserType {
@@ -67,12 +68,20 @@ const useChat = create<ChatType>((set, get) => ({
   },
 
   saveChats: () => {
-    const chat_id = get().chats[0].id;
+    let chat_id = get().chats[0].id;
+    let title;
+    if (localStorage.getItem(chat_id)) {
+      const data = JSON.parse(localStorage.getItem(chat_id) ?? "");
+      if (data.isTitleEdited) {
+        title = data.title;
+      }
+    }
     const data = {
       id: chat_id,
       createdAt: new Date().toISOString(),
       chats: get().chats,
-      title: get().chats[0].content,
+      title: title ? title : get().chats[0].content,
+      isTitleEdited: false,
     };
 
     localStorage.setItem(chat_id, JSON.stringify(data));
@@ -110,6 +119,16 @@ const useChat = create<ChatType>((set, get) => ({
         state.chats = [];
         localStorage.removeItem(chatid);
         localStorage.setItem("chatHistory", JSON.stringify(state.chatHistory));
+      })
+    );
+  },
+  editChatsTitle: (id, title) => {
+    set(
+      produce((state: ChatType) => {
+        const chat = JSON.parse(localStorage.getItem(id) ?? "");
+        chat.title = title;
+        chat.isTitleEdited = true;
+        localStorage.setItem(id, JSON.stringify(chat));
       })
     );
   },
