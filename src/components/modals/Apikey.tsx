@@ -2,6 +2,13 @@ import { IonIcon } from "@ionic/react";
 import { informationCircleOutline } from "ionicons/icons";
 import { useAuth } from "../../store/store";
 import { useState } from "react";
+import { motion } from "framer-motion";
+
+const varinats = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+  exit: { opacity: 0, scale: 0.8, transition: { duration: 0.15 } },
+};
 
 export default function Apikey() {
   const [userapikey, setUserApikey] = useState("");
@@ -13,7 +20,13 @@ export default function Apikey() {
   }
 
   return (
-    <div className="dark:bg-gray-700 max-w-xl w-full p-3 rounded-md mx-2 md:mx-0">
+    <motion.div
+      variants={varinats}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="dark:bg-gray-700 max-w-xl w-full p-3 rounded-md mx-2 md:mx-0"
+    >
       <h2 className="text-xl font-medium text-gray-900 dark:text-white  text-center my-2">
         Enter your apikey
       </h2>
@@ -22,6 +35,7 @@ export default function Apikey() {
           type="text"
           placeholder="sk-################################"
           onChange={(e) => setUserApikey(e.target.value)}
+          autoFocus
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
         />
         <div className=" flex items-center mt-4">
@@ -41,6 +55,6 @@ export default function Apikey() {
           </button>
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 }

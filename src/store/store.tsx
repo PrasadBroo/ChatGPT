@@ -6,7 +6,14 @@ export interface ChatMessageType {
   content: string;
   id: string;
 }
-
+export interface SettingsType {
+  settings: {
+    sendChatHistory: boolean;
+  };
+  isModalVisible: boolean;
+  setSendChatHistory: (value: boolean) => void;
+  setModalVisible: (value: boolean) => void;
+}
 export interface ChatType {
   chats: ChatMessageType[];
   chatHistory: string[];
@@ -166,6 +173,27 @@ const useAuth = create<AuthType>((set) => ({
   },
 }));
 
+const useSettings = create<SettingsType>((set) => ({
+  settings: {
+    sendChatHistory: false,
+  },
+  isModalVisible: false,
+  setSendChatHistory: (value: boolean) => {
+    set(
+      produce((state) => {
+        state.settings.sendChatHistory = value;
+      })
+    );
+  },
+  setModalVisible: (value: boolean) => {
+    set(
+      produce((state) => {
+        state.isModalVisible = value;
+      })
+    );
+  },
+}));
+
 export const selectChatsHistory = (state: ChatType) =>
   state.chatHistory.map((chat_id) => {
     const { title, id } = JSON.parse(localStorage.getItem(chat_id) as string);
@@ -177,4 +205,4 @@ export const isChatSelected = (id: string) => (state: ChatType) =>
   state.chats[0]?.id === id;
 
 export default useChat;
-export { useAuth };
+export { useAuth, useSettings };

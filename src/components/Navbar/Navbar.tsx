@@ -11,7 +11,9 @@ import {
   ellipsisHorizontalOutline,
   closeOutline,
 } from "ionicons/icons";
-import useChat from "../../store/store";
+import useChat, { useSettings } from "../../store/store";
+import Settings from "../modals/Settings";
+import Modal from "../modals/Modal";
 
 export default function Navbar({
   active,
@@ -21,6 +23,10 @@ export default function Navbar({
   setActive: (v: boolean) => void;
 }) {
   const addNewChat = useChat((state) => state.addNewChat);
+  const [isVisible, setModalVisible] = useSettings((state) => [
+    state.isModalVisible,
+    state.setModalVisible,
+  ]);
 
   return (
     <>
@@ -77,7 +83,10 @@ export default function Navbar({
                   </span>
                   <span>Custom instructions</span>
                 </button>
-                <button className=" p-2   hover:bg-gray-700 w-full text-left flex items-center">
+                <button
+                  className=" p-2   hover:bg-gray-700 w-full text-left flex items-center"
+                  onClick={() => setModalVisible(true)}
+                >
                   <span className="mr-2 p-1  text-xl flex items-center">
                     <IonIcon icon={settingsOutline} />
                   </span>
@@ -110,6 +119,9 @@ export default function Navbar({
           </button>
         </nav>
       </div>
+      <Modal visible={isVisible}>
+        <Settings />
+      </Modal>
     </>
   );
 }
