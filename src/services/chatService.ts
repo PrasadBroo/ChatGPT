@@ -4,6 +4,7 @@ const apiUrl = "https://api.openai.com/v1/chat/completions";
 
 export async function fetchResults(
   messages: Omit<ChatMessageType, "id">[],
+  modal: string,
   signal: AbortSignal,
   onData: (data: any) => void,
   onCompletion: () => void
@@ -18,7 +19,7 @@ export async function fetchResults(
         Authorization: `Bearer ${localStorage.getItem("apikey")}`,
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo",
+        model: modal,
         temperature: 0.7,
         stream: true,
         messages: messages,
@@ -52,6 +53,22 @@ export async function fetchResults(
         onData(data.choices[0].delta.content);
       });
     }
+  } catch (error) {
+    if (error instanceof DOMException || error instanceof Error) {
+      throw new Error(error.message);
+    }
+  }
+}
+
+export async function fetchModals() {
+  try {
+    const response = await fetch("https://api.openai.com/v1/models", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("apikey")}`,
+      },
+    });
+    const data = await response.json();
+    return data;
   } catch (error) {
     if (error instanceof DOMException || error instanceof Error) {
       throw new Error(error.message);

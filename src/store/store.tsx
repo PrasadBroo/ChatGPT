@@ -1,18 +1,61 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { produce } from "immer";
 
+const modalsList = [
+  "gpt-3.5-turbo",
+  "gpt-3.5-turbo-16k",
+  "gpt-3.5-turbo-0613",
+  "gpt-4",
+  "gpt-4-0613",
+  "gpt-4-0314",
+];
 export interface ChatMessageType {
   role: "user" | "assistant";
   content: string;
   id: string;
 }
+
+export interface ModalPermissionType {
+  id: string;
+  object: string;
+  created: number;
+  allow_create_engine: boolean;
+  allow_sampling: boolean;
+  allow_logprobs: boolean;
+  allow_search_indices: boolean;
+  allow_view: boolean;
+  allow_fine_tuning: boolean;
+  organization: string;
+  group: null;
+  is_blocking: boolean;
+}
+export interface ModalType {
+  id: string;
+  object: string;
+  created: number;
+  owned_by: string;
+  permission: ModalPermissionType[];
+  root: string;
+  parent: null;
+}
+
+export interface ThemeType {
+  theme: string;
+  setTheme: (theme: string) => void;
+}
+
 export interface SettingsType {
   settings: {
     sendChatHistory: boolean;
+    modalsList: string[];
+    selectedModal: string;
   };
   isModalVisible: boolean;
   setSendChatHistory: (value: boolean) => void;
   setModalVisible: (value: boolean) => void;
+  setModalsList: (value: ModalType[]) => void;
+  setModal: (value: string) => void;
 }
 export interface ChatType {
   chats: ChatMessageType[];
@@ -173,26 +216,67 @@ const useAuth = create<AuthType>((set) => ({
   },
 }));
 
-const useSettings = create<SettingsType>((set) => ({
-  settings: {
-    sendChatHistory: false,
-  },
-  isModalVisible: false,
-  setSendChatHistory: (value: boolean) => {
-    set(
-      produce((state) => {
-        state.settings.sendChatHistory = value;
-      })
-    );
-  },
-  setModalVisible: (value: boolean) => {
-    set(
-      produce((state) => {
-        state.isModalVisible = value;
-      })
-    );
-  },
-}));
+const useSettings = create<SettingsType>()(
+  persist(
+    (set) => ({
+      settings: {
+        sendChatHistory: false,
+        modalsList: modalsList,
+        selectedModal: "gpt-3.5-turbo",
+      },
+      isModalVisible: false,
+      setSendChatHistory: (value: boolean) => {
+        set(
+          produce((state) => {
+            state.settings.sendChatHistory = value;
+          })
+        );
+      },
+      setModal: (value: string) => {
+        set(
+          produce((state) => {
+            state.settings.selectedModal = value;
+          })
+        );
+      },
+      setModalVisible: (value: boolean) => {
+        set(
+          produce((state) => {
+            state.isModalVisible = value;
+          })
+        );
+      },
+      setModalsList: (value) => {
+        set(
+          produce((state) => {
+            state.settings.modalsList = value;
+          })
+        );
+      },
+    }),
+    {
+      name: "settings",
+    }
+  )
+);
+
+const useTheme = create<ThemeType>()(
+  persist(
+    (set) => ({
+      theme: "light",
+      setTheme: (theme: string) => {
+        set(
+          produce((state) => {
+            state.theme = theme;
+          })
+        );
+      },
+    }),
+    {
+      name: "theme",
+    }
+  )
+);
 
 export const selectChatsHistory = (state: ChatType) =>
   state.chatHistory.map((chat_id) => {
@@ -201,8 +285,9 @@ export const selectChatsHistory = (state: ChatType) =>
   });
 export const selectUser = (state: AuthType) => state.user;
 export const chatsLength = (state: ChatType) => state.chats.length > 0;
+export const isDarkTheme = (state: ThemeType) => state.theme === "dark";
 export const isChatSelected = (id: string) => (state: ChatType) =>
   state.chats[0]?.id === id;
 
 export default useChat;
-export { useAuth, useSettings };
+export { useAuth, useSettings, useTheme };

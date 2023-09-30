@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import useChat, { ChatMessageType } from "../store/store";
+import useChat, { ChatMessageType, useSettings } from "../store/store";
 import { fetchResults } from "../services/chatService";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -16,6 +16,7 @@ export default function useBot({ index, chat }: Props) {
   const [isStreamCompleted, setIsStreamCompleted] = useState(false);
   const query = useChat((state) => state.chats[index - 1].content);
   const [chats, addChat] = useChat((state) => [state.chats, state.addChat]);
+  const [sendHistory,selectedModal] = useSettings((state) => [state.settings.sendChatHistory,state.settings.selectedModal]);
   const chatsRef = useRef(chats);
 
   chatsRef.current = chats;
@@ -62,10 +63,18 @@ export default function useBot({ index, chat }: Props) {
     setError("");
     (async () => {
       try {
-        const prevChats = chatsRef.current
-          .slice(0, index)
-          .map((chat) => ({ role: chat.role, content: chat.content }));
-        await fetchResults(prevChats, signal, handleOnData, handleOnCompletion);
+
+        const prevChats = sendHistory
+          ? chatsRef.current
+              .slice(0, index)
+              .map((chat) => ({ role: chat.role, content: chat.content }))
+          : [
+              {
+                role: chatsRef.current[index - 1].role,
+                content: chatsRef.current[index - 1].content,
+              },
+            ];
+        await fetchResults(prevChats,selectedModal, signal, handleOnData, handleOnCompletion);
       } catch (error) {
         if (error instanceof Error || typeof error === "string") {
           if (mounted) handleOnError(error);
@@ -76,7 +85,7 @@ export default function useBot({ index, chat }: Props) {
       controller.abort();
       mounted = false;
     };
-  }, [query, addChat, index, scrollToBottom, chat.content, chat.id]);
+  }, [query, addChat, index, scrollToBottom, chat.content, chat.id,sendHistory,selectedModal]);
 
   return { query, result, error, isStreamCompleted, cursorRef };
 }

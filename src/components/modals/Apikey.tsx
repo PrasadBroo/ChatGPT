@@ -25,9 +25,9 @@ export default function Apikey() {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="dark:bg-gray-700 max-w-xl w-full p-3 rounded-md mx-2 md:mx-0"
+      className="bg-gray-700 border border-blue-400 max-w-xl w-full p-3 rounded-md mx-2 md:mx-0"
     >
-      <h2 className="text-xl font-medium text-gray-900 dark:text-white  text-center my-2">
+      <h2 className="text-xl font-medium text-gray-300 dark:text-white  text-center my-2">
         Enter your apikey
       </h2>
       <form onSubmit={handleSubmit}>
@@ -39,10 +39,10 @@ export default function Apikey() {
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
         />
         <div className=" flex items-center mt-4">
-          <span className="dark:text-gray-300 flex items-center">
+          <span className="dark:text-gray-300 flex items-center text-gray-300">
             <IonIcon icon={informationCircleOutline} />
           </span>
-          <span className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+          <span className="ml-2 text-sm font-medium text-gray-300 dark:text-gray-300">
             Your api key is stored in your own browser
           </span>
         </div>

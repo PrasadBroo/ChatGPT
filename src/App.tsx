@@ -6,20 +6,27 @@ import GptIntro from "./components/Ui/GptIntro";
 import { IonIcon, setupIonicReact } from "@ionic/react";
 import { menuOutline, addOutline } from "ionicons/icons";
 import Header from "./components/Header/Header";
-import useChat, { chatsLength, useAuth } from "./store/store";
+import useChat, { chatsLength, useAuth, useTheme } from "./store/store";
 import classNames from "classnames";
 import Chats from "./components/Chat/Chats";
 import Modal from "./components/modals/Modal";
 import Apikey from "./components/modals/Apikey";
 
-
 setupIonicReact();
 function App() {
-  useEffect(() => {}, []);
   const [active, setActive] = useState(false);
   const isChatsVisible = useChat(chatsLength);
   const addNewChat = useChat((state) => state.addNewChat);
   const userHasApiKey = useAuth((state) => state.apikey);
+  const [theme] = useTheme((state) => [state.theme]);
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
   return (
     <div className="App font-poppins md:flex ">
       <Navbar active={active} setActive={setActive} />
@@ -50,8 +57,11 @@ function App() {
         {isChatsVisible && <Chats />}
         <div
           className={classNames(
-            "fixed left-0 px-2   right-0 transition-all duration-500 bottom-0 dark:shadow-lg py-1",
-            { "dark:bg-[#40414f]": isChatsVisible, "md:ml-[260px]": active }
+            "fixed left-0 px-2  right-0 transition-all duration-500 bottom-0 dark:shadow-lg py-1",
+            {
+              "dark:bg-[#40414f] bg-white": isChatsVisible,
+              "md:ml-[260px]": active,
+            }
           )}
         >
           <div className="max-w-2xl md:max-w-[calc(100% - 260px)] mx-auto">
@@ -72,7 +82,10 @@ function App() {
           </div>
         </div>
       </main>
-      <Modal visible={!Boolean(userHasApiKey)}>
+      <Modal
+        visible={!Boolean(userHasApiKey)}
+        className="bg-black bg-opacity-50"
+      >
         <Apikey />
       </Modal>
     </div>

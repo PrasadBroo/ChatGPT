@@ -10,7 +10,7 @@ type Props = {
 
 export default function Modal(props: Props) {
   const modal_cn = classNames(
-    "modal font-Bungee fixed top-0 left-0 right-0 bottom-0  dark:bg-opacity-0  z-50 flex items-center justify-center",
+    "modal font-Bungee fixed top-0 left-0 right-0 bottom-0 dark:bg-gray-500  dark:bg-opacity-50  z-50 flex items-center justify-center",
     props.className
   );
 

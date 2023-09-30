@@ -76,7 +76,7 @@ export default function Navbar({
             </div>
 
             <div className="px-2 relative py-2 flex items-center hover:bg-gray-700 transition group">
-              <div className=" absolute bottom-12 rounded-md left-0 right-0 bg-black font-normal invisible transition  m-2 z-30 text-gray-300 group-hover:visible">
+              <div className=" absolute bottom-12 rounded-md left-0 right-0 bg-gray-800 font-normal invisible transition  m-2 z-30 text-gray-300 group-hover:visible">
                 <button className=" p-2   hover:bg-gray-700 w-full text-left flex items-center">
                   <span className="mr-2 p-1 text-xl  flex items-center">
                     <IonIcon icon={chatboxEllipsesOutline} />
