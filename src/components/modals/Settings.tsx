@@ -39,7 +39,7 @@ export default function Settings() {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="settings rounded-md bg-gray-800 mx-2 md:mx-0 text-white dark:text-gray-300 w-full max-w-xl py-4"
+      className="settings rounded-md bg-white dark:bg-gray-800 mx-2 md:mx-0 text-gray-500 dark:text-gray-300 w-full max-w-xl py-4"
     >
       <div className="p-2 flex items-center justify-between">
         <h2 className=" ">Settings</h2>
@@ -91,9 +91,9 @@ export default function Settings() {
         <div className="">
           <label
             htmlFor="countries"
-            className="block mb-2 text-sm font-medium  text-white dark:text-gray-300"
+            className="block mb-2 text-sm font-medium   dark:text-gray-300"
           >
-            Select Modal
+            Select Model
           </label>
           <select
             id="countries"

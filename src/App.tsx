@@ -27,6 +27,7 @@ function App() {
       document.documentElement.classList.remove("dark");
     }
   }, [theme]);
+  
   return (
     <div className="App font-poppins md:flex ">
       <Navbar active={active} setActive={setActive} />
@@ -82,10 +83,7 @@ function App() {
           </div>
         </div>
       </main>
-      <Modal
-        visible={!Boolean(userHasApiKey)}
-        className="bg-black bg-opacity-50"
-      >
+      <Modal visible={!Boolean(userHasApiKey)}>
         <Apikey />
       </Modal>
     </div>
