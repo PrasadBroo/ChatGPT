@@ -4,14 +4,14 @@ import { IonIcon } from "@ionic/react";
 import Avatar from "../Avatar/Avatar";
 import {
   addOutline,
-  personOutline,
   chatboxEllipsesOutline,
+  cafeOutline,
   settingsOutline,
   logOutOutline,
   ellipsisHorizontalOutline,
   closeOutline,
 } from "ionicons/icons";
-import useChat, { useSettings } from "../../store/store";
+import useChat, { useAuth, useSettings } from "../../store/store";
 import Settings from "../modals/Settings";
 import Modal from "../modals/Modal";
 
@@ -27,6 +27,7 @@ export default function Navbar({
     state.isModalVisible,
     state.setModalVisible,
   ]);
+  const name = useAuth((state) => state.user.name);
 
   return (
     <>
@@ -65,14 +66,18 @@ export default function Navbar({
             <ChatHistory />
           </div>
           <div className="account absolute left-0 font-bold right-0 bottom-0 text-sm z-20 bg-[#202123] border-t border-gray-500 shadow  ">
-            <div className="px-2 py-2 flex items-center">
-              <span className="inline-block text-xl">
-                <IonIcon icon={personOutline} />
+            <div className="px-2 py-2 flex items-center text-2xl text-yellow-400 border-y border-yellow-400">
+              <span className=" flex items-center text-xl ">
+                <IonIcon icon={cafeOutline} />
               </span>
-              <button className="p-2 inline-block">Upgrade to Plus</button>
-              <span className=" uppercase text-black p-1 font-normal rounded ml-auto inline-block bg-orange-200">
-                new
-              </span>
+              <a
+                href="https://www.buymeacoffee.com/prasadbro"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-2 text-lg"
+              >
+                Buy me a coffee
+              </a>
             </div>
 
             <div className="px-2 relative py-2 flex items-center hover:bg-gray-700 transition group">
@@ -100,9 +105,9 @@ export default function Navbar({
                   <span>Log out</span>
                 </button>
               </div>
-              <Avatar />
+              <Avatar className=" h-11 w-11" />
 
-              <span className="p-2">Prasadbro</span>
+              <span className="p-2">{name}</span>
               <button className=" ml-auto  text-gray-400 text-2xl">
                 <IonIcon icon={ellipsisHorizontalOutline} />
               </button>

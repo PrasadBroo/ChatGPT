@@ -80,7 +80,7 @@ export interface AuthType {
   token: string;
   apikey: string;
   setToken: (token: string) => void;
-  setUSer: (user: { name: string; email: string; avatar: string }) => void;
+  setUser: (user: { name: string; email: string; avatar: string }) => void;
   setApiKey: (apikey: string) => void;
   user: UserType;
 }
@@ -184,37 +184,44 @@ const useChat = create<ChatType>((set, get) => ({
   },
 }));
 
-const useAuth = create<AuthType>((set) => ({
-  token: localStorage.getItem("token") || "",
-  apikey: localStorage.getItem("apikey") || "",
-  user: {
-    name: "",
-    email: "",
-    avatar: "",
-  },
-  setToken: (token: string) => {
-    set(
-      produce((state) => {
-        state.token = token;
-      })
-    );
-  },
-  setUSer: (user: UserType) => {
-    set(
-      produce((state) => {
-        state.user = user;
-      })
-    );
-  },
-  setApiKey: (apikey: string) => {
-    set(
-      produce((state) => {
-        state.apikey = apikey;
-      })
-    );
-    localStorage.setItem("apikey", apikey);
-  },
-}));
+const useAuth = create<AuthType>()(
+  persist(
+    (set) => ({
+      token: localStorage.getItem("token") || "",
+      apikey: localStorage.getItem("apikey") || "",
+      user: {
+        name: "Your name?",
+        email: "",
+        avatar: "/imgs/default-avatar.jpg",
+      },
+      setToken: (token: string) => {
+        set(
+          produce((state) => {
+            state.token = token;
+          })
+        );
+      },
+      setUser: (user: UserType) => {
+        set(
+          produce((state) => {
+            state.user = user;
+          })
+        );
+      },
+      setApiKey: (apikey: string) => {
+        set(
+          produce((state) => {
+            state.apikey = apikey;
+          })
+        );
+        localStorage.setItem("apikey", apikey);
+      },
+    }),
+    {
+      name: "auth",
+    }
+  )
+);
 
 const useSettings = create<SettingsType>()(
   persist(
@@ -256,6 +263,7 @@ const useSettings = create<SettingsType>()(
     }),
     {
       name: "settings",
+      partialize: (state) => ({ settings: state.settings }),
     }
   )
 );

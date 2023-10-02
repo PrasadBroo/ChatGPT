@@ -1,19 +1,19 @@
 import classNames from "classnames";
+import { useAuth } from "../../store/store";
 
 type Props = {
-  size?: number;
+  children?: React.ReactNode;
   src?: string;
+  className?: string;
 };
 
-export default function Avatar({ size = 11, src }: Props) {
-  const imgClass = classNames(`rounded h-${size} w-${size}`);
+export default function Avatar({ src, children, className }: Props) {
+  const imgClass = classNames(`rounded`, className);
+  const avatar = useAuth((state) => state.user.avatar);
   return (
-    <div className={classNames(`avatar rounded`)}>
-      <img
-        src={src ? src : "https://prasadbro.com/assets/prasadbro-4f9caa4a.jpg"}
-        alt="avatar"
-        className=" rounded h-11 w-11"
-      />
+    <div className={classNames(`avatar rounded relative`)}>
+      <img src={src ? src : avatar} alt="avatar" className={imgClass} />
+      {children}
     </div>
   );
 }

@@ -28,15 +28,17 @@ export default function BotMessage({ index, chat }: Props) {
 
   return (
     <div
-    
       className={classNames("py-4 bg-gray-100 dark:bg-[#40414f] px-2 md:px-0")}
     >
-      <motion.div variants={variants}
-    initial="hidden"
-    animate="visible" className=" max-w-2xl mx-auto md:flex md:items-center group">
+      <motion.div
+        variants={variants}
+        initial="hidden"
+        animate="visible"
+        className=" max-w-2xl mx-auto md:flex md:items-center group"
+      >
         <div className="flex items-start w-full">
           <div className="mr-4  rounded-md flex items-center flex-shrink-0">
-            <Avatar size={11} src="/imgs/bot.webp" />
+            <Avatar className=" h-11 w-11" src="/imgs/bot.webp" />
           </div>
 
           {!result && !error ? (
