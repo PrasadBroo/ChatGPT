@@ -42,20 +42,20 @@ export default function ChatRef({
   return (
     <div
       className={classNames(
-        "btn-wrap flex items-center w-full hover:bg-[#40414f]",
+        "btn-wrap flex items-center w-full p-1 rounded-md text-xl  hover:bg-[#40414f]",
         { "bg-[#40414f]": isSelected }
       )}
     >
       {!isTitleEditeble && (
         <button
-          className=" text-base py-2 w-4/5 flex  items-center flex-grow  transition p-2"
+          className="  py-2 w-4/5 flex  items-center flex-grow  transition p-2"
           onClick={() => viewSelectedChat(chat.id)}
         >
-          <span className="mr-2 text-base flex">
+          <span className="mr-2  flex">
             <IonIcon icon={chatboxOutline} />
           </span>
 
-          <span className="text-sm truncate">
+          <span className="text-sm truncate capitalize">
             {editTitle ? editTitle : chat.title}
           </span>
         </button>
@@ -72,13 +72,13 @@ export default function ChatRef({
       {isSelected && !isEditingTitle && (
         <div className=" inline-flex w-1/5 mx-2  items-center justify-between">
           <button
-            className={classNames("text-base mr-2 flex hover:text-blue-300")}
+            className={classNames(" mr-2 flex hover:text-blue-300")}
             onClick={() => setIsEditingTitle(true)}
           >
             <IonIcon icon={pencilOutline} />
           </button>
           <button
-            className={classNames(" text-base flex hover:text-red-300")}
+            className={classNames("  flex hover:text-red-300")}
             onClick={() => handleDeleteChats(chat.id)}
           >
             <IonIcon icon={trashOutline} />
@@ -88,13 +88,13 @@ export default function ChatRef({
       {isSelected && isEditingTitle && (
         <div className=" inline-flex w-1/5 mx-2  items-center justify-between">
           <button
-            className={classNames("text-base mr-2 flex hover:text-blue-300")}
+            className={classNames(" mr-2 flex hover:text-blue-300")}
             onClick={() => handleEditTitle(chat.id, editTitle)}
           >
             <IonIcon icon={checkmarkOutline} />
           </button>
           <button
-            className={classNames(" text-base flex hover:text-red-300")}
+            className={classNames("  flex hover:text-red-300")}
             onClick={() => setIsEditingTitle(false)}
           >
             <IonIcon icon={closeOutline} />
