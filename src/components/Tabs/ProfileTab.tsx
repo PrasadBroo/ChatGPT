@@ -3,6 +3,13 @@ import Avatar from "../Avatar/Avatar";
 import { createOutline, pencilOutline, checkmark } from "ionicons/icons";
 import { useAuth } from "../../store/store";
 import { useState } from "react";
+import { motion } from "framer-motion";
+
+const varinats = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+  exit: { opacity: 0 },
+};
 
 export default function ProfileTab() {
   const [avatar, name, setUser] = useAuth((state) => [
@@ -39,7 +46,13 @@ export default function ProfileTab() {
   }
 
   return (
-    <div className="p-2">
+    <motion.div
+      variants={varinats}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="p-2"
+    >
       <div className="profile-pic group flex items-center justify-center relative">
         <input
           type="file"
@@ -102,6 +115,6 @@ export default function ProfileTab() {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

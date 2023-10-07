@@ -99,6 +99,9 @@ const useChat = create<ChatType>((set, get) => ({
         }
       })
     );
+    if (chat.role === "assistant" && chat.content) {
+      get().saveChats();
+    }
   },
   editChatMessage: (chat, updateIndex) => {
     set(
@@ -109,7 +112,6 @@ const useChat = create<ChatType>((set, get) => ({
   },
   addNewChat: () => {
     if (get().chats.length === 0) return;
-    get().saveChats();
     set(
       produce((state: ChatType) => {
         state.chats = [];
