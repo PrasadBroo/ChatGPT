@@ -16,7 +16,13 @@ export default function useBot({ index, chat }: Props) {
   const [isStreamCompleted, setIsStreamCompleted] = useState(false);
   const query = useChat((state) => state.chats[index - 1].content);
   const [chats, addChat] = useChat((state) => [state.chats, state.addChat]);
-  const [sendHistory,selectedModal] = useSettings((state) => [state.settings.sendChatHistory,state.settings.selectedModal]);
+  const [sendHistory, selectedModal, systemMessage, useForAllChats] =
+    useSettings((state) => [
+      state.settings.sendChatHistory,
+      state.settings.selectedModal,
+      state.settings.systemMessage,
+      state.settings.useSystemMessageForAllChats,
+    ]);
   const chatsRef = useRef(chats);
 
   chatsRef.current = chats;
@@ -63,8 +69,7 @@ export default function useBot({ index, chat }: Props) {
     setError("");
     (async () => {
       try {
-
-        const prevChats = sendHistory
+        let prevChats = sendHistory
           ? chatsRef.current
               .slice(0, index)
               .map((chat) => ({ role: chat.role, content: chat.content }))
@@ -74,7 +79,19 @@ export default function useBot({ index, chat }: Props) {
                 content: chatsRef.current[index - 1].content,
               },
             ];
-        await fetchResults(prevChats,selectedModal, signal, handleOnData, handleOnCompletion);
+        if (useForAllChats && systemMessage) {
+          prevChats = [
+            { role: "system", content: systemMessage },
+            ...prevChats,
+          ];
+        }
+        await fetchResults(
+          prevChats,
+          selectedModal,
+          signal,
+          handleOnData,
+          handleOnCompletion
+        );
       } catch (error) {
         if (error instanceof Error || typeof error === "string") {
           if (mounted) handleOnError(error);
@@ -85,7 +102,18 @@ export default function useBot({ index, chat }: Props) {
       controller.abort();
       mounted = false;
     };
-  }, [query, addChat, index, scrollToBottom, chat.content, chat.id,sendHistory,selectedModal]);
+  }, [
+    query,
+    addChat,
+    index,
+    scrollToBottom,
+    chat.content,
+    chat.id,
+    sendHistory,
+    selectedModal,
+    systemMessage,
+    useForAllChats,
+  ]);
 
   return { query, result, error, isStreamCompleted, cursorRef };
 }

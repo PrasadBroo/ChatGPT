@@ -48,7 +48,7 @@ export default function ChatRef({
     >
       {!isTitleEditeble && (
         <button
-          className="  py-2 w-4/5 flex  items-center flex-grow  transition p-2"
+          className="  py-2  w-3/4 flex  items-center flex-grow  transition p-2"
           onClick={() => viewSelectedChat(chat.id)}
         >
           <span className="mr-2  flex">
@@ -70,7 +70,7 @@ export default function ChatRef({
         />
       )}
       {isSelected && !isEditingTitle && (
-        <div className=" inline-flex w-1/5 mx-2  items-center justify-between">
+        <div className=" inline-flex w-1/4 mx-2  items-center justify-between">
           <button
             className={classNames(" mr-2 flex hover:text-blue-300")}
             onClick={() => setIsEditingTitle(true)}

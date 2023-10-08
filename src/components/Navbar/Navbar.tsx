@@ -14,6 +14,7 @@ import {
 import useChat, { useAuth, useSettings } from "../../store/store";
 import Settings from "../modals/Settings";
 import Modal from "../modals/Modal";
+import SystemMessage from "../modals/SystemMessage";
 
 export default function Navbar({
   active,
@@ -23,9 +24,11 @@ export default function Navbar({
   setActive: (v: boolean) => void;
 }) {
   const addNewChat = useChat((state) => state.addNewChat);
-  const [isVisible, setModalVisible] = useSettings((state) => [
+  const [isVisible, setModalVisible,isSystemMessageModalVisible,setSystemMessageModalVisible] = useSettings((state) => [
     state.isModalVisible,
     state.setModalVisible,
+    state.isSystemMessageModalVisible,
+    state.setSystemMessageModalVisible
   ]);
   const name = useAuth((state) => state.user.name);
 
@@ -82,7 +85,10 @@ export default function Navbar({
 
             <div className="px-2 relative py-2 flex items-center hover:bg-gray-700 transition group">
               <div className=" absolute bottom-12 rounded-md left-0 right-0 bg-gray-800 font-normal invisible transition  m-2 z-30 text-gray-300 group-hover:visible">
-                <button className=" p-2   hover:bg-gray-700 w-full text-left flex items-center">
+                <button
+                  className=" p-2   hover:bg-gray-700 w-full text-left flex items-center"
+                  onClick={() => setSystemMessageModalVisible(true)}
+                >
                   <span className="mr-2 p-1 text-xl  flex items-center">
                     <IonIcon icon={chatboxEllipsesOutline} />
                   </span>
@@ -126,6 +132,9 @@ export default function Navbar({
       </div>
       <Modal visible={isVisible}>
         <Settings />
+      </Modal>
+      <Modal visible={isSystemMessageModalVisible}>
+        <SystemMessage />
       </Modal>
     </>
   );

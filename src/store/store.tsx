@@ -11,11 +11,14 @@ const modalsList = [
   "gpt-4-0314",
 ];
 export interface ChatMessageType {
-  role: "user" | "assistant";
+  role: "user" | "assistant" | "system";
   content: string;
   id: string;
 }
-
+export interface SystemMessageType {
+  message: string;
+  useForAllChats: boolean;
+}
 export interface ModalPermissionType {
   id: string;
   object: string;
@@ -39,22 +42,28 @@ export interface ModalType {
   root: string;
   parent: null;
 }
+export type Theme = "light" | "dark";
 
 export interface ThemeType {
-  theme: string;
-  setTheme: (theme: string) => void;
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
 }
 
 export interface SettingsType {
   settings: {
     sendChatHistory: boolean;
+    systemMessage: string;
+    useSystemMessageForAllChats: boolean;
     modalsList: string[];
     selectedModal: string;
   };
+  isSystemMessageModalVisible: boolean;
   isModalVisible: boolean;
+  setSystemMessage: (value: SystemMessageType) => void;
+  setSystemMessageModalVisible: (value: boolean) => void;
   setSendChatHistory: (value: boolean) => void;
   setModalVisible: (value: boolean) => void;
-  setModalsList: (value: ModalType[]) => void;
+  setModalsList: (value: string[]) => void;
   setModal: (value: string) => void;
 }
 export interface ChatType {
@@ -90,7 +99,7 @@ const useChat = create<ChatType>((set, get) => ({
   chatHistory: localStorage.getItem("chatHistory")
     ? JSON.parse(localStorage.getItem("chatHistory") as string)
     : [],
-  addChat: (chat: ChatMessageType, index?: number) => {
+  addChat: (chat, index) => {
     set(
       produce((state: ChatType) => {
         if (index || index === 0) state.chats[index] = chat;
@@ -196,21 +205,21 @@ const useAuth = create<AuthType>()(
         email: "",
         avatar: "/imgs/default-avatar.jpg",
       },
-      setToken: (token: string) => {
+      setToken: (token) => {
         set(
           produce((state) => {
             state.token = token;
           })
         );
       },
-      setUser: (user: UserType) => {
+      setUser: (user) => {
         set(
           produce((state) => {
             state.user = user;
           })
         );
       },
-      setApiKey: (apikey: string) => {
+      setApiKey: (apikey) => {
         set(
           produce((state) => {
             state.apikey = apikey;
@@ -231,33 +240,51 @@ const useSettings = create<SettingsType>()(
       settings: {
         sendChatHistory: false,
         modalsList: modalsList,
+        systemMessage: "",
+        useSystemMessageForAllChats: false,
         selectedModal: "gpt-3.5-turbo",
       },
+      isSystemMessageModalVisible: false,
       isModalVisible: false,
-      setSendChatHistory: (value: boolean) => {
+      setSystemMessage: (value) => {
         set(
-          produce((state) => {
+          produce((state: SettingsType) => {
+            state.settings.systemMessage = value.message;
+            state.settings.useSystemMessageForAllChats = value.useForAllChats;
+          })
+        );
+      },
+      setSystemMessageModalVisible: (value) => {
+        set(
+          produce((state: SettingsType) => {
+            state.isSystemMessageModalVisible = value;
+          })
+        );
+      },
+      setSendChatHistory: (value) => {
+        set(
+          produce((state: SettingsType) => {
             state.settings.sendChatHistory = value;
           })
         );
       },
-      setModal: (value: string) => {
+      setModal: (value) => {
         set(
-          produce((state) => {
+          produce((state: SettingsType) => {
             state.settings.selectedModal = value;
           })
         );
       },
-      setModalVisible: (value: boolean) => {
+      setModalVisible: (value) => {
         set(
-          produce((state) => {
+          produce((state: SettingsType) => {
             state.isModalVisible = value;
           })
         );
       },
       setModalsList: (value) => {
         set(
-          produce((state) => {
+          produce((state: SettingsType) => {
             state.settings.modalsList = value;
           })
         );
@@ -265,7 +292,7 @@ const useSettings = create<SettingsType>()(
     }),
     {
       name: "settings",
-      partialize: (state) => ({ settings: state.settings }),
+      partialize: (state: SettingsType) => ({ settings: state.settings }),
     }
   )
 );
@@ -274,7 +301,7 @@ const useTheme = create<ThemeType>()(
   persist(
     (set) => ({
       theme: "light",
-      setTheme: (theme: string) => {
+      setTheme: (theme) => {
         set(
           produce((state) => {
             state.theme = theme;
