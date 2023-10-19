@@ -610,14 +610,6 @@ video {
   top: 1rem;
 }
 
-.top-full {
-  top: 100%;
-}
-
-.top-\[calc\(100\%\+2rem\)\] {
-  top: calc(100% + 2rem);
-}
-
 .top-\[calc\(100\%\+1rem\)\] {
   top: calc(100% + 1rem);
 }
@@ -758,6 +750,10 @@ video {
   height: 100%;
 }
 
+.h-\[calc\(100\%-160px\)\] {
+  height: calc(100% - 160px);
+}
+
 .w-1 {
   width: 0.25rem;
 }
@@ -806,12 +802,12 @@ video {
   width: 75%;
 }
 
-.w-full {
-  width: 100%;
-}
-
 .w-\[calc\(100\%\+10rem\)\] {
   width: calc(100% + 10rem);
+}
+
+.w-full {
+  width: 100%;
 }
 
 .max-w-2xl {
@@ -904,10 +900,6 @@ video {
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.whitespace-nowrap {
   white-space: nowrap;
 }
 
@@ -1055,6 +1047,11 @@ video {
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
 }
 
+.bg-gray-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+}
+
 .bg-green-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(74 222 128 / var(--tw-bg-opacity));
@@ -1081,16 +1078,6 @@ video {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-black {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
-
-.bg-gray-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-50 {
@@ -1296,6 +1283,11 @@ video {
   color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
+.text-teal-600 {
+  --tw-text-opacity: 1;
+  color: rgb(13 148 136 / var(--tw-text-opacity));
+}
+
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -1304,16 +1296,6 @@ video {
 .text-yellow-400 {
   --tw-text-opacity: 1;
   color: rgb(250 204 21 / var(--tw-text-opacity));
-}
-
-.text-green-600 {
-  --tw-text-opacity: 1;
-  color: rgb(22 163 74 / var(--tw-text-opacity));
-}
-
-.text-teal-600 {
-  --tw-text-opacity: 1;
-  color: rgb(13 148 136 / var(--tw-text-opacity));
 }
 
 .underline {
@@ -1506,11 +1488,6 @@ body {
 .hover\:text-red-300:hover {
   --tw-text-opacity: 1;
   color: rgb(252 165 165 / var(--tw-text-opacity));
-}
-
-.hover\:text-yellow-400:hover {
-  --tw-text-opacity: 1;
-  color: rgb(250 204 21 / var(--tw-text-opacity));
 }
 
 .focus\:z-10:focus {

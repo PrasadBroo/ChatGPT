@@ -24,11 +24,16 @@ export default function Navbar({
   setActive: (v: boolean) => void;
 }) {
   const addNewChat = useChat((state) => state.addNewChat);
-  const [isVisible, setModalVisible,isSystemMessageModalVisible,setSystemMessageModalVisible] = useSettings((state) => [
+  const [
+    isVisible,
+    setModalVisible,
+    isSystemMessageModalVisible,
+    setSystemMessageModalVisible,
+  ] = useSettings((state) => [
     state.isModalVisible,
     state.setModalVisible,
     state.isSystemMessageModalVisible,
-    state.setSystemMessageModalVisible
+    state.setSystemMessageModalVisible,
   ]);
   const name = useAuth((state) => state.user.name);
 
@@ -65,7 +70,7 @@ export default function Navbar({
               <i className="fa-regular fa-window-maximize rotate-90"></i>
             </button>
           </div>
-          <div className="history overflow-y-auto flex-grow ">
+          <div className="history overflow-y-auto  h-[calc(100%-160px)]">
             <ChatHistory />
           </div>
           <div className="account absolute left-0 font-bold right-0 bottom-0 text-sm z-20 bg-[#202123] border-t border-gray-500 shadow  ">
