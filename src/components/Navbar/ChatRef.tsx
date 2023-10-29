@@ -6,9 +6,13 @@ import {
   checkmarkOutline,
   closeOutline,
 } from "ionicons/icons";
+
 import useChat, { isChatSelected } from "../../store/store";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
+import Modal from "../modals/Modal";
+import ConfirmDelete from "../ConfirmDelete/ConfirmDelete";
+import { createPortal } from "react-dom";
 
 export default function ChatRef({
   chat,
@@ -17,13 +21,13 @@ export default function ChatRef({
 }) {
   const viewSelectedChat = useChat((state) => state.viewSelectedChat);
   const isSelected = useChat(isChatSelected(chat.id));
-  const [handleDeleteChats, editChatsTitle] = useChat((state) => [
+  const [deleteChat, editChatsTitle] = useChat((state) => [
     state.handleDeleteChats,
     state.editChatsTitle,
   ]);
   const [editTitle, setEditTitle] = useState(chat.title);
   const [isEditingTitle, setIsEditingTitle] = useState(false);
-
+  const [confirmDeleteChat, setConfirmDeleteChat] = useState(false);
   const isTitleEditeble = isSelected && isEditingTitle;
 
   useEffect(() => {
@@ -37,6 +41,10 @@ export default function ChatRef({
     setIsEditingTitle(false);
     setEditTitle(title);
     editChatsTitle(id, title);
+  }
+  function handleDeleteChats(id: string) {
+    deleteChat(id);
+    setConfirmDeleteChat(false);
   }
 
   return (
@@ -79,7 +87,7 @@ export default function ChatRef({
           </button>
           <button
             className={classNames("  flex hover:text-red-300")}
-            onClick={() => handleDeleteChats(chat.id)}
+            onClick={() => setConfirmDeleteChat(true)}
           >
             <IonIcon icon={trashOutline} />
           </button>
@@ -100,6 +108,21 @@ export default function ChatRef({
             <IonIcon icon={closeOutline} />
           </button>
         </div>
+      )}
+      {createPortal(
+        <Modal visible={confirmDeleteChat}>
+          <ConfirmDelete
+            onDelete={() => handleDeleteChats(chat.id)}
+            onCancel={() => setConfirmDeleteChat(false)}
+          >
+            <p className="text-sm">
+              Are you sure you want to delete this chat? This action cannot be
+              undone.
+            </p>
+          </ConfirmDelete>
+        </Modal>,
+        document.getElementById("modal") as HTMLElement,
+        "confirm-delete-chat"
       )}
     </div>
   );

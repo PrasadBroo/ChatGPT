@@ -77,6 +77,7 @@ export interface ChatType {
   resetChatAt: (index: number) => void;
   handleDeleteChats: (chatid: string) => void;
   editChatsTitle: (id: string, title: string) => void;
+  clearAllChats: () => void;
 }
 
 export interface UserType {
@@ -193,6 +194,19 @@ const useChat = create<ChatType>((set, get) => ({
       })
     );
   },
+  clearAllChats: () => {
+    set(
+      produce((state: ChatType) => {
+        state.chatHistory.forEach((id) => {
+          localStorage.removeItem(id);
+        })
+        state.chats = [];
+        state.chatHistory = [];
+        localStorage.removeItem("chatHistory");
+
+      })
+    );
+  }
 }));
 
 const useAuth = create<AuthType>()(
