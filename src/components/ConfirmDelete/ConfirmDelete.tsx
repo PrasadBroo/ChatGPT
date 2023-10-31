@@ -20,7 +20,7 @@ export default function ConfirmDelete({ children, onDelete, onCancel }: Props) {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="p-4 bg-white rounded"
+      className="p-4 bg-white rounded m-2 md:m-0"
     >
       <h2 className="text-xl font-medium mb-4 dark:text-black">
         Are you sure?

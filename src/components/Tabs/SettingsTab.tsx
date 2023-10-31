@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import Modal from "../modals/Modal";
 import ConfirmDelete from "../ConfirmDelete/ConfirmDelete";
+import classNames from "classnames";
 
 const varinats = {
   hidden: { opacity: 0 },
@@ -12,7 +13,7 @@ const varinats = {
   exit: { opacity: 0 },
 };
 
-export default function SettingsTab() {
+export default function SettingsTab({ visible }: { visible: boolean}) {
   const [sendChatHistory, setSendChatHistory] = useSettings((state) => [
     state.settings.sendChatHistory,
     state.setSendChatHistory,
@@ -50,7 +51,7 @@ export default function SettingsTab() {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="settings"
+      className={classNames("settings",{hidden: !visible})}
     >
       <div className="p-2">
         <div className="flex items-center mb-4 justify-between border border-gray-200 rounded dark:border-gray-700 p-2">

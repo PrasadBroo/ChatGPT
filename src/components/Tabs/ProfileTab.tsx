@@ -4,6 +4,7 @@ import { createOutline, pencilOutline, checkmark } from "ionicons/icons";
 import { useAuth } from "../../store/store";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import classNames from "classnames";
 
 const varinats = {
   hidden: { opacity: 0 },
@@ -11,7 +12,7 @@ const varinats = {
   exit: { opacity: 0 },
 };
 
-export default function ProfileTab() {
+export default function ProfileTab({visible}: {visible: boolean}) {
   const [avatar, name, setUser] = useAuth((state) => [
     state.user.avatar,
     state.user.name,
@@ -51,7 +52,7 @@ export default function ProfileTab() {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="p-2"
+      className={classNames("p-2",{hidden: !visible})}
     >
       <div className="profile-pic group flex items-center justify-center relative">
         <input
