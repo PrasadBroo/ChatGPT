@@ -199,14 +199,13 @@ const useChat = create<ChatType>((set, get) => ({
       produce((state: ChatType) => {
         state.chatHistory.forEach((id) => {
           localStorage.removeItem(id);
-        })
+        });
         state.chats = [];
         state.chatHistory = [];
         localStorage.removeItem("chatHistory");
-
       })
     );
-  }
+  },
 }));
 
 const useAuth = create<AuthType>()(
@@ -328,12 +327,43 @@ const useTheme = create<ThemeType>()(
     }
   )
 );
+export const months = [
+  "Januray",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+export const selectChatsHistory = (state: ChatType) => {
+  const hmm: Record<number, { title: string; id: string; month: string,month_id:number }[]> =
+    {};
+  state.chatHistory.forEach((chat_id) => {
+    const { title, id, createdAt } = JSON.parse(
+      localStorage.getItem(chat_id) as string
+    );
+    const month = new Date(createdAt).getMonth();
+    if (!hmm.hasOwnProperty(month as keyof typeof hmm)) {
+      hmm[month as keyof typeof hmm] = [];
+    }
 
-export const selectChatsHistory = (state: ChatType) =>
-  state.chatHistory.map((chat_id) => {
-    const { title, id } = JSON.parse(localStorage.getItem(chat_id) as string);
-    return { title, id };
+    hmm[month as keyof typeof hmm].push({
+      title,
+      id,
+      month: months[month],
+      month_id:month
+    });
   });
+  const history = Object.keys(hmm)
+  return hmm;
+};
+
 export const selectUser = (state: AuthType) => state.user;
 export const chatsLength = (state: ChatType) => state.chats.length > 0;
 export const isDarkTheme = (state: ThemeType) => state.theme === "dark";
