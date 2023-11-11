@@ -327,6 +327,7 @@ const useTheme = create<ThemeType>()(
     }
   )
 );
+
 export const months = [
   "Januray",
   "February",
@@ -341,26 +342,58 @@ export const months = [
   "November",
   "December",
 ];
+export const priority = ["Today", "Previous 7 Days", "This month"].concat(
+  months
+);
+
 export const selectChatsHistory = (state: ChatType) => {
-  const hmm: Record<number, { title: string; id: string; month: string,month_id:number }[]> =
-    {};
+  const hmm: Record<
+    string,
+    { title: string; id: string; month: string; month_id: number }[]
+  > = {};
   state.chatHistory.forEach((chat_id) => {
     const { title, id, createdAt } = JSON.parse(
       localStorage.getItem(chat_id) as string
     );
-    const month = new Date(createdAt).getMonth();
-    if (!hmm.hasOwnProperty(month as keyof typeof hmm)) {
-      hmm[month as keyof typeof hmm] = [];
-    }
-
-    hmm[month as keyof typeof hmm].push({
+    const myDate = new Date(createdAt);
+    const currentDate = new Date();
+    const month = myDate.getMonth();
+    const date = myDate.getDate();
+    const data = {
       title,
       id,
       month: months[month],
-      month_id:month
-    });
+      month_id: month,
+    };
+
+    if (date === new Date().getDate()) {
+      if (!hmm.hasOwnProperty("Today")) {
+        hmm["Today"] = [];
+      }
+      hmm["Today"].push(data);
+      return;
+    } else if (date > currentDate.getDate() - 7) {
+      if (!hmm.hasOwnProperty("Previous 7 Days")) {
+        hmm["Previous 7 Days"] = [];
+      }
+      hmm["Previous 7 Days"].push(data);
+      return;
+    } else if (date > currentDate.getDate() - 30) {
+      if (!hmm.hasOwnProperty("Previous 30 Days")) {
+        hmm["Previous 30 Days"] = [];
+      }
+      hmm["Previous 30 Days"].push(data);
+      return;
+    } else {
+      if (!hmm.hasOwnProperty(months[month])) {
+        hmm[months[month]] = [];
+      }
+      hmm[months[month]].push(data);
+    }
+
+    hmm[months[month]].push(data);
   });
-  const history = Object.keys(hmm)
+  // const history = Object.keys(hmm);
   return hmm;
 };
 
