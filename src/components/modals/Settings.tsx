@@ -12,9 +12,9 @@ const varinats = {
   visible: { opacity: 1, scale: 1 },
   exit: { opacity: 0, scale: 0.8, transition: { duration: 0.15 } },
 };
-const tabs = ["settings", "profile"] as const;
+const tabs = ["settings", "profile"];
 export default function Settings() {
-  const [selectedTab, setSelectedTab] = useState<typeof tabs[number]>(
+  const [selectedTab, setSelectedTab] = useState(
     "settings"
   );
   const setModalVisible = useSettings((state) => state.setModalVisible);
