@@ -199,14 +199,13 @@ const useChat = create<ChatType>((set, get) => ({
       produce((state: ChatType) => {
         state.chatHistory.forEach((id) => {
           localStorage.removeItem(id);
-        })
+        });
         state.chats = [];
         state.chatHistory = [];
         localStorage.removeItem("chatHistory");
-
       })
     );
-  }
+  },
 }));
 
 const useAuth = create<AuthType>()(
@@ -329,11 +328,75 @@ const useTheme = create<ThemeType>()(
   )
 );
 
-export const selectChatsHistory = (state: ChatType) =>
-  state.chatHistory.map((chat_id) => {
-    const { title, id } = JSON.parse(localStorage.getItem(chat_id) as string);
-    return { title, id };
+export const months = [
+  "Januray",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+export const priority = ["Today", "Previous 7 Days", "This month"].concat(
+  months
+);
+
+export const selectChatsHistory = (state: ChatType) => {
+  const sortedData: Record<
+    string,
+    { title: string; id: string; month: string; month_id: number }[]
+  > = {};
+  state.chatHistory.forEach((chat_id) => {
+    const { title, id, createdAt } = JSON.parse(
+      localStorage.getItem(chat_id) as string
+    );
+    const myDate = new Date(createdAt);
+    const currentDate = new Date();
+    const month = myDate.getMonth();
+    const date = myDate.getDate();
+    const data = {
+      title,
+      id,
+      month: months[month],
+      month_id: month,
+    };
+
+    if (date === new Date().getDate()) {
+      if (!sortedData.hasOwnProperty("Today")) {
+        sortedData["Today"] = [];
+      }
+      sortedData["Today"].push(data);
+      return;
+    } else if (date > currentDate.getDate() - 7) {
+      if (!sortedData.hasOwnProperty("Previous 7 Days")) {
+        sortedData["Previous 7 Days"] = [];
+      }
+      sortedData["Previous 7 Days"].push(data);
+      return;
+    } else if (date > currentDate.getDate() - 30) {
+      if (!sortedData.hasOwnProperty("Previous 30 Days")) {
+        sortedData["Previous 30 Days"] = [];
+      }
+      sortedData["Previous 30 Days"].push(data);
+      return;
+    } else {
+      if (!sortedData.hasOwnProperty(months[month])) {
+        sortedData[months[month]] = [];
+      }
+      sortedData[months[month]].push(data);
+    }
+
+    sortedData[months[month]].push(data);
   });
+  // const history = Object.keys(sortedData);
+  return sortedData;
+};
+
 export const selectUser = (state: AuthType) => state.user;
 export const chatsLength = (state: ChatType) => state.chats.length > 0;
 export const isDarkTheme = (state: ThemeType) => state.theme === "dark";
