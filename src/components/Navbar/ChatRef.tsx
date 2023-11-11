@@ -63,7 +63,7 @@ export default function ChatRef({
             <IonIcon icon={chatboxOutline} />
           </span>
 
-          <span className="text-sm truncate capitalize" title={chat.title}>
+          <span className="text-sm truncate capitalize">
             {editTitle ? editTitle : chat.title}
           </span>
         </button>
