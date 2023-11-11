@@ -347,7 +347,7 @@ export const priority = ["Today", "Previous 7 Days", "This month"].concat(
 );
 
 export const selectChatsHistory = (state: ChatType) => {
-  const hmm: Record<
+  const sortedData: Record<
     string,
     { title: string; id: string; month: string; month_id: number }[]
   > = {};
@@ -367,34 +367,34 @@ export const selectChatsHistory = (state: ChatType) => {
     };
 
     if (date === new Date().getDate()) {
-      if (!hmm.hasOwnProperty("Today")) {
-        hmm["Today"] = [];
+      if (!sortedData.hasOwnProperty("Today")) {
+        sortedData["Today"] = [];
       }
-      hmm["Today"].push(data);
+      sortedData["Today"].push(data);
       return;
     } else if (date > currentDate.getDate() - 7) {
-      if (!hmm.hasOwnProperty("Previous 7 Days")) {
-        hmm["Previous 7 Days"] = [];
+      if (!sortedData.hasOwnProperty("Previous 7 Days")) {
+        sortedData["Previous 7 Days"] = [];
       }
-      hmm["Previous 7 Days"].push(data);
+      sortedData["Previous 7 Days"].push(data);
       return;
     } else if (date > currentDate.getDate() - 30) {
-      if (!hmm.hasOwnProperty("Previous 30 Days")) {
-        hmm["Previous 30 Days"] = [];
+      if (!sortedData.hasOwnProperty("Previous 30 Days")) {
+        sortedData["Previous 30 Days"] = [];
       }
-      hmm["Previous 30 Days"].push(data);
+      sortedData["Previous 30 Days"].push(data);
       return;
     } else {
-      if (!hmm.hasOwnProperty(months[month])) {
-        hmm[months[month]] = [];
+      if (!sortedData.hasOwnProperty(months[month])) {
+        sortedData[months[month]] = [];
       }
-      hmm[months[month]].push(data);
+      sortedData[months[month]].push(data);
     }
 
-    hmm[months[month]].push(data);
+    sortedData[months[month]].push(data);
   });
-  // const history = Object.keys(hmm);
-  return hmm;
+  // const history = Object.keys(sortedData);
+  return sortedData;
 };
 
 export const selectUser = (state: AuthType) => state.user;
