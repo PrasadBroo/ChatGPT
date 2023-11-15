@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { produce } from "immer";
+import moment from "moment";
 
 const modalsList = [
   "gpt-3.5-turbo",
@@ -342,9 +343,12 @@ export const months = [
   "November",
   "December",
 ];
-export const priority = ["Today", "Previous 7 Days", "This month"].concat(
-  months
-);
+export const priority = [
+  "Today",
+  "Previous 7 Days",
+  "Previous 30 Days",
+  "This month",
+].concat(months);
 
 export const selectChatsHistory = (state: ChatType) => {
   const sortedData: Record<
@@ -355,10 +359,10 @@ export const selectChatsHistory = (state: ChatType) => {
     const { title, id, createdAt } = JSON.parse(
       localStorage.getItem(chat_id) as string
     );
-    const myDate = new Date(createdAt);
-    const currentDate = new Date();
-    const month = myDate.getMonth();
-    const date = myDate.getDate();
+    const myDate = moment(createdAt, "YYYY-MM-DD");
+    const currentDate = moment();
+    const month = myDate.toDate().getMonth();
+
     const data = {
       title,
       id,
@@ -366,19 +370,19 @@ export const selectChatsHistory = (state: ChatType) => {
       month_id: month,
     };
 
-    if (date === new Date().getDate()) {
+    if (myDate.isSame(currentDate.format("YYYY-MM-DD"))) {
       if (!sortedData.hasOwnProperty("Today")) {
         sortedData["Today"] = [];
       }
       sortedData["Today"].push(data);
       return;
-    } else if (date > currentDate.getDate() - 7) {
+    } else if (currentDate.subtract(7, "days").isBefore(myDate)) {
       if (!sortedData.hasOwnProperty("Previous 7 Days")) {
         sortedData["Previous 7 Days"] = [];
       }
       sortedData["Previous 7 Days"].push(data);
       return;
-    } else if (date > currentDate.getDate() - 30) {
+    } else if (currentDate.subtract(30, "days").isBefore(myDate)) {
       if (!sortedData.hasOwnProperty("Previous 30 Days")) {
         sortedData["Previous 30 Days"] = [];
       }

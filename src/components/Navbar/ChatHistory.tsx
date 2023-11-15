@@ -3,6 +3,7 @@ import ChatRef from "./ChatRef";
 
 export default function ChatHistory() {
   const chatsHistory = useChat(selectChatsHistory);
+  console.log(chatsHistory);
   return (
     <div className="my-4 text-[#ECECF1] px-2">
       {Object.keys(chatsHistory)
@@ -11,8 +12,8 @@ export default function ChatHistory() {
           return (
             <div key={month}>
               <h3 className=" text-sm my-2 text-[#8E8EA0] pl-2">{month}</h3>
-              {chatsHistory[month].map((chatId) => (
-                <ChatRef key={chatId.id} chat={chatId} />
+              {chatsHistory[month].map((chatId, i) => (
+                <ChatRef key={chatId.id + i} chat={chatId} />
               ))}
             </div>
           );
