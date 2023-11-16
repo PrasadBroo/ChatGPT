@@ -58,6 +58,7 @@ export default function ChatRef({
         <button
           className="  py-2  w-3/4 flex  items-center flex-grow  transition p-2"
           onClick={() => viewSelectedChat(chat.id)}
+          title={chat.title}
         >
           <span className="mr-2  flex">
             <IonIcon icon={chatboxOutline} />
