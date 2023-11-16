@@ -395,7 +395,6 @@ export const selectChatsHistory = (state: ChatType) => {
       sortedData[months[month]].push(data);
     }
 
-    sortedData[months[month]].push(data);
   });
   // const history = Object.keys(sortedData);
   return sortedData;
