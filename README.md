@@ -43,7 +43,6 @@ npm install
 1. Start the app
 
 ```
-cd ChatGPT
 npm run dev
 ```
 
