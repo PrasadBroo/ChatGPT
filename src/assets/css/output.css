@@ -822,6 +822,10 @@ video {
   max-width: 36rem;
 }
 
+.max-w-\[620px\] {
+  max-width: 620px;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -893,12 +897,20 @@ video {
   align-self: center;
 }
 
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
 .overflow-y-auto {
   overflow-y: auto;
 }
 
 .overflow-x-hidden {
   overflow-x: hidden;
+}
+
+.overflow-y-hidden {
+  overflow-y: hidden;
 }
 
 .truncate {
@@ -1469,6 +1481,10 @@ body {
   content: var(--tw-content);
 }
 
+.hover\:visible:hover {
+  visibility: visible;
+}
+
 .hover\:border:hover {
   border-width: 1px;
 }
@@ -1787,6 +1803,10 @@ body {
 
   .md\:invisible {
     visibility: hidden;
+  }
+
+  .md\:m-0 {
+    margin: 0px;
   }
 
   .md\:mx-0 {

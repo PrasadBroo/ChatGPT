@@ -3,7 +3,7 @@ import ChatRef from "./ChatRef";
 
 export default function ChatHistory() {
   const chatsHistory = useChat(selectChatsHistory);
-  console.log(Object.keys(chatsHistory).length > 0);
+
   return (
     <div className="my-4 text-[#ECECF1] px-2 h-full">
       {Object.keys(chatsHistory).length > 0 &&

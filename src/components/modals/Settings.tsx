@@ -32,6 +32,7 @@ export default function Settings() {
           {tabs.map((tab) => (
             <button
               type="button"
+              key={tab}
               className={classNames("mr-2 p-2 rounded-t-lg capitalize", {
                 "bg-gray-200 dark:bg-gray-700 border-2 border-b-0 border-blue-600":
                   selectedTab === tab,

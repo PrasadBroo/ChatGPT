@@ -9,6 +9,7 @@ export default function UserQuery() {
   const [query, setQuery] = useState("");
   const formRef = useRef<null | HTMLFormElement>(null);
   const addChat = useChat((state) => state.addChat);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   function handleOnKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     const target = e.target as HTMLTextAreaElement;
@@ -16,11 +17,15 @@ export default function UserQuery() {
       e.preventDefault();
       if (formRef.current) {
         formRef.current.requestSubmit();
+        target.style.height = "30px";
       }
-      target.style.height = "30px";
-      return;
     }
+  }
 
+  function handleOnInputChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    const target = e.target as HTMLTextAreaElement;
+    setQuery(target.value);
+    target.style.height = "0px";
     target.style.height = `${target.scrollHeight}px`;
   }
 
@@ -30,22 +35,24 @@ export default function UserQuery() {
       addChat({ role: "user", content: query, id: shortid.generate() });
       addChat({ role: "assistant", content: "", id: shortid.generate() });
       setQuery("");
+      if (textareaRef.current) textareaRef.current.style.height = "30px";
     }
   }
 
   return (
     <form
-      className="input shadow-md dark:bg-[#40414f]  p-2 border dark:border-none flex items-center   rounded-md"
+      className="input shadow-md dark:bg-[#40414f]   border dark:border-none flex items-center   rounded-md"
       onSubmit={handleOnSubmit}
       ref={formRef}
     >
-      <div className="w-11/12">
+      <div className="w-11/12 p-2">
         <textarea
           name="query"
+          ref={textareaRef}
           className="h-6 px-2  w-full outline-none resize-none dark:bg-transparent dark:text-white"
           placeholder="Send a message"
           onKeyDown={handleOnKeyDown}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={handleOnInputChange}
           value={query}
           autoFocus
         ></textarea>
