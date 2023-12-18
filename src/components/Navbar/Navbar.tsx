@@ -41,7 +41,7 @@ export default function Navbar({
     <>
       <div
         className={classnames(
-          "navwrap fixed duration-500 top-0 left-0 bottom-0 right-0 z-30 bg-gray-500 md:bg-opacity-0 ",
+          "navwrap fixed duration-500 top-0 left-0 bottom-0 right-0 md:right-auto z-30 bg-gray-500 md:bg-opacity-0 ",
           { "bg-opacity-60 ": active, "opacity-0 pointer-events-none": !active }
         )}
       >
