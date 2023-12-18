@@ -34,7 +34,7 @@ function App() {
       <div className="">
         <button
           type="button"
-          className="shadow fixed p-2 h-8 w-8 text-sm top-4 left-4 hidden md:inline-flex text-white dark:border border-gray-400 rounded-md items-center justify-center"
+          className="shadow fixed p-2 h-8 w-8 text-sm top-4 left-4 border-2 hidden md:inline-flex dark:text-white text-gray-700 dark:border border-gray-400 rounded-md items-center justify-center"
           onClick={() => setActive(true)}
         >
           <i className="fa-regular fa-window-maximize rotate-90"></i>
