@@ -27,14 +27,14 @@ function App() {
       document.documentElement.classList.remove("dark");
     }
   }, [theme]);
-  
+
   return (
     <div className="App font-poppins md:flex ">
       <Navbar active={active} setActive={setActive} />
       <div className="">
         <button
           type="button"
-          className="shadow p-1 fixed text-sm top-4 left-4 hidden md:inline-block text-gray-400 dark:border border-gray-400 rounded-md"
+          className="shadow fixed p-2 h-8 w-8 text-sm top-4 left-4 hidden md:inline-flex text-white dark:border border-gray-400 rounded-md items-center justify-center"
           onClick={() => setActive(true)}
         >
           <i className="fa-regular fa-window-maximize rotate-90"></i>
