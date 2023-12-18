@@ -17,7 +17,7 @@ export default function GptIntro() {
           className={classNames(
             "gpt3 uppercase  rounded-md p-2 transition  flex-1 flex items-center  dark:text-white justify-center",
             {
-              "bg-white dark:bg-[#40414f] border border-green-400":
+              "bg-white dark:bg-[#40414f] border-2 dark:border-green-400 border-gray-700":
                 isGptThreeSelected,
               "opacity-50": !isGptThreeSelected,
             }
@@ -38,9 +38,9 @@ export default function GptIntro() {
         <button
           title="GPT - 4"
           className={classNames(
-            "gpt4 uppercase rounded p-2 transition text-gray-400 dark:text-white flex-1 flex  items-center justify-center",
+            "gpt4 uppercase rounded p-2 transition  dark:text-white flex-1 flex  items-center justify-center",
             {
-              "bg-white dark:bg-[#40414f] border border-green-400":
+              "bg-white dark:bg-[#40414f] border-2 dark:border-green-400 border-gray-700":
                 !isGptThreeSelected,
               "opacity-50": isGptThreeSelected,
             }
