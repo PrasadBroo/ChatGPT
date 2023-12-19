@@ -7,7 +7,6 @@ import {
   chatboxEllipsesOutline,
   cafeOutline,
   settingsOutline,
-  logOutOutline,
   ellipsisHorizontalOutline,
   closeOutline,
 } from "ionicons/icons";
@@ -70,10 +69,10 @@ export default function Navbar({
               <i className="fa-regular fa-window-maximize rotate-90"></i>
             </button>
           </div>
-          <div className="history overflow-y-auto  h-[calc(100%-160px)]">
+          <div className="history overflow-y-auto h-[calc(100%-60px)]">
             <ChatHistory />
           </div>
-          <div className="account absolute left-0 font-bold right-0 bottom-0 text-sm z-20 bg-[#202123] border-t border-gray-500 shadow  ">
+          <div className="account  font-bold  text-sm z-20 bg-[#202123] border-t border-gray-500 shadow  ">
             <div className="px-2 py-2 flex items-center text-2xl text-yellow-400 border-y border-yellow-400">
               <span className=" flex items-center text-xl ">
                 <IonIcon icon={cafeOutline} />
@@ -109,12 +108,13 @@ export default function Navbar({
                   <span>Settings</span>
                 </button>
                 <div className="h-[1px] bg-gray-300"></div>
-                <button className=" p-2   hover:bg-gray-700  w-full  text-left flex items-center">
+                {/* maybe in future i will add authentication */}
+                {/* <button className=" p-2   hover:bg-gray-700  w-full  text-left flex items-center">
                   <span className="mr-2 p-1 text-xl flex items-center">
                     <IonIcon icon={logOutOutline} />
                   </span>
                   <span>Log out</span>
-                </button>
+                </button> */}
               </div>
               <Avatar className=" h-11 w-11" />
 
