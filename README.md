@@ -16,6 +16,11 @@ ChatGPT clone with added features
 - Custom chat titles 💬
 - Export/Import your chats 🔼🔽
 
+## To-Do
+
+- [ ] Add DALL-E1 & DALL-E2 Image Generation Models
+- [ ] Add Code Highlight
+- [ ] [Add ChatGPT Pre Made Prompts](https://github.com/f/awesome-chatgpt-prompts)
 ## Requirements
 
 - Node JS
