@@ -1,5 +1,6 @@
 import useChat, {
   ChatMessageType,
+  Theme,
   useSettings,
   useTheme,
 } from "../store/store";
@@ -8,8 +9,7 @@ type Backup = {
   conversations: {
     [key: string]: {
       id: string;
-      created_at: string;
-      updated_at: string;
+      createdAt: string;
       chats: [ChatMessageType];
     };
   };
@@ -49,18 +49,27 @@ export function handleExportChats(): Promise<boolean> {
       a.click();
       resolve(true);
     } catch (error) {
-      reject(error);
+      reject("Error exporting chats");
     }
   });
 }
 
 export function handleImportChats(file: File): Promise<Error | boolean> {
+  if (!file) return Promise.reject(new Error("No file selected"));
+  if (file.type !== "application/json")
+    return Promise.reject(new Error("File is not a json file"));
   return new Promise((resolve, reject) => {
     try {
       const reader = new FileReader();
       const getOnlyUniqueIds = (arr: string[]) => Array.from(new Set(arr));
       reader.onload = function (e) {
-        const chats = JSON.parse(e.target?.result as string);
+        let chats: Backup;
+        try {
+          chats = JSON.parse(e.target?.result as string);
+        } catch (error) {
+          return reject("Invalid json file");
+        }
+
         // only store chats that are not in the chatHistory
 
         useChat.setState((prev) => ({
@@ -68,7 +77,7 @@ export function handleImportChats(file: File): Promise<Error | boolean> {
             Object.keys(chats.conversations).concat(prev.chatHistory)
           ),
         }));
-        useTheme.setState({ theme: chats.settings.theme });
+        useTheme.setState({ theme: chats.settings.theme as Theme });
         useSettings.setState((prev) => ({
           settings: { ...prev.settings, ...chats.settings },
         }));
@@ -90,7 +99,7 @@ export function handleImportChats(file: File): Promise<Error | boolean> {
       };
       reader.readAsText(file);
     } catch (error) {
-      reject(error);
+      if (error instanceof Error) reject(error.message);
     }
   });
 }

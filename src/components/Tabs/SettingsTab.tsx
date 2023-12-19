@@ -21,15 +21,13 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
     setModal,
     selectedModal,
     modalsList,
-  ] = useSettings(
-    (state) => [
-      state.settings.sendChatHistory,
-      state.setSendChatHistory,
-      state.setModal,
-      state.settings.selectedModal,
-      state.settings.modalsList,
-    ],
-  );
+  ] = useSettings((state) => [
+    state.settings.sendChatHistory,
+    state.setSendChatHistory,
+    state.setModal,
+    state.settings.selectedModal,
+    state.settings.modalsList,
+  ]);
 
   const [theme, setTheme] = useTheme((state) => [state.theme, state.setTheme]);
 
@@ -65,7 +63,7 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
     setImportExportStatus({ importing: true, exporting: false });
     handleImportChats(file)
       .then(() => alert("Chats imported successfully"))
-      .catch((err) => alert(err.message))
+      .catch((message) => alert(message))
       .finally(() =>
         setImportExportStatus({ importing: false, exporting: false })
       );
@@ -75,7 +73,7 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
     setImportExportStatus({ importing: false, exporting: true });
     handleExportChats()
       .then(() => alert("Chats exported successfully"))
-      .catch((err) => alert(err.message))
+      .catch((err) => alert(err))
       .finally(() =>
         setImportExportStatus({ importing: false, exporting: false })
       );
