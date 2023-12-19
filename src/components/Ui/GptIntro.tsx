@@ -17,7 +17,7 @@ export default function GptIntro() {
           className={classNames(
             "gpt3 uppercase  rounded-md p-2 transition  flex-1 flex items-center  dark:text-white justify-center",
             {
-              "bg-white dark:bg-[#40414f] border-2 dark:border-teal-400 border-gray-700":
+              "bg-white dark:bg-[#40414f] border-2 dark:border-white border-gray-700":
                 isGptThreeSelected,
               "opacity-50": !isGptThreeSelected,
             }
@@ -40,7 +40,7 @@ export default function GptIntro() {
           className={classNames(
             "gpt4 uppercase rounded p-2 transition  dark:text-white flex-1 flex  items-center justify-center",
             {
-              "bg-white dark:bg-[#40414f] border-2 dark:border-teal-400 border-gray-700":
+              "bg-white dark:bg-[#40414f] border-2 dark:border-white border-gray-700":
                 !isGptThreeSelected,
               "opacity-50": isGptThreeSelected,
             }
