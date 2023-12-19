@@ -1,5 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { createWithEqualityFn } from "zustand/traditional";
+import { shallow } from "zustand/shallow";
 import { produce } from "immer";
 import moment from "moment";
 
@@ -248,7 +250,7 @@ const useAuth = create<AuthType>()(
   )
 );
 
-const useSettings = create<SettingsType>()(
+const useSettings = createWithEqualityFn<SettingsType>()(
   persist(
     (set) => ({
       settings: {
@@ -308,7 +310,8 @@ const useSettings = create<SettingsType>()(
       name: "settings",
       partialize: (state: SettingsType) => ({ settings: state.settings }),
     }
-  )
+  ),
+  shallow
 );
 
 const useTheme = create<ThemeType>()(
@@ -394,7 +397,6 @@ export const selectChatsHistory = (state: ChatType) => {
       }
       sortedData[months[month]].push(data);
     }
-
   });
   // const history = Object.keys(sortedData);
   return sortedData;

@@ -1,16 +1,12 @@
 import { IonIcon } from "@ionic/react";
 import { checkmarkOutline, createOutline } from "ionicons/icons";
-import useChat, {
-  ChatMessageType,
-  useAuth,
-  useSettings,
-  useTheme,
-} from "../../store/store";
+import useChat, { useAuth, useSettings, useTheme } from "../../store/store";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Modal from "../modals/Modal";
 import ConfirmDelete from "../ConfirmDelete/ConfirmDelete";
 import classNames from "classnames";
+import { handleExportChats, handleImportChats } from "../../utils/importexport";
 
 const varinats = {
   hidden: { opacity: 0 },
@@ -18,29 +14,25 @@ const varinats = {
   exit: { opacity: 0 },
 };
 
-type Backup = {
-  conversations: {
-    [key: string]: {
-      id: string;
-      created_at: string;
-      updated_at: string;
-      chats: [ChatMessageType];
-    };
-  };
-  settings: {};
-};
-
 export default function SettingsTab({ visible }: { visible: boolean }) {
-  const [sendChatHistory, setSendChatHistory] = useSettings((state) => [
-    state.settings.sendChatHistory,
-    state.setSendChatHistory,
-  ]);
+  const [
+    sendChatHistory,
+    setSendChatHistory,
+    setModal,
+    selectedModal,
+    modalsList,
+  ] = useSettings(
+    (state) => [
+      state.settings.sendChatHistory,
+      state.setSendChatHistory,
+      state.setModal,
+      state.settings.selectedModal,
+      state.settings.modalsList,
+    ],
+  );
+
   const [theme, setTheme] = useTheme((state) => [state.theme, state.setTheme]);
-  const modalsList = useSettings((state) => state.settings.modalsList);
-  const [setModal, selectedModal] = useSettings((state) => [
-    state.setModal,
-    state.settings.selectedModal,
-  ]);
+
   const clearAllChats = useChat((state) => state.clearAllChats);
   const [apikey, setApiKey] = useAuth((state) => [
     state.apikey,
@@ -49,6 +41,11 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
   const [newApiKey, setNewApiKey] = useState(apikey);
   const [editApiKey, setEditApiKey] = useState(false);
   const [confirmDeleteChats, setConfirmDeleteChats] = useState(false);
+  const [importExportStatus, setImportExportStatus] = useState({
+    importing: false,
+    exporting: false,
+  });
+
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSendChatHistory(e.target.checked);
   }
@@ -65,35 +62,25 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
   function handleChatsFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const chats = JSON.parse(e.target?.result as string);
-      console.log(chats);
-    };
-    reader.readAsText(file);
-  }
-  function handleExportChats() {
-    const backup: Backup = {
-      conversations: {},
-      settings: {},
-    };
-    useChat
-      .getState()
-      .chatHistory.forEach(
-        (c) =>
-          (backup.conversations[c] = JSON.parse(
-            localStorage.getItem(c) as string
-          ))
+    setImportExportStatus({ importing: true, exporting: false });
+    handleImportChats(file)
+      .then(() => alert("Chats imported successfully"))
+      .catch((err) => alert(err.message))
+      .finally(() =>
+        setImportExportStatus({ importing: false, exporting: false })
       );
-    backup.settings = useSettings.getState().settings;
-    const data = JSON.stringify(backup);
-    console.log(backup);
-    const a = document.createElement("a");
-    const file = new Blob([data], { type: "text/plain" });
-    a.href = URL.createObjectURL(file);
-    a.download = `backup-${new Date().toISOString()}.json`;
-    a.click();
   }
+
+  function exportChats() {
+    setImportExportStatus({ importing: false, exporting: true });
+    handleExportChats()
+      .then(() => alert("Chats exported successfully"))
+      .catch((err) => alert(err.message))
+      .finally(() =>
+        setImportExportStatus({ importing: false, exporting: false })
+      );
+  }
+
   return (
     <motion.div
       variants={varinats}
@@ -167,15 +154,17 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
             />
             <button
               type="button"
-              className=" bg-teal-700 text-white p-1 px-2 rounded mr-2"
+              className=" bg-teal-700 text-white p-1 px-2 rounded mr-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none"
               onClick={() => document.getElementById("chats-file")?.click()}
+              disabled={importExportStatus.importing}
             >
               Import
             </button>
             <button
               type="button"
-              className=" bg-red-700 text-white p-1 px-2 rounded"
-              onClick={handleExportChats}
+              className=" bg-red-700 text-white p-1 px-2 rounded disabled:cursor-not-allowed disabled:pointer-events-none"
+              disabled={importExportStatus.exporting}
+              onClick={exportChats}
             >
               Export
             </button>
