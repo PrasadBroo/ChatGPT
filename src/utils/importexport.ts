@@ -58,10 +58,16 @@ export function handleImportChats(file: File): Promise<Error | boolean> {
   return new Promise((resolve, reject) => {
     try {
       const reader = new FileReader();
+      const getOnlyUniqueIds = (arr: string[]) => Array.from(new Set(arr));
       reader.onload = function (e) {
         const chats = JSON.parse(e.target?.result as string);
+        // only store chats that are not in the chatHistory
 
-        useChat.setState({ chatHistory: Object.keys(chats.conversations) });
+        useChat.setState((prev) => ({
+          chatHistory: getOnlyUniqueIds(
+            Object.keys(chats.conversations).concat(prev.chatHistory)
+          ),
+        }));
         useTheme.setState({ theme: chats.settings.theme });
         useSettings.setState((prev) => ({
           settings: { ...prev.settings, ...chats.settings },
@@ -72,7 +78,13 @@ export function handleImportChats(file: File): Promise<Error | boolean> {
         });
         localStorage.setItem(
           "chatHistory",
-          JSON.stringify(Object.keys(chats.conversations))
+          JSON.stringify(
+            getOnlyUniqueIds(
+              Object.keys(chats.conversations).concat(
+                useChat.getState().chatHistory
+              )
+            )
+          )
         );
         resolve(true);
       };
