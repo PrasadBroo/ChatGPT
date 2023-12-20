@@ -1,5 +1,6 @@
 import useChat, {
   ChatMessageType,
+  SettingsType,
   Theme,
   useSettings,
   useTheme,
@@ -33,8 +34,10 @@ export function handleExportChats(): Promise<boolean> {
               localStorage.getItem(c) as string
             ))
         );
-
-      backup.settings = useSettings.getState().settings;
+      const settingsClone:SettingsType['settings'] = JSON.parse(
+        JSON.stringify(useSettings.getState().settings)
+      );
+      backup.settings = settingsClone;
       backup.settings.theme = useTheme.getState().theme;
 
       const data = JSON.stringify(backup, null, 2);
@@ -46,6 +49,7 @@ export function handleExportChats(): Promise<boolean> {
       a.click();
       resolve(true);
     } catch (error) {
+      console.log(error);
       reject("Error exporting chats");
     }
   });
