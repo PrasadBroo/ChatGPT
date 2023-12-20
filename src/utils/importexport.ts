@@ -33,11 +33,8 @@ export function handleExportChats(): Promise<boolean> {
               localStorage.getItem(c) as string
             ))
         );
-      const settingsClone = JSON.parse(
-        JSON.stringify(useSettings.getState().settings)
-      );
-      delete settingsClone.modalsList;
-      backup.settings = settingsClone;
+
+      backup.settings = useSettings.getState().settings;
       backup.settings.theme = useTheme.getState().theme;
 
       const data = JSON.stringify(backup, null, 2);

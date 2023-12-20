@@ -26,7 +26,7 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
     state.setSendChatHistory,
     state.setModal,
     state.settings.selectedModal,
-    state.settings.modalsList,
+    state.modalsList,
   ]);
 
   const [theme, setTheme] = useTheme((state) => [state.theme, state.setTheme]);
@@ -78,6 +78,16 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
         setImportExportStatus({ importing: false, exporting: false })
       );
   }
+  const groupedModels = modalsList.reduce(
+    (obj: Record<string, string[]>, modal) => {
+      const prefix = modal.split("-")[0] + "-" + modal.split("-")[1];
+      return {
+        ...obj,
+        [prefix]: [...(obj[prefix] || []), modal],
+      };
+    },
+    {}
+  );
 
   return (
     <motion.div
@@ -219,12 +229,19 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
             onChange={(e) => handleModalChange(e.target.value)}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
-            {modalsList &&
-              modalsList.map((modal) => (
-                <option value={modal} key={modal}>
-                  {modal}
-                </option>
-              ))}
+            {Object.keys(groupedModels).map((group) => (
+              <optgroup
+                label={group.toUpperCase()}
+                key={group}
+                disabled={group.startsWith("dall-e")}
+              >
+                {groupedModels[group].map((modal) => (
+                  <option value={modal} key={modal}>
+                    {modal}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
           </select>
         </div>
       </div>

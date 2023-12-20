@@ -7,11 +7,16 @@ import moment from "moment";
 
 const modalsList = [
   "gpt-3.5-turbo",
+  "gpt-3.5-turbo-1106",
+  "gpt-3.5-turbo-16k-0613",
   "gpt-3.5-turbo-16k",
   "gpt-3.5-turbo-0613",
   "gpt-4",
   "gpt-4-0613",
   "gpt-4-0314",
+  "gpt-4-1106-preview",
+  "dall-e-3",
+  "dall-e-2",
 ];
 export interface ChatMessageType {
   role: "user" | "assistant" | "system";
@@ -57,9 +62,9 @@ export interface SettingsType {
     sendChatHistory: boolean;
     systemMessage: string;
     useSystemMessageForAllChats: boolean;
-    modalsList: string[];
     selectedModal: string;
   };
+  modalsList: string[];
   isSystemMessageModalVisible: boolean;
   isModalVisible: boolean;
   setSystemMessage: (value: SystemMessageType) => void;
@@ -255,11 +260,11 @@ const useSettings = createWithEqualityFn<SettingsType>()(
     (set) => ({
       settings: {
         sendChatHistory: false,
-        modalsList: modalsList,
         systemMessage: "",
         useSystemMessageForAllChats: false,
         selectedModal: "gpt-3.5-turbo",
       },
+      modalsList: modalsList,
       isSystemMessageModalVisible: false,
       isModalVisible: false,
       setSystemMessage: (value) => {
@@ -301,7 +306,7 @@ const useSettings = createWithEqualityFn<SettingsType>()(
       setModalsList: (value) => {
         set(
           produce((state: SettingsType) => {
-            state.settings.modalsList = value;
+            state.modalsList = value;
           })
         );
       },
