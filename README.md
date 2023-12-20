@@ -2,6 +2,11 @@
 
 ChatGPT clone with added features
 
+# Deploy
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FPrasadBroo%2FChatGPT&install-command=npm%20install&output-directory=dist)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/PrasadBroo/ChatGPT)
+
 # Demo
 
 <img src="demo/demo.gif" width="700px" alt="demo gif"/>
