@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
-    "preview": "vite preview",
-    "build-css": "npx tailwindcss -i ./src/assets/css/input.css -o ./src/assets/css/output.css --watch"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@ionic/react": "^7.3.3",
@@ -28,8 +27,10 @@
     "@types/react-dom": "^18.0.11",
     "@types/shortid": "^0.0.30",
     "@vitejs/plugin-react": "^3.1.0",
+    "autoprefixer": "^10.4.16",
     "eslint": "^8.0.0",
     "eslint-config-react-app": "^7.0.1",
+    "postcss": "^8.4.32",
     "tailwindcss": "^3.3.3",
     "typescript": "^4.9.3",
     "vite": "^4.2.0"
