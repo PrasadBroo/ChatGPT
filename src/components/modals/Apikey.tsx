@@ -1,5 +1,5 @@
 import { IonIcon } from "@ionic/react";
-import { informationCircleOutline } from "ionicons/icons";
+import { informationCircleOutline, closeCircleOutline } from "ionicons/icons";
 import { useAuth } from "../../store/store";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -28,6 +28,15 @@ export default function Apikey() {
       exit="exit"
       className="dark:bg-gray-700 text-gray-700 dark:text-gray-300 border bg-white border-blue-400 max-w-xl w-full p-3 rounded-md mx-2 md:mx-0"
     >
+      <div className=" text-right">
+        <button
+          type="button"
+          className=" text-xl"
+          onClick={() => setApiKey("sk-")}
+        >
+          <IonIcon icon={closeCircleOutline} />
+        </button>
+      </div>
       <h2 className="text-xl font-medium   text-center my-2">
         Enter your apikey
       </h2>
