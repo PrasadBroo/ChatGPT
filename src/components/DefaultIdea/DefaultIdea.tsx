@@ -22,7 +22,7 @@ export default function DefaultIdea({
       {ideas.map((i) => (
         <button
           key={i.idea}
-          className="border inline-flex dark:border-gray-500 border-gray-700 mb-2  w-full text-left p-2 group rounded-md  shadow flex-1 md:flex-row md:items-center"
+          className="border inline-flex dark:border-gray-500 border-gray-300 hover:bg-gray-200 mb-2  w-full text-left p-2 group rounded-md  shadow flex-1 md:flex-row md:items-center"
           onClick={() => {
             addChat({
               role: "user",
@@ -32,7 +32,7 @@ export default function DefaultIdea({
             addChat({ role: "assistant", content: "", id: shortid.generate() });
           }}
         >
-          <div className=" self-stretch">
+          <div className=" self-stretch w-11/12">
             <h3 className=" font-bold  dark:text-gray-300 text-gray-700">
               {i.idea}
             </h3>
