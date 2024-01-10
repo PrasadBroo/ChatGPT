@@ -72,13 +72,13 @@ export default function SystemMessage() {
         </div>
         <div className="flex justify-end mt-2">
           <button
-            className=" bg-green-400 text-white px-4 py-2 rounded mr-2"
+            className=" bg-teal-700 hover:bg-teal-900 text-white px-4 py-2 rounded mr-2"
             type="submit"
           >
             Save
           </button>
           <button
-            className="bg-gray-300 text-gray-700 px-4 py-2 rounded"
+            className="bg-gray-200 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded"
             onClick={() => setSystemMessageModalVisible(false)}
           >
             Cancel

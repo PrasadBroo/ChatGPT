@@ -41,7 +41,7 @@ export default function UserQuery() {
 
   return (
     <form
-      className="input shadow-md dark:bg-[#40414f] dark:border-white border-gray-700 border-2 flex items-center   rounded-md"
+      className="input shadow-md dark:bg-[#40414f] bg-white  dark:border-white border-gray-700 border-2 flex items-center   rounded-md"
       onSubmit={handleOnSubmit}
       ref={formRef}
     >

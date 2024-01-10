@@ -58,7 +58,7 @@ function App() {
         {isChatsVisible && <Chats />}
         <div
           className={classNames(
-            "fixed left-0 px-2  right-0 transition-all duration-500 bottom-0 dark:shadow-lg py-1",
+            "fixed left-0 px-2  right-0 transition-all duration-500 bottom-0 dark:shadow-lg py-1 shadow-md backdrop-blur-sm bg-white/10 dark:bg-dark-primary/10",
             {
               "dark:bg-dark-primary bg-white": isChatsVisible,
               "md:ml-[260px]": active,
