@@ -25,7 +25,7 @@ export default function Settings() {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="tabs rounded-md bg-white dark:bg-gray-800 mx-2 md:mx-0 text-gray-500 dark:text-gray-300 w-full max-w-xl py-4 transition-all"
+      className="tabs font-bold rounded-md bg-white dark:bg-gray-800 mx-2 md:mx-0 text-gray-500 dark:text-gray-300 w-full max-w-xl py-4 transition-all"
     >
       <div className="flex items-center justify-between px-2">
         <div className="">

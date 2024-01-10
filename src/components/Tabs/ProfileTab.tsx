@@ -12,7 +12,7 @@ const varinats = {
   exit: { opacity: 0 },
 };
 
-export default function ProfileTab({visible}: {visible: boolean}) {
+export default function ProfileTab({ visible }: { visible: boolean }) {
   const [avatar, name, setUser] = useAuth((state) => [
     state.user.avatar,
     state.user.name,
@@ -52,7 +52,7 @@ export default function ProfileTab({visible}: {visible: boolean}) {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className={classNames("p-2",{hidden: !visible})}
+      className={classNames("p-2", { hidden: !visible })}
     >
       <div className="profile-pic group flex items-center justify-center relative">
         <input
@@ -83,8 +83,8 @@ export default function ProfileTab({visible}: {visible: boolean}) {
       </div>
       <div className="my-4 ">
         {!editName && (
-          <div className="flex items-center justify-center">
-            <span className="mr-2">{myname}</span>
+          <div className="flex items-center justify-center text-xl">
+            <span className="mr-2 ">{myname}</span>
             <button
               type="button"
               title="Edit name"
@@ -102,7 +102,7 @@ export default function ProfileTab({visible}: {visible: boolean}) {
               id="name"
               value={myname}
               onChange={(e) => setMyName(e.target.value)}
-              className="bg-gray-50 border w-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block  py-2.5 px-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder={myname}
               required
             />

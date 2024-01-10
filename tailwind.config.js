@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+const twConfig = {
   darkMode: "class",
   content: [
     "./src/components/**/*.{html,jsx,tsx}",
@@ -8,8 +8,15 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily: { poppins: ["Poppins", "sans-serif", "Roboto"] },
+      fontFamily: {
+        montserrat: ["Montserrat", "sans-serif", "Roboto"],
+      },
+      colors: {
+        "dark-primary": "#40414f",
+      },
     },
   },
   plugins: [],
 };
+
+export default twConfig;

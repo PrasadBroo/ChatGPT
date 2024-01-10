@@ -101,7 +101,7 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
         <div className="flex items-center mb-4 justify-between border border-gray-200 rounded dark:border-gray-700 p-2">
           <label
             htmlFor="default-checkbox"
-            className="ml-2  font-medium  dark:text-gray-300"
+            className="ml-2  font-bold  dark:text-gray-300"
           >
             Dark mode
           </label>
@@ -117,7 +117,7 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
           </label>
         </div>
         <div className="flex items-center mb-4 justify-between border border-gray-200 rounded dark:border-gray-700 p-2">
-          <span className="ml-2  font-medium  dark:text-gray-300">
+          <span className="ml-2  font-bold  dark:text-gray-300">
             Clear all chats
           </span>
           <button
@@ -132,7 +132,7 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
         <div className="flex items-center mb-4 justify-between border border-gray-200 rounded dark:border-gray-700 p-2">
           <label
             htmlFor="default-checkbox"
-            className="ml-2  font-medium  dark:text-gray-300"
+            className="ml-2  font-bold  dark:text-gray-300"
           >
             Send chat history
           </label>
@@ -148,7 +148,7 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
           </label>
         </div>
         <div className="flex items-center mb-4 justify-between border border-gray-200 rounded dark:border-gray-700 p-2">
-          <span className="ml-2  font-medium  dark:text-gray-300">
+          <span className="ml-2  font-bold  dark:text-gray-300">
             Import & Export Chats
           </span>
           <div className="">
@@ -181,7 +181,7 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
         <div className="">
           <label
             htmlFor="apikey"
-            className="font-medium  dark:text-gray-300 mb-2"
+            className="font-bold  dark:text-gray-300 mb-2"
           >
             Edit Apikey
           </label>
@@ -192,7 +192,7 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
               value={newApiKey}
               readOnly={!editApiKey}
               onChange={(e) => setNewApiKey(e.target.value)}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="sk-•••••••••••••••••••••••••••"
               required
             />
@@ -219,7 +219,7 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
         <div className="">
           <label
             htmlFor="countries"
-            className="block mb-2 text-sm font-medium   dark:text-gray-300"
+            className="block mb-2  font-bold   dark:text-gray-300"
           >
             Select Model
           </label>
@@ -227,7 +227,7 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
             id="countries"
             defaultValue={selectedModal}
             onChange={(e) => handleModalChange(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             {Object.keys(groupedModels).map((group) => (
               <optgroup

@@ -50,7 +50,7 @@ export default function ChatRef({
   return (
     <div
       className={classNames(
-        "btn-wrap flex items-center w-full p-1 rounded-md text-xl  hover:bg-[#40414f]",
+        "btn-wrap flex items-center w-full p-1 rounded-md text-xl font-bold  hover:bg-[#40414f]",
         { "bg-[#40414f]": isSelected }
       )}
     >

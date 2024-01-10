@@ -14,12 +14,15 @@ export default function DefaultIdea({
   const addChat = useChat((state) => state.addChat);
   return (
     <div
-      className={classNames("md:flex md:items-center md:gap-2 ", myclassNames)}
+      className={classNames(
+        "md:grid md:grid-cols-2 md:grid-rows-1 md:items-stretch md:gap-2 ",
+        myclassNames
+      )}
     >
       {ideas.map((i) => (
         <button
           key={i.idea}
-          className="border dark:border-gray-500 mb-2 flex w-full text-left p-2 group rounded-md text-sm shadow flex-1 md:flex-row md:items-center"
+          className="border inline-flex dark:border-gray-500 border-gray-700 mb-2  w-full text-left p-2 group rounded-md  shadow flex-1 md:flex-row md:items-center"
           onClick={() => {
             addChat({
               role: "user",
@@ -29,14 +32,14 @@ export default function DefaultIdea({
             addChat({ role: "assistant", content: "", id: shortid.generate() });
           }}
         >
-          <div className="">
-            <h3 className=" font-bold text-gray-600 dark:text-gray-300 ">
+          <div className=" self-stretch">
+            <h3 className=" font-bold  dark:text-gray-300 text-gray-700">
               {i.idea}
             </h3>
-            <p className=" text-gray-400 ">{i.moreContext}</p>
+            <p className=" dark:text-gray-400 text-gray-600">{i.moreContext}</p>
           </div>
 
-          <div className="btn text-center ml-auto h-full self-center text-gray-600 dark:text-gray-200 text-lg invisible duration-75 transition-all group-hover:visible ">
+          <div className="btn text-gray-600 dark:text-gray-200 text-lg invisible duration-75 transition-all group-hover:visible ">
             <IonIcon icon={sendOutline} />
           </div>
         </button>

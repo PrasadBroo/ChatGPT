@@ -40,7 +40,7 @@ export default function Navbar({
     <>
       <div
         className={classnames(
-          "navwrap fixed duration-500 top-0 left-0 bottom-0 right-0 md:right-auto z-30 bg-gray-500 md:bg-opacity-0 ",
+          "navwrap fixed duration-500 top-0 left-0 bottom-0 right-0 md:right-[calc(100vw-260px)] z-30 bg-gray-500 md:bg-opacity-0 ",
           { "bg-opacity-60 ": active, "opacity-0 pointer-events-none": !active }
         )}
       >
@@ -72,7 +72,7 @@ export default function Navbar({
           <div className="history overflow-y-auto h-[calc(100%-60px)]">
             <ChatHistory />
           </div>
-          <div className="account  font-bold  text-sm z-20 bg-[#202123] border-t border-gray-500 shadow  ">
+          <div className="account  font-bold  z-20 bg-[#202123] border-t border-gray-500 shadow  ">
             <div className="px-2 py-2 flex items-center text-2xl text-yellow-400 border-y border-yellow-400">
               <span className=" flex items-center text-xl ">
                 <IonIcon icon={cafeOutline} />
@@ -86,9 +86,19 @@ export default function Navbar({
                 Buy me a coffee
               </a>
             </div>
+            <div className="[&>.options]:focus-within:visible">
+              <button
+                type="button"
+                className="px-2 relative py-2 inline-flex w-full items-center hover:bg-gray-700 transition group "
+              >
+                <Avatar className=" h-11 w-11" />
 
-            <div className="px-2 relative py-2 flex items-center hover:bg-gray-700 transition group">
-              <div className=" absolute bottom-12 rounded-md left-0 right-0 bg-gray-800 font-normal invisible transition  m-2 z-30 text-gray-300 group-hover:visible">
+                <span className="p-2">{name}</span>
+                <span className=" ml-auto  text-gray-400 text-2xl ">
+                  <IonIcon icon={ellipsisHorizontalOutline} />
+                </span>
+              </button>
+              <div className="options absolute bottom-12 rounded-md left-0 right-0 bg-gray-800 font-normal invisible transition  m-2 z-30 text-gray-300 ">
                 <button
                   className=" p-2   hover:bg-gray-700 w-full text-left flex items-center"
                   onClick={() => setSystemMessageModalVisible(true)}
@@ -116,12 +126,6 @@ export default function Navbar({
                   <span>Log out</span>
                 </button> */}
               </div>
-              <Avatar className=" h-11 w-11" />
-
-              <span className="p-2">{name}</span>
-              <button className=" ml-auto  text-gray-400 text-2xl">
-                <IonIcon icon={ellipsisHorizontalOutline} />
-              </button>
             </div>
           </div>
           <button

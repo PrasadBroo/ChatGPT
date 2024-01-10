@@ -11,13 +11,13 @@ export default function GptIntro() {
   const isGptThreeSelected = selectedModel.startsWith("gpt-3");
   return (
     <>
-      <div className="modals md:w-1/5 md:min-w-[300px] mx-2 relative flex items-center rounded-md justify-between mt-5 md:mx-auto p-1 bg-gray-200 dark:bg-[#202123] gap-2">
+      <div className="modals md:w-1/5 md:min-w-[300px] mx-2 relative flex items-center rounded-md justify-between mt-5 md:mx-auto  bg-gray-200 dark:bg-[#202123] gap-2">
         <button
           title="GPT-3 Turbo"
           className={classNames(
-            "gpt3 uppercase  rounded-md p-2 transition  flex-1 flex items-center  dark:text-white justify-center",
+            "gpt3 uppercase  rounded-md  font-bold p-2 transition  flex-1 flex items-center  dark:text-white justify-center",
             {
-              "bg-white dark:bg-[#40414f] border-2 dark:border-white border-gray-700":
+              "bg-white dark:bg-dark-primary border-2 dark:border-white border-gray-700":
                 isGptThreeSelected,
               "opacity-50": !isGptThreeSelected,
             }
@@ -40,7 +40,7 @@ export default function GptIntro() {
           className={classNames(
             "gpt4 uppercase rounded p-2 transition  dark:text-white flex-1 flex  items-center justify-center",
             {
-              "bg-white dark:bg-[#40414f] border-2 dark:border-white border-gray-700":
+              "bg-white dark:bg-dark-primary border-2 dark:border-white border-gray-700":
                 !isGptThreeSelected,
               "opacity-50": isGptThreeSelected,
             }

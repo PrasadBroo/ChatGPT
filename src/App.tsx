@@ -29,7 +29,7 @@ function App() {
   }, [theme]);
 
   return (
-    <div className="App font-poppins md:flex ">
+    <div className="App  font-montserrat md:flex ">
       <Navbar active={active} setActive={setActive} />
       <div className="">
         <button
@@ -60,7 +60,7 @@ function App() {
           className={classNames(
             "fixed left-0 px-2  right-0 transition-all duration-500 bottom-0 dark:shadow-lg py-1",
             {
-              "dark:bg-[#40414f] bg-white": isChatsVisible,
+              "dark:bg-dark-primary bg-white": isChatsVisible,
               "md:ml-[260px]": active,
             }
           )}
@@ -74,11 +74,24 @@ function App() {
 
             <div className="dark:bg-inherit">
               <UserQuery />
-              <p className="info text-xs py-2 text-gray-400 text-center">
-                Free Research Preview. ChatGPT may produce inaccurate
-                information about people, places, or facts.
-                <span className=" underline">ChatGPT August 3 Version</span>
-              </p>
+              <footer className="info text-sm py-2 text-gray-400 dark:text-white text-center">
+                Made With
+                <span className="mx-2">
+                  <i
+                    className="fas fa-heart text-red-500"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+                By
+                <a
+                  href="https://www.prasadbro.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-2 underline"
+                >
+                  Prasad Shinde
+                </a>
+              </footer>
             </div>
           </div>
         </div>

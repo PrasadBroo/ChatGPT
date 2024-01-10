@@ -41,7 +41,7 @@ export default function UserQuery() {
 
   return (
     <form
-      className="input shadow-md dark:bg-[#40414f]   border dark:border-none flex items-center   rounded-md"
+      className="input shadow-md dark:bg-[#40414f] dark:border-white border-gray-700 border-2 flex items-center   rounded-md"
       onSubmit={handleOnSubmit}
       ref={formRef}
     >
@@ -49,7 +49,7 @@ export default function UserQuery() {
         <textarea
           name="query"
           ref={textareaRef}
-          className="h-6 px-2  w-full outline-none resize-none dark:bg-transparent dark:text-white"
+          className="h-6 px-2  w-full outline-none resize-none dark:bg-transparent dark:text-white placeholder:font-bold"
           placeholder="Send a message"
           onKeyDown={handleOnKeyDown}
           onChange={handleOnInputChange}
@@ -57,7 +57,7 @@ export default function UserQuery() {
           autoFocus
         ></textarea>
       </div>
-      <div className=" w-1/12 text-center">
+      <div className=" w-1/12 text-center mx-2">
         <button
           type="submit"
           className={classNames(

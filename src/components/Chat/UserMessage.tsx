@@ -42,7 +42,7 @@ export default function UserMessage({ chat, chatIndex }: Props) {
           {!edit ? (
             <p
               className={classNames(
-                "text-sm  dark:text-gray-200 overflow-x-auto"
+                " dark:text-gray-200 overflow-x-auto"
               )}
             >
               {chat.content}
@@ -57,7 +57,7 @@ export default function UserMessage({ chat, chatIndex }: Props) {
                 e.target.style.height = "auto";
                 e.target.style.height = `${e.target.scrollHeight}px`;
               }}
-              className="text-sm w-full bg-transparent border-0 dark:text-white outline-none resize-none"
+              className="w-full bg-transparent border-0 dark:text-white outline-none resize-none"
               autoFocus
             ></textarea>
           )}
@@ -75,7 +75,7 @@ export default function UserMessage({ chat, chatIndex }: Props) {
         </div>
       </div>
       {edit && (
-        <div className=" max-w-2xl mx-auto flex items-center group justify-center text-sm mt-4">
+        <div className=" max-w-2xl mx-auto flex items-center group justify-center font-bold mt-4">
           <button
             className=" p-2 bg-teal-600 hover:bg-teal-700 focus:border-2  rounded-md text-white mr-2 "
             onClick={handelChatEdit}
