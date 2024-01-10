@@ -151,7 +151,7 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
           <span className="ml-2  font-bold  dark:text-gray-300">
             Import & Export Chats
           </span>
-          <div className="">
+          <div className="flex items-center">
             <input
               type="file"
               name="chats-file"
