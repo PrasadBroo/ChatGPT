@@ -7,6 +7,11 @@ import useClipboard from "../../hooks/useClipboard";
 import useBot from "../../hooks/useBot";
 import { ChatMessageType } from "../../store/store";
 import { motion } from "framer-motion";
+import Markdown from "react-markdown";
+
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
+import "highlight.js/styles//a11y-dark.min.css";
 
 const variants = {
   hidden: { y: 20, opacity: 0 },
@@ -46,21 +51,48 @@ export default function BotMessage({ index, chat }: Props) {
               <SyncLoader color="gray" size={8} speedMultiplier={0.5} />
             </div>
           ) : (
-            <pre
+            <div
               className={classNames(
                 "  animate-preulse overflow-x-hidden whitespace-pre-wrap",
                 { "text-red-500": error, "dark:text-gray-300": !error }
               )}
             >
-              {result}
+              <Markdown
+                children={result}
+                components={{
+                  code(props) {
+                    const { children, className, node, ...rest } = props;
+                    const match = /language-(\w+)/.exec(className || "");
+                    return match ? (
+                      (console.log(match[1]),
+                      (
+                        <SyntaxHighlighter
+                          PreTag="div"
+                          children={String(children).replace(/\n$/, "")}
+                          language={match[1]}
+                          style={dracula}
+                          className=" border-2 dark:border-teal-500 "
+                        />
+                      ))
+                    ) : (
+                      <code
+                        {...rest}
+                        className={className?.concat("language-html")}
+                      >
+                        {children}
+                      </code>
+                    );
+                  },
+                }}
+              />
 
               {!isStreamCompleted && !chat.content && (
-                <div
+                <span
                   className="ml-1 blink bg-gray-500 dark:bg-gray-200 h-4 w-1 inline-block"
                   ref={cursorRef}
-                ></div>
+                ></span>
               )}
-            </pre>
+            </div>
           )}
         </div>
         <div className="mt-2 md:mt-0  text-right self-start">
