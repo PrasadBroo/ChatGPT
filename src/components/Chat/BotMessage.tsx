@@ -12,6 +12,7 @@ import Markdown from "react-markdown";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
 import "highlight.js/styles//a11y-dark.min.css";
+import Code from "./Code";
 
 const variants = {
   hidden: { y: 20, opacity: 0 },
@@ -64,16 +65,14 @@ export default function BotMessage({ index, chat }: Props) {
                     const { children, className, node, ...rest } = props;
                     const match = /language-(\w+)/.exec(className || "");
                     return match ? (
-                      (console.log(match[1]),
-                      (
-                        <SyntaxHighlighter
-                          PreTag="div"
-                          children={String(children).replace(/\n$/, "")}
-                          language={match[1]}
-                          style={dracula}
-                          className=" border-2 dark:border-teal-500 "
-                        />
-                      ))
+                      <SyntaxHighlighter
+                        PreTag="div"
+                        children={String(children).replace(/\n$/, "")}
+                        language={match[1]}
+                        style={dracula}
+                        className=" border-2 dark:border-teal-500 relative"
+                        CodeTag={Code}
+                      />
                     ) : (
                       <code
                         {...rest}
