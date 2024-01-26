@@ -8,11 +8,9 @@ import useBot from "../../hooks/useBot";
 import { ChatMessageType } from "../../store/store";
 import { motion } from "framer-motion";
 import Markdown from "react-markdown";
+import CodeHighlight from "../CodeHighlight/CodeHighlight";
 
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
-import "highlight.js/styles//a11y-dark.min.css";
-import Code from "./Code";
+
 
 const variants = {
   hidden: { y: 20, opacity: 0 },
@@ -65,18 +63,13 @@ export default function BotMessage({ index, chat }: Props) {
                     const { children, className, node, ...rest } = props;
                     const match = /language-(\w+)/.exec(className || "");
                     return match ? (
-                      <SyntaxHighlighter
-                        PreTag="div"
-                        children={String(children).replace(/\n$/, "")}
-                        language={match[1]}
-                        style={dracula}
-                        className=" border-2 dark:border-teal-500 relative"
-                        CodeTag={Code}
-                      />
+                      <CodeHighlight language={match[1]}>
+                        {String(children).replace(/\n$/, "")}
+                      </CodeHighlight>
                     ) : (
                       <code
                         {...rest}
-                        className={className?.concat("language-html")}
+                        className={className?.concat("language")}
                       >
                         {children}
                       </code>
