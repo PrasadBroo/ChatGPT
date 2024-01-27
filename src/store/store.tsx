@@ -21,6 +21,7 @@ const modalsList = [
 export interface ChatMessageType {
   role: "user" | "assistant" | "system";
   content: string;
+  type: "text" | "image_url";
   id: string;
 }
 export interface SystemMessageType {

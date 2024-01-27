@@ -215,35 +215,6 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
             )}
           </div>
         </div>
-
-        <div className="">
-          <label
-            htmlFor="countries"
-            className="block mb-2  font-bold   dark:text-gray-300"
-          >
-            Select Model
-          </label>
-          <select
-            id="countries"
-            defaultValue={selectedModal}
-            onChange={(e) => handleModalChange(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            {Object.keys(groupedModels).map((group) => (
-              <optgroup
-                label={group.toUpperCase()}
-                key={group}
-                disabled={group.startsWith("dall-e")}
-              >
-                {groupedModels[group].map((modal) => (
-                  <option value={modal} key={modal}>
-                    {modal}
-                  </option>
-                ))}
-              </optgroup>
-            ))}
-          </select>
-        </div>
       </div>
       <Modal visible={confirmDeleteChats}>
         <ConfirmDelete

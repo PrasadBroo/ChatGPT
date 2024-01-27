@@ -35,7 +35,12 @@ export default function useBot({ index, chat }: Props) {
   useEffect(() => {
     function addMessage() {
       addChat(
-        { role: "assistant", content: resultRef.current, id: chat.id },
+        {
+          role: "assistant",
+          content: resultRef.current,
+          id: chat.id,
+          type: chat.type,
+        },
         index
       );
       setIsStreamCompleted(true);
@@ -72,16 +77,21 @@ export default function useBot({ index, chat }: Props) {
         let prevChats = sendHistory
           ? chatsRef.current
               .slice(0, index)
-              .map((chat) => ({ role: chat.role, content: chat.content }))
+              .map((chat) => ({
+                role: chat.role,
+                content: chat.content,
+                type: chat.type,
+              }))
           : [
               {
                 role: chatsRef.current[index - 1].role,
                 content: chatsRef.current[index - 1].content,
+                type: chatsRef.current[index - 1].type,
               },
             ];
         if (useForAllChats && systemMessage) {
           prevChats = [
-            { role: "system", content: systemMessage },
+            { role: "system", content: systemMessage, type: "text" },
             ...prevChats,
           ];
         }
@@ -109,6 +119,7 @@ export default function useBot({ index, chat }: Props) {
     scrollToBottom,
     chat.content,
     chat.id,
+    chat.type,
     sendHistory,
     selectedModal,
     systemMessage,

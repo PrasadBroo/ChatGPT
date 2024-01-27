@@ -2,7 +2,7 @@ import { IonIcon } from "@ionic/react";
 import classNames from "classnames";
 import { sendOutline, send } from "ionicons/icons";
 import { useRef, useState } from "react";
-import useChat from "../../store/store";
+import useChat, { useSettings } from "../../store/store";
 import shortid from "shortid";
 
 export default function UserQuery() {
@@ -10,6 +10,7 @@ export default function UserQuery() {
   const formRef = useRef<null | HTMLFormElement>(null);
   const addChat = useChat((state) => state.addChat);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const selectedModal = useSettings((state) => state.settings.selectedModal);
 
   function handleOnKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     const target = e.target as HTMLTextAreaElement;
@@ -32,10 +33,20 @@ export default function UserQuery() {
   async function handleOnSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (query) {
-      addChat({ role: "user", content: query, id: shortid.generate() });
-      addChat({ role: "assistant", content: "", id: shortid.generate() });
+      addChat({
+        role: "user",
+        content: query,
+        id: shortid.generate(),
+        type: "text",
+      });
+      addChat({
+        role: "assistant",
+        content: "",
+        id: shortid.generate(),
+        type: selectedModal.startsWith("dall-e") ? "image_url" : "text",
+      });
       setQuery("");
-      if (textareaRef.current) textareaRef.current.style.height = "30px";
+      // if (textareaRef.current) textareaRef.current.style.height = "30px";
     }
   }
 
