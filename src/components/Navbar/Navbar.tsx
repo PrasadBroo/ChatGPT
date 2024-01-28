@@ -100,7 +100,7 @@ export default function Navbar({
                   <optgroup
                     label={group.toUpperCase()}
                     key={group}
-                    disabled={group.startsWith("dall-e")}
+                    // disabled={group.startsWith("dall-e")}
                   >
                     {groupedModels[group].map((modal) => (
                       <option value={modal} key={modal}>

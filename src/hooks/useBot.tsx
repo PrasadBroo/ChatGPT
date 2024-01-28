@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import useChat, { ChatMessageType, useSettings } from "../store/store";
 import { fetchResults } from "../services/chatService";
 import { useDebouncedCallback } from "use-debounce";
+import { createMessage } from "../utils/createMessage";
 
 type Props = {
   index: number;
@@ -34,15 +35,7 @@ export default function useBot({ index, chat }: Props) {
 
   useEffect(() => {
     function addMessage() {
-      addChat(
-        {
-          role: "assistant",
-          content: resultRef.current,
-          id: chat.id,
-          type: chat.type,
-        },
-        index
-      );
+      addChat(createMessage("assistant", resultRef.current, chat.type), index);
       setIsStreamCompleted(true);
     }
 
@@ -75,13 +68,11 @@ export default function useBot({ index, chat }: Props) {
     (async () => {
       try {
         let prevChats = sendHistory
-          ? chatsRef.current
-              .slice(0, index)
-              .map((chat) => ({
-                role: chat.role,
-                content: chat.content,
-                type: chat.type,
-              }))
+          ? chatsRef.current.slice(0, index).map((chat) => ({
+              role: chat.role,
+              content: chat.content,
+              type: chat.type,
+            }))
           : [
               {
                 role: chatsRef.current[index - 1].role,

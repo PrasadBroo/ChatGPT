@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { sendOutline, send } from "ionicons/icons";
 import { useRef, useState } from "react";
 import useChat, { useSettings } from "../../store/store";
-import shortid from "shortid";
+import { createMessage } from "../../utils/createMessage";
 
 export default function UserQuery() {
   const [query, setQuery] = useState("");
@@ -33,18 +33,14 @@ export default function UserQuery() {
   async function handleOnSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (query) {
-      addChat({
-        role: "user",
-        content: query,
-        id: shortid.generate(),
-        type: "text",
-      });
-      addChat({
-        role: "assistant",
-        content: "",
-        id: shortid.generate(),
-        type: selectedModal.startsWith("dall-e") ? "image_url" : "text",
-      });
+      addChat(createMessage("user", query, "text"));
+      addChat(
+        createMessage(
+          "assistant",
+          "",
+          selectedModal.startsWith("dall-e") ? "image_url" : "text"
+        )
+      );
       setQuery("");
       // if (textareaRef.current) textareaRef.current.style.height = "30px";
     }

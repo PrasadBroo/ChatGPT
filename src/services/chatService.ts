@@ -27,6 +27,7 @@ export async function fetchResults(
     });
 
     if (response.status !== 200) {
+      console.log(response);
       throw new Error("Error fetching results");
     }
     const reader: any = response.body?.getReader();
