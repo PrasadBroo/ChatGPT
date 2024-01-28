@@ -1,6 +1,7 @@
-import { ChatMessageType } from "../store/store";
+import { ChatMessageType, useSettings } from "../store/store";
 
 const apiUrl = "https://api.openai.com/v1/chat/completions";
+const IMAGE_API_URL = "https://api.openai.com/v1/images/generations";
 
 export async function fetchResults(
   messages: Omit<ChatMessageType, "id">[],
@@ -19,7 +20,7 @@ export async function fetchResults(
         Authorization: `Bearer ${localStorage.getItem("apikey")}`,
       },
       body: JSON.stringify({
-        model: modal,
+        model: useSettings.getState().settings.selectedModal,
         temperature: 0.7,
         stream: true,
         messages: messages,
@@ -75,4 +76,46 @@ export async function fetchModals() {
       throw new Error(error.message);
     }
   }
+}
+
+type ImageSize =
+  | "256x256"
+  | "512x512"
+  | "1024x1024"
+  | "1280x720"
+  | "1920x1080"
+  | "1024x1024"
+  | "1792x1024"
+  | "1024x1792";
+
+type IMAGE_RESPONSE = {
+  created_at: string;
+  data: IMAGE[];
+};
+type IMAGE = {
+  url:string
+}
+export async  function generateImage(
+  prompt: string,
+  size: ImageSize,
+  numberOfImages: number
+) {
+
+    const response = await fetch(IMAGE_API_URL, {
+      method: `POST`,
+      // signal: signal,
+      headers: {
+        "content-type": `application/json`,
+        accept: `text/event-stream`,
+        Authorization: `Bearer ${localStorage.getItem("apikey")}`,
+      },
+      body: JSON.stringify({
+        model: useSettings.getState().settings.selectedModal,
+        prompt: prompt,
+        n: numberOfImages,
+        size: size,
+      }),
+    })  ;
+    const body:IMAGE_RESPONSE = await response.json();
+    return body;
 }

@@ -16,7 +16,6 @@ type Props = {
 };
 
 export default function BotMessage({ index, chat }: Props) {
-
   return (
     <div
       className={classNames("py-4 bg-gray-100 dark:bg-[#40414f] px-2 md:px-0")}
@@ -27,10 +26,10 @@ export default function BotMessage({ index, chat }: Props) {
         animate="visible"
         className=" max-w-2xl mx-auto md:flex md:items-center group"
       >
-        {chat.type === "text" ? (
-          <TextMessage index={index} chat={chat} />
-        ) : (
+        {chat.type && chat.type === "image_url" ? (
           <ImageMessage />
+        ) : (
+          <TextMessage index={index} chat={chat} />
         )}
       </motion.div>
     </div>
