@@ -4,6 +4,7 @@ import { createWithEqualityFn } from "zustand/traditional";
 import { shallow } from "zustand/shallow";
 import { produce } from "immer";
 import moment from "moment";
+import { IMAGE } from "../services/chatService";
 
 const modalsList = [
   "gpt-3.5-turbo",
@@ -20,7 +21,7 @@ const modalsList = [
 ];
 export interface ChatMessageType {
   role: "user" | "assistant" | "system";
-  content: string;
+  content: string | IMAGE[];
   type: "text" | "image_url";
   id: string;
 }

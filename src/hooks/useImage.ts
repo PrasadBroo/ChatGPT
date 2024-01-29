@@ -1,18 +1,31 @@
-import { useEffect, useState } from "react";
-import { IMAGE, generateImage } from "../services/chatService";
-import useChat from "../store/store";
+import { useCallback, useEffect, useState } from "react";
+import { ImageSize, generateImage } from "../services/chatService";
+import useChat, { ChatMessageType } from "../store/store";
+import { createMessage } from "../utils/createMessage";
 
-export default function useImage(index: number) {
-  const [images, setImages] = useState<IMAGE[]>([]);
+
+export default function useImage(index: number,chat:ChatMessageType, size:ImageSize = "512x512") {
+  const [images, setImages] = useState(chat.content);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const query = useChat((state) => state.chats[index - 1].content);
+  const [query, addChat] = useChat((state) => [
+    state.chats[index - 1].content,
+    state.addChat,
+  ]);
 
-  useEffect(() => {
+  const fetchImages = useCallback(handleFetchImages, [
+    query,
+    size,
+    addChat,
+    index,
+  ]);
+
+  async function handleFetchImages() {
     setLoading(true);
-    generateImage(query, "512x512", 1)
+    await generateImage(query as string, size, 1)
       .then((image) => {
         setImages(image.data);
+        addChat(createMessage("assistant", image.data, "image_url"), index);
       })
       .catch((error) => {
         setError(error.message);
@@ -20,7 +33,16 @@ export default function useImage(index: number) {
       .finally(() => {
         setLoading(false);
       });
-  }, [query]);
+  }
 
-  return { images, loading, error, generateImage };
+  useEffect(() => {
+    if (images.length !== 0) return;
+    fetchImages();
+  }, [fetchImages, images.length]);
+
+  function refetchImages() {
+    handleFetchImages();
+  }
+
+  return { images, loading, error, refetchImages };
 }

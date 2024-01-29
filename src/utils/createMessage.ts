@@ -1,11 +1,11 @@
 import shortid from "shortid";
 import { ChatMessageType } from "../store/store";
 
-export function createMessage(
+export function createMessage<T>(
   role: ChatMessageType["role"],
-  query: string,
+  query: T,
   type: ChatMessageType["type"]
-): ChatMessageType {
+): { role: ChatMessageType['role']; content: T; id: string; type: ChatMessageType['type'] } {
   return {
     role,
     content: query,

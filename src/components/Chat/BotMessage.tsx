@@ -6,8 +6,8 @@ import TextMessage from "./TextMessage";
 import ImageMessage from "./ImageMessage";
 
 const variants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: { y: 0, opacity: 1 },
+  hidden: { scale: 0.8, opacity: 0 },
+  visible: { scale: 1, opacity: 1 },
 };
 
 type Props = {
@@ -27,7 +27,7 @@ export default function BotMessage({ index, chat }: Props) {
         className=" max-w-2xl mx-auto md:flex md:items-center group"
       >
         {chat.type && chat.type === "image_url" ? (
-          <ImageMessage index={index} />
+          <ImageMessage index={index} chat={chat}/>
         ) : (
           <TextMessage index={index} chat={chat} />
         )}

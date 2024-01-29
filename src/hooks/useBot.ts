@@ -68,11 +68,14 @@ export default function useBot({ index, chat }: Props) {
     (async () => {
       try {
         let prevChats = sendHistory
-          ? chatsRef.current.slice(0, index).map((chat) => ({
-              role: chat.role,
-              content: chat.content,
-              type: chat.type,
-            }))
+          ? chatsRef.current
+              .slice(0, index)
+              .filter((m) => m.type === "text")
+              .map((chat) => ({
+                role: chat.role,
+                content: chat.content,
+                type: chat.type,
+              }))
           : [
               {
                 role: chatsRef.current[index - 1].role,
