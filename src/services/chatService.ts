@@ -88,11 +88,11 @@ type ImageSize =
   | "1792x1024"
   | "1024x1792";
 
-type IMAGE_RESPONSE = {
+export type IMAGE_RESPONSE = {
   created_at: string;
   data: IMAGE[];
 };
-type IMAGE = {
+export type IMAGE = {
   url:string
 }
 export async  function generateImage(

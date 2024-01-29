@@ -15,18 +15,9 @@ const varinats = {
 };
 
 export default function SettingsTab({ visible }: { visible: boolean }) {
-  const [
-    sendChatHistory,
-    setSendChatHistory,
-    setModal,
-    selectedModal,
-    modalsList,
-  ] = useSettings((state) => [
+  const [sendChatHistory, setSendChatHistory] = useSettings((state) => [
     state.settings.sendChatHistory,
     state.setSendChatHistory,
-    state.setModal,
-    state.settings.selectedModal,
-    state.modalsList,
   ]);
 
   const [theme, setTheme] = useTheme((state) => [state.theme, state.setTheme]);
@@ -46,10 +37,6 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSendChatHistory(e.target.checked);
-  }
-
-  function handleModalChange(value: string) {
-    setModal(value);
   }
 
   function handleSetNewApiKey() {
@@ -78,16 +65,6 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
         setImportExportStatus({ importing: false, exporting: false })
       );
   }
-  const groupedModels = modalsList.reduce(
-    (obj: Record<string, string[]>, modal) => {
-      const prefix = modal.split("-")[0] + "-" + modal.split("-")[1];
-      return {
-        ...obj,
-        [prefix]: [...(obj[prefix] || []), modal],
-      };
-    },
-    {}
-  );
 
   return (
     <motion.div

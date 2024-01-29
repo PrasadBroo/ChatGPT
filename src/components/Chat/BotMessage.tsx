@@ -27,7 +27,7 @@ export default function BotMessage({ index, chat }: Props) {
         className=" max-w-2xl mx-auto md:flex md:items-center group"
       >
         {chat.type && chat.type === "image_url" ? (
-          <ImageMessage />
+          <ImageMessage index={index} />
         ) : (
           <TextMessage index={index} chat={chat} />
         )}
