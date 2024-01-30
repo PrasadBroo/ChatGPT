@@ -1,10 +1,10 @@
 import { ChatMessageType, useSettings } from "../store/store";
 
 const apiUrl = "https://api.openai.com/v1/chat/completions";
-const IMAGE_API_URL = "https://api.openai.com/v1/images/generations";
+const IMAGE_GENERATION_API_URL = "https://api.openai.com/v1/images/generations";
 
 export async function fetchResults(
-  messages: Omit<ChatMessageType, "id">[],
+  messages: Omit<ChatMessageType, "id" | "type">[],
   modal: string,
   signal: AbortSignal,
   onData: (data: any) => void,
@@ -101,7 +101,7 @@ export async  function generateImage(
   numberOfImages: number
 ) {
 
-    const response = await fetch(IMAGE_API_URL, {
+    const response = await fetch(IMAGE_GENERATION_API_URL, {
       method: `POST`,
       // signal: signal,
       headers: {

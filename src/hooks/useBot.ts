@@ -74,18 +74,16 @@ export default function useBot({ index, chat }: Props) {
               .map((chat) => ({
                 role: chat.role,
                 content: chat.content,
-                type: chat.type,
               }))
           : [
               {
                 role: chatsRef.current[index - 1].role,
                 content: chatsRef.current[index - 1].content,
-                type: chatsRef.current[index - 1].type,
               },
             ];
         if (useForAllChats && systemMessage) {
           prevChats = [
-            { role: "system", content: systemMessage, type: "text" },
+            { role: "system", content: systemMessage},
             ...prevChats,
           ];
         }
