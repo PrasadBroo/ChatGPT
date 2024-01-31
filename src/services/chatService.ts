@@ -1,4 +1,4 @@
-import { ChatMessageType, useSettings } from "../store/store";
+import { ChatMessageType, ModalList, useSettings } from "../store/store";
 
 const apiUrl = "https://api.openai.com/v1/chat/completions";
 const IMAGE_GENERATION_API_URL = "https://api.openai.com/v1/images/generations";
@@ -93,29 +93,34 @@ export type IMAGE_RESPONSE = {
   data: IMAGE[];
 };
 export type IMAGE = {
-  url:string
-}
-export async  function generateImage(
+  url: string;
+};
+export type DallEImageModel = Extract<ModalList, "dall-e-2" | "dall-e-3">;
+
+export async function generateImage(
   prompt: string,
   size: ImageSize,
   numberOfImages: number
 ) {
+  const selectedModal = useSettings.getState().settings.selectedModal;
 
-    const response = await fetch(IMAGE_GENERATION_API_URL, {
-      method: `POST`,
-      // signal: signal,
-      headers: {
-        "content-type": `application/json`,
-        accept: `text/event-stream`,
-        Authorization: `Bearer ${localStorage.getItem("apikey")}`,
-      },
-      body: JSON.stringify({
-        model: useSettings.getState().settings.selectedModal,
-        prompt: prompt,
-        n: numberOfImages,
-        size: size,
-      }),
-    })  ;
-    const body:IMAGE_RESPONSE = await response.json();
-    return body;
+  const response = await fetch(IMAGE_GENERATION_API_URL, {
+    method: `POST`,
+    // signal: signal,
+    headers: {
+      "content-type": `application/json`,
+      accept: `text/event-stream`,
+      Authorization: `Bearer ${localStorage.getItem("apikey")}`,
+    },
+    body: JSON.stringify({
+      model: selectedModal,
+      prompt: prompt,
+      n: numberOfImages,
+      size: useSettings.getState().settings.dalleImageSize[
+        selectedModal as DallEImageModel
+      ],
+    }),
+  });
+  const body: IMAGE_RESPONSE = await response.json();
+  return body;
 }

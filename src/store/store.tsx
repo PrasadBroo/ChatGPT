@@ -5,6 +5,7 @@ import { shallow } from "zustand/shallow";
 import { produce } from "immer";
 import moment from "moment";
 import { IMAGE } from "../services/chatService";
+import { ImageSize } from "../services/chatService";
 
 const modalsList = [
   "gpt-3.5-turbo",
@@ -18,7 +19,8 @@ const modalsList = [
   "gpt-4-1106-preview",
   "dall-e-3",
   "dall-e-2",
-];
+] as const;
+
 export interface ChatMessageType {
   role: "user" | "assistant" | "system";
   content: string | IMAGE[];
@@ -59,14 +61,17 @@ export interface ThemeType {
   setTheme: (theme: Theme) => void;
 }
 
+export type ModalList = (typeof modalsList)[number];
+
 export interface SettingsType {
   settings: {
     sendChatHistory: boolean;
     systemMessage: string;
     useSystemMessageForAllChats: boolean;
-    selectedModal: string;
+    selectedModal: ModalList;
+    dalleImageSize: { "dall-e-2": ImageSize; "dall-e-3": ImageSize };
   };
-  modalsList: string[];
+  modalsList: readonly string[];
   isSystemMessageModalVisible: boolean;
   isModalVisible: boolean;
   setSystemMessage: (value: SystemMessageType) => void;
@@ -74,7 +79,8 @@ export interface SettingsType {
   setSendChatHistory: (value: boolean) => void;
   setModalVisible: (value: boolean) => void;
   setModalsList: (value: string[]) => void;
-  setModal: (value: string) => void;
+  setModal: (value: ModalList) => void;
+  setDalleImageSize: (value: ImageSize, type: "dall-e-2" | "dall-e-3") => void;
 }
 export interface ChatType {
   chats: ChatMessageType[];
@@ -265,6 +271,7 @@ const useSettings = createWithEqualityFn<SettingsType>()(
         systemMessage: "",
         useSystemMessageForAllChats: false,
         selectedModal: "gpt-3.5-turbo",
+        dalleImageSize: { "dall-e-2": "256x256", "dall-e-3": "1024x1024" },
       },
       modalsList: modalsList,
       isSystemMessageModalVisible: false,
@@ -312,10 +319,28 @@ const useSettings = createWithEqualityFn<SettingsType>()(
           })
         );
       },
+      setDalleImageSize: (value, type) => {
+        set(
+          produce((state: SettingsType) => {
+            state.settings.dalleImageSize[type] = value;
+          })
+        );
+      },
     }),
     {
       name: "settings",
+      version: 1,
       partialize: (state: SettingsType) => ({ settings: state.settings }),
+      migrate: (persistedState: unknown, version: number) => {
+        if (version === 0) {
+          (persistedState as SettingsType["settings"]).dalleImageSize = {
+            "dall-e-2": "256x256",
+            "dall-e-3": "1024x1024",
+          };
+        }
+
+        return persistedState;
+      },
     }
   ),
   shallow

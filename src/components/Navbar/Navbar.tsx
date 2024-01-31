@@ -90,7 +90,6 @@ export default function Navbar({
           <div className="account  font-bold  z-20 bg-[#202123] border-t border-gray-500 shadow  ">
             <div className=" self-stretch mr-4 w-full mb-2">
               <select
-                id="countries"
                 defaultValue={selectedModal}
                 value={selectedModal}
                 onChange={(e) => setModal(e.target.value)}
