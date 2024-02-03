@@ -6,11 +6,12 @@
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src"
   },
   "dependencies": {
     "@ionic/react": "^7.3.3",
-    "axios": "^1.5.0",
+    "axios": "^1.6.7",
     "classnames": "^2.3.2",
     "framer-motion": "^10.16.4",
     "highlight.js": "^11.9.0",

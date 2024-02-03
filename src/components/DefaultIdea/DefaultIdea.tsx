@@ -2,7 +2,7 @@ import { IonIcon } from "@ionic/react";
 import { sendOutline } from "ionicons/icons";
 import useChat from "../../store/store";
 import classNames from "classnames";
-import shortid from "shortid";
+import { createMessage } from "../../utils/createMessage";
 
 export default function DefaultIdea({
   ideas,
@@ -24,12 +24,8 @@ export default function DefaultIdea({
           key={i.idea}
           className="border inline-flex dark:border-gray-500 border-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 mb-2  w-full text-left p-2 group rounded-md  shadow flex-1 md:flex-row md:items-center"
           onClick={() => {
-            addChat({
-              role: "user",
-              content: i.moreContext,
-              id: shortid.generate(),
-            });
-            addChat({ role: "assistant", content: "", id: shortid.generate() });
+            addChat(createMessage("user", i.moreContext, "text"));
+            addChat(createMessage("assistant", "", "text"));
           }}
         >
           <div className=" self-stretch w-11/12">

@@ -5,12 +5,11 @@ import Avatar from "../Avatar/Avatar";
 import {
   addOutline,
   chatboxEllipsesOutline,
-  cafeOutline,
   settingsOutline,
   ellipsisHorizontalOutline,
   closeOutline,
 } from "ionicons/icons";
-import useChat, { useAuth, useSettings } from "../../store/store";
+import useChat, { ModalList, useAuth, useSettings } from "../../store/store";
 import Settings from "../modals/Settings";
 import Modal from "../modals/Modal";
 import SystemMessage from "../modals/SystemMessage";
@@ -28,13 +27,29 @@ export default function Navbar({
     setModalVisible,
     isSystemMessageModalVisible,
     setSystemMessageModalVisible,
+    selectedModal,
+    modalsList,
+    setModal,
   ] = useSettings((state) => [
     state.isModalVisible,
     state.setModalVisible,
     state.isSystemMessageModalVisible,
     state.setSystemMessageModalVisible,
+    state.settings.selectedModal,
+    state.modalsList,
+    state.setModal,
   ]);
   const name = useAuth((state) => state.user.name);
+  const groupedModels = modalsList.reduce(
+    (obj: Record<string, string[]>, modal) => {
+      const prefix = modal.split("-")[0] + "-" + modal.split("-")[1];
+      return {
+        ...obj,
+        [prefix]: [...(obj[prefix] || []), modal],
+      };
+    },
+    {}
+  );
 
   return (
     <>
@@ -73,18 +88,26 @@ export default function Navbar({
             <ChatHistory />
           </div>
           <div className="account  font-bold  z-20 bg-[#202123] border-t border-gray-500 shadow  ">
-            <div className="px-2 py-2 flex items-center text-2xl text-yellow-400 border-y border-yellow-400">
-              <span className=" flex items-center text-xl ">
-                <IonIcon icon={cafeOutline} />
-              </span>
-              <a
-                href="https://www.buymeacoffee.com/prasadbro"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ml-2 text-lg"
+            <div className=" self-stretch mr-4 w-full mb-2">
+              <select
+                value={selectedModal}
+                onChange={(e) => setModal(e.target.value as ModalList)}
+                className="border border-gray-300    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                Buy me a coffee
-              </a>
+                {Object.keys(groupedModels).map((group) => (
+                  <optgroup
+                    label={group.toUpperCase()}
+                    key={group}
+                    // disabled={group.startsWith("dall-e")}
+                  >
+                    {groupedModels[group].map((modal) => (
+                      <option value={modal} key={modal}>
+                        {modal}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
+              </select>
             </div>
             <div className="[&>.options]:focus-within:visible">
               <button

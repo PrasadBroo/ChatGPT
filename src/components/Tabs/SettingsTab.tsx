@@ -7,6 +7,7 @@ import Modal from "../modals/Modal";
 import ConfirmDelete from "../ConfirmDelete/ConfirmDelete";
 import classNames from "classnames";
 import { handleExportChats, handleImportChats } from "../../utils/importexport";
+import { ImageSize } from "../../services/chatService";
 
 const varinats = {
   hidden: { opacity: 0 },
@@ -18,15 +19,13 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
   const [
     sendChatHistory,
     setSendChatHistory,
-    setModal,
-    selectedModal,
-    modalsList,
+    dalleImageSize,
+    setDalleImageSize,
   ] = useSettings((state) => [
     state.settings.sendChatHistory,
     state.setSendChatHistory,
-    state.setModal,
-    state.settings.selectedModal,
-    state.modalsList,
+    state.settings.dalleImageSize,
+    state.setDalleImageSize,
   ]);
 
   const [theme, setTheme] = useTheme((state) => [state.theme, state.setTheme]);
@@ -46,10 +45,6 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSendChatHistory(e.target.checked);
-  }
-
-  function handleModalChange(value: string) {
-    setModal(value);
   }
 
   function handleSetNewApiKey() {
@@ -78,16 +73,7 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
         setImportExportStatus({ importing: false, exporting: false })
       );
   }
-  const groupedModels = modalsList.reduce(
-    (obj: Record<string, string[]>, modal) => {
-      const prefix = modal.split("-")[0] + "-" + modal.split("-")[1];
-      return {
-        ...obj,
-        [prefix]: [...(obj[prefix] || []), modal],
-      };
-    },
-    {}
-  );
+  console.log(dalleImageSize);
 
   return (
     <motion.div
@@ -215,33 +201,50 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
             )}
           </div>
         </div>
-
         <div className="">
           <label
-            htmlFor="countries"
-            className="block mb-2  font-bold   dark:text-gray-300"
+            htmlFor="dall-e-2"
+            className="block  text-sm capitalize  text-gray-900  font-bold  dark:text-gray-300 mb-2"
           >
-            Select Model
+            Select Dall-E-2 Image Size
           </label>
           <select
-            id="countries"
-            defaultValue={selectedModal}
-            onChange={(e) => handleModalChange(e.target.value)}
-            className="bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            id="dall-e-2"
+            defaultValue={dalleImageSize["dall-e-2"]}
+            value={dalleImageSize["dall-e-2"]}
+            onChange={(e) =>
+              setDalleImageSize(e.target.value as ImageSize, "dall-e-2")
+            }
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
-            {Object.keys(groupedModels).map((group) => (
-              <optgroup
-                label={group.toUpperCase()}
-                key={group}
-                disabled={group.startsWith("dall-e")}
-              >
-                {groupedModels[group].map((modal) => (
-                  <option value={modal} key={modal}>
-                    {modal}
-                  </option>
-                ))}
-              </optgroup>
-            ))}
+            <option value="256x256" >
+              256x256
+            </option>
+            <option value="512x512">512x512</option>
+            <option value="1024x1024">1024x1024</option>
+          </select>
+        </div>
+        <div className="mt-4">
+          <label
+            htmlFor="dall-e-3"
+            className="block  text-sm capitalize  text-gray-900  font-bold  dark:text-gray-300 mb-2"
+          >
+            Select Dall-E-3 Image Size
+          </label>
+          <select
+            id="dall-e-3"
+            defaultValue={dalleImageSize["dall-e-3"]}
+            value={dalleImageSize["dall-e-3"]}
+            onChange={(e) =>
+              setDalleImageSize(e.target.value as ImageSize, "dall-e-3")
+            }
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            <option value="1024x1024" >
+              1024x1024
+            </option>
+            <option value="1792x1024">1792x1024</option>
+            <option value="1024x1792">1024x1792</option>
           </select>
         </div>
       </div>

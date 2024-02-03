@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import useChat, { ChatMessageType, useSettings } from "../store/store";
 import { fetchResults } from "../services/chatService";
 import { useDebouncedCallback } from "use-debounce";
+import { createMessage } from "../utils/createMessage";
 
 type Props = {
   index: number;
@@ -34,10 +35,7 @@ export default function useBot({ index, chat }: Props) {
 
   useEffect(() => {
     function addMessage() {
-      addChat(
-        { role: "assistant", content: resultRef.current, id: chat.id },
-        index
-      );
+      addChat(createMessage("assistant", resultRef.current, chat.type), index);
       setIsStreamCompleted(true);
     }
 
@@ -72,7 +70,11 @@ export default function useBot({ index, chat }: Props) {
         let prevChats = sendHistory
           ? chatsRef.current
               .slice(0, index)
-              .map((chat) => ({ role: chat.role, content: chat.content }))
+              .filter((m) => m.type === "text")
+              .map((chat) => ({
+                role: chat.role,
+                content: chat.content,
+              }))
           : [
               {
                 role: chatsRef.current[index - 1].role,
@@ -81,7 +83,7 @@ export default function useBot({ index, chat }: Props) {
             ];
         if (useForAllChats && systemMessage) {
           prevChats = [
-            { role: "system", content: systemMessage },
+            { role: "system", content: systemMessage},
             ...prevChats,
           ];
         }
@@ -109,6 +111,7 @@ export default function useBot({ index, chat }: Props) {
     scrollToBottom,
     chat.content,
     chat.id,
+    chat.type,
     sendHistory,
     selectedModal,
     systemMessage,
