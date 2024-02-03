@@ -12,12 +12,13 @@ type Props = {
   chat: ChatMessageType;
 };
 
-export default function ImageMessage({ index,chat }: Props) {
-  const { loading, error, images } = useImage(index,chat);
+export default function ImageMessage({ index, chat }: Props) {
+  const { loading, error, image } = useImage(index, chat);
   const [isImagesDownloaded, setIsImagesDownloaded] = useState(false);
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     setIsImagesDownloaded(true);
+    // i will add this later
   };
 
   return (
@@ -27,14 +28,13 @@ export default function ImageMessage({ index,chat }: Props) {
       </div>
       <div className=" image border-4 border-teal-700 rounded flex-grow">
         {loading && (
-          <div className=" h-[500px] w-[500px]">
+          <div className=" h-[300px] w-full">
             <ImageSkeleton />
           </div>
         )}
         {error && <p>{error}</p>}
         <div className=" flex items-center flex-wrap">
-          {images &&
-            images.map((image) => <Image src={image.url} key={image.url} />)}
+          {!loading && <Image src={image} key={image} />}
         </div>
       </div>
       <div className=" text-xl dark:text-gray-200  text-gray-500">

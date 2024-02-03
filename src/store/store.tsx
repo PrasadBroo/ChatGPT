@@ -4,7 +4,6 @@ import { createWithEqualityFn } from "zustand/traditional";
 import { shallow } from "zustand/shallow";
 import { produce } from "immer";
 import moment from "moment";
-import { IMAGE } from "../services/chatService";
 import { ImageSize } from "../services/chatService";
 
 const modalsList = [
@@ -23,7 +22,7 @@ const modalsList = [
 
 export interface ChatMessageType {
   role: "user" | "assistant" | "system";
-  content: string | IMAGE[];
+  content: string ;
   type: "text" | "image_url";
   id: string;
 }
@@ -339,7 +338,7 @@ const useSettings = createWithEqualityFn<SettingsType>()(
           };
         }
 
-        return persistedState;
+        return persistedState as SettingsType;
       },
     }
   ),

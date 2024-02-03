@@ -9,7 +9,7 @@ import {
   ellipsisHorizontalOutline,
   closeOutline,
 } from "ionicons/icons";
-import useChat, { useAuth, useSettings } from "../../store/store";
+import useChat, { ModalList, useAuth, useSettings } from "../../store/store";
 import Settings from "../modals/Settings";
 import Modal from "../modals/Modal";
 import SystemMessage from "../modals/SystemMessage";
@@ -90,9 +90,8 @@ export default function Navbar({
           <div className="account  font-bold  z-20 bg-[#202123] border-t border-gray-500 shadow  ">
             <div className=" self-stretch mr-4 w-full mb-2">
               <select
-                defaultValue={selectedModal}
                 value={selectedModal}
-                onChange={(e) => setModal(e.target.value)}
+                onChange={(e) => setModal(e.target.value as ModalList)}
                 className="border border-gray-300    focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
                 {Object.keys(groupedModels).map((group) => (
