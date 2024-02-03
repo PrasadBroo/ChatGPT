@@ -15,7 +15,7 @@ type Backup = {
     };
   };
   settings: {
-    [key: string]: string | boolean | number;
+    [key: string]: string | boolean | number | Record<string,string>;
   };
 };
 
