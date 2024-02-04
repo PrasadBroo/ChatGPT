@@ -23,7 +23,7 @@ ChatGPT clone with added features
 
 ## To-Do
 
-- [ ] Add DALL-E1 & DALL-E2 Image Generation Models
+- [x] Add DALL-E1 & DALL-E2 Image Generation Models
 - [x] Add Code Highlight
 - [ ] [Add ChatGPT Pre Made Prompts](https://github.com/f/awesome-chatgpt-prompts)
 ## Requirements
