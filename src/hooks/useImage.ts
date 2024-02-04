@@ -15,7 +15,7 @@ export default function useImage(
     state.chats[index - 1].content,
     state.addChat,
   ]);
- 
+
   const fetchImages = useCallback(handleFetchImages, [
     query,
     size,
@@ -23,9 +23,9 @@ export default function useImage(
     index,
   ]);
 
-  async function handleFetchImages() {
+  async function handleFetchImages(signal?: AbortSignal) {
     setLoading(true);
-    await generateImage(query as string, size, 1)
+    await generateImage(query as string, size, 1, signal)
       .then((image) => {
         setImage(image.data[0].url);
         addChat(
@@ -34,6 +34,7 @@ export default function useImage(
         );
       })
       .catch((error) => {
+        console.log("got error");
         setError(error.message);
       })
       .finally(() => {
@@ -42,8 +43,17 @@ export default function useImage(
   }
 
   useEffect(() => {
+    const controller = new AbortController();
+    const { signal } = controller;
     if (chat.content) return;
-    fetchImages();
+    fetchImages(signal);
+    return () => {
+      console.log("aborting");
+      controller.abort();
+      console.log("aborted");
+      setError(null);
+      setLoading(true);
+    };
   }, [fetchImages, chat.content]);
 
   function refetchImages() {

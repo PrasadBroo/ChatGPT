@@ -100,13 +100,14 @@ export type DallEImageModel = Extract<ModalList, "dall-e-2" | "dall-e-3">;
 export async function generateImage(
   prompt: string,
   size: ImageSize,
-  numberOfImages: number
+  numberOfImages: number,
+  signal: AbortSignal | undefined
 ) {
   const selectedModal = useSettings.getState().settings.selectedModal;
 
   const response = await fetch(IMAGE_GENERATION_API_URL, {
     method: `POST`,
-    // signal: signal,
+    signal: signal || undefined,
     headers: {
       "content-type": `application/json`,
       accept: `text/event-stream`,
