@@ -15,7 +15,7 @@ export default function useImage(
     state.chats[index - 1].content,
     state.addChat,
   ]);
-
+ 
   const fetchImages = useCallback(handleFetchImages, [
     query,
     size,
@@ -42,9 +42,9 @@ export default function useImage(
   }
 
   useEffect(() => {
-    if (image) return;
+    if (chat.content) return;
     fetchImages();
-  }, [fetchImages, image]);
+  }, [fetchImages, chat.content]);
 
   function refetchImages() {
     handleFetchImages();

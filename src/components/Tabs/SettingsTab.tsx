@@ -210,7 +210,6 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
           </label>
           <select
             id="dall-e-2"
-            defaultValue={dalleImageSize["dall-e-2"]}
             value={dalleImageSize["dall-e-2"]}
             onChange={(e) =>
               setDalleImageSize(e.target.value as ImageSize, "dall-e-2")
@@ -233,7 +232,6 @@ export default function SettingsTab({ visible }: { visible: boolean }) {
           </label>
           <select
             id="dall-e-3"
-            defaultValue={dalleImageSize["dall-e-3"]}
             value={dalleImageSize["dall-e-3"]}
             onChange={(e) =>
               setDalleImageSize(e.target.value as ImageSize, "dall-e-3")
