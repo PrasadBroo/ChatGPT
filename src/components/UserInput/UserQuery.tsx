@@ -42,7 +42,7 @@ export default function UserQuery() {
         )
       );
       setQuery("");
-      // if (textareaRef.current) textareaRef.current.style.height = "30px";
+      if (textareaRef.current) textareaRef.current.style.height = "30px";
     }
   }
 
